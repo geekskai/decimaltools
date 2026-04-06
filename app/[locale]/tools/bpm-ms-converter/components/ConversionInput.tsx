@@ -1,0 +1,197 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { Music, Timer, AlertCircle } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { ConversionMode } from "../types"
+import { CONVERSION_MODES, validateInput, getErrorMessage } from "../utils"
+
+interface ConversionInputProps {
+  mode: ConversionMode["id"]
+  value: string
+  onChange: (value: string) => void
+  onValidationChange: (isValid: boolean, error?: string) => void
+}
+
+export default function ConversionInput({
+  mode,
+  value,
+  onChange,
+  onValidationChange,
+}: ConversionInputProps) {
+  const t = useTranslations("BpmMsConverter")
+  const [isFocused, setIsFocused] = useState(false)
+  const [error, setError] = useState<string>("")
+
+  const currentModeConfig = CONVERSION_MODES.find((m) => m.id === mode)!
+  const isBPMMode = mode === "bpm-to-ms"
+
+  // Validate input whenever value or mode changes
+  useEffect(() => {
+    if (!value.trim()) {
+      setError("")
+      onValidationChange(false)
+      return
+    }
+
+    const isValid = validateInput(value, mode)
+    if (isValid) {
+      setError("")
+      onValidationChange(true)
+    } else {
+      const errorMessage = getErrorMessage(value, mode)
+      setError(errorMessage)
+      onValidationChange(false, errorMessage)
+    }
+  }, [value, mode, onValidationChange])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+    // Allow empty input, numbers, and decimal points
+    if (newValue === "" || /^\d*\.?\d*$/.test(newValue)) {
+      onChange(newValue)
+    }
+  }
+
+  const inputTheme = isBPMMode
+    ? {
+        gradient: "from-blue-500/15 to-purple-500/10",
+        border: "border-blue-500/30",
+        focusBorder: "focus:border-blue-400",
+        focusRing: "focus:ring-blue-500/20",
+        iconBg: "bg-blue-500/20",
+        icon: Music,
+      }
+    : {
+        gradient: "from-purple-500/15 to-pink-500/10",
+        border: "border-purple-500/30",
+        focusBorder: "focus:border-purple-400",
+        focusRing: "focus:ring-purple-500/20",
+        iconBg: "bg-purple-500/20",
+        icon: Timer,
+      }
+
+  const IconComponent = inputTheme.icon
+
+  return (
+    <div className="mb-8">
+      {/* Input Section Header */}
+      <div className="mb-4 text-center md:mb-6">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-gradient-to-r from-slate-800/50 to-slate-700/50 px-4 py-2 backdrop-blur-sm md:mb-4 md:gap-3 md:px-6 md:py-3">
+          <IconComponent className="h-5 w-5 text-slate-300 md:h-6 md:w-6" />
+          <h3 className="text-lg font-bold text-white md:text-xl">
+            {currentModeConfig.inputLabel}
+          </h3>
+        </div>
+        <p className="text-sm text-slate-400 md:text-base">{currentModeConfig.description}</p>
+      </div>
+
+      {/* Input Field Container */}
+      <div className="relative">
+        <div
+          className={`relative overflow-hidden rounded-2xl border bg-gradient-to-br backdrop-blur-sm transition-all duration-300 ${
+            error
+              ? "border-red-500/50 bg-red-500/10"
+              : isFocused
+                ? `${inputTheme.focusBorder} ${inputTheme.gradient}`
+                : `${inputTheme.border} ${inputTheme.gradient}`
+          }`}
+        >
+          {/* Input Field */}
+          <input
+            type="text"
+            value={value}
+            onChange={handleInputChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder={currentModeConfig.inputPlaceholder}
+            className={`w-full bg-transparent py-4 pl-14 pr-20 text-xl font-bold text-white placeholder-slate-400 outline-none transition-all duration-300 md:py-6 md:pl-20 md:pr-24 md:text-2xl ${
+              error ? "" : `focus:ring-4 ${inputTheme.focusRing}`
+            }`}
+          />
+
+          {/* Input Icon */}
+          <div
+            className={`absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg backdrop-blur-sm md:left-4 md:h-12 md:w-12 md:rounded-xl ${
+              error ? "bg-red-500/20" : inputTheme.iconBg
+            }`}
+          >
+            <IconComponent
+              className={`h-5 w-5 ${error ? "text-red-400" : "text-white"} md:h-6 md:w-6`}
+            />
+          </div>
+
+          {/* Unit Label */}
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 md:right-4">
+            <span
+              className={`rounded-lg px-2 py-1 text-sm font-bold backdrop-blur-sm md:px-3 md:py-2 md:text-lg ${
+                error
+                  ? "bg-red-500/20 text-red-300"
+                  : isBPMMode
+                    ? "bg-blue-500/20 text-blue-300"
+                    : "bg-purple-500/20 text-purple-300"
+              }`}
+            >
+              {isBPMMode ? "BPM" : "ms"}
+            </span>
+          </div>
+
+          {/* Focus glow effect */}
+          {isFocused && !error && (
+            <div
+              className={`absolute inset-0 -z-10 rounded-2xl blur-xl ${
+                isBPMMode ? "bg-blue-500/20" : "bg-purple-500/20"
+              }`}
+            ></div>
+          )}
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mt-3 flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-red-300">
+            <AlertCircle className="h-5 w-5 flex-shrink-0" />
+            <span className="text-sm font-medium">{error}</span>
+          </div>
+        )}
+
+        {/* Input Hints */}
+        {!error && (
+          <div className="mt-4 text-center">
+            <div className="inline-flex items-center gap-4 text-sm text-slate-400">
+              <span>
+                {isBPMMode ? t("input_validation.range_bpm") : t("input_validation.range_ms")}
+              </span>
+              <span className="h-1 w-1 rounded-full bg-slate-500"></span>
+              <span>
+                {isBPMMode ? t("input_validation.common_bpm") : t("input_validation.common_ms")}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Quick Preset Buttons */}
+      {isBPMMode && !value && (
+        <div className="mt-6">
+          <p className="mb-3 text-center text-sm text-slate-400">
+            {t("input_validation.quick_presets")}
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {[60, 80, 100, 120, 128, 140, 160, 174].map((bpm) => (
+              <button
+                key={bpm}
+                onClick={() => onChange(bpm.toString())}
+                className="group relative overflow-hidden rounded-lg border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-blue-500/5 px-4 py-2 text-sm font-medium text-blue-300 transition-all duration-300 hover:border-blue-400/50 hover:from-blue-500/20 hover:to-blue-500/10"
+              >
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/10 to-white/0 transition-transform duration-500 group-hover:translate-x-full"></div>
+                <span className="relative">
+                  {bpm} {t("quick_converter.bpm_label")}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
