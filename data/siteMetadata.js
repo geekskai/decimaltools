@@ -1,15 +1,15 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: "GeeksKai – Free AI-Powered Tools and Useful Online Utilities",
-  author: "Geeks Kai",
-  headerTitle: "geekskai",
+  title: "DecimalTools – Free AI-Powered Tools and Useful Online Utilities",
+  author: "DecimalTools",
+  headerTitle: "DecimalTools",
   description:
-    "Explore powerful AI tools and free online utilities to boost productivity. GeeksKai is your smart toolbox for content, code, and file conversion.",
+    "Explore powerful AI tools and free online utilities to boost productivity. DecimalTools is your smart toolbox for content, code, and file conversion.",
   language: "en-us",
   theme: "dark", // system, dark or light
-  siteUrl: "https://geekskai.com",
-  siteRepo: "https://github.com/geekskai/blog",
-  siteLogo: `${process.env.BASE_PATH || ""}/static/logo.png`,
+  siteUrl: "https://decimaltools.com",
+  siteRepo: "https://github.com/geekskai/decimaltools",
+  siteLogo: `${process.env.BASE_PATH || ""}/static/decimaltools.png`,
   socialBanner: `${process.env.BASE_PATH || ""}/static/images/geekskai-blog.png`,
   mastodon: "https://mastodon.social/@mastodonuser",
   email: "geeks.kai@gmail.com",

@@ -8,7 +8,7 @@ import SearchButton from "./SearchButton"
 import Image from "next/image"
 import { ChevronDown, Zap, Star, Sparkles } from "lucide-react"
 import { toolsData } from "@/data/toolsData"
-import LanguageSelect from "./LanguageSelect"
+// import LanguageSelect from "./LanguageSelect"
 import { useTranslations } from "next-intl"
 import LinkNext from "next/link"
 import MegaMenu from "./MegaMenu"
@@ -44,14 +44,14 @@ const Header = () => {
       <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 xl:px-0">
         {/* Logo Section */}
         <Link href="/" aria-label={siteMetadata.headerTitle}>
-          <div className="group flex items-center gap-3">
+          <div className="group flex items-center gap-1">
             <div className="relative">
               <Image
-                src="/static/logo.png"
-                alt="geekskai Logo"
-                width={100}
-                height={36}
-                className="h-[36px] w-[100px] transition-transform duration-300 group-hover:scale-105"
+                src="/static/decimaltools.png"
+                alt="DecimalTools Logo"
+                width={40}
+                height={40}
+                className="h-[40px] w-[40px] transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
             </div>
@@ -145,7 +145,7 @@ const Header = () => {
 
             {/* Language Select */}
 
-            <LanguageSelect />
+            {/* <LanguageSelect /> */}
           </nav>
 
           <div className="flex items-center space-x-4">

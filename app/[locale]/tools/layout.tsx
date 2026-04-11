@@ -28,17 +28,17 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   }
 
   const ogLocale = localeMap[locale] || "en_US"
-  const baseUrl = "https://geekskai.com"
+  const baseUrl = "https://decimaltools.com"
   const path = "/tools/"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}${path}`
 
   const isDefaultLocale = locale === "en"
   const languages = {
-    "x-default": "https://geekskai.com/tools/",
+    "x-default": "https://decimaltools.com/tools/",
   }
 
   supportedLocales.forEach((locale) => {
-    languages[locale] = `https://geekskai.com/${locale}/tools/`
+    languages[locale] = `https://decimaltools.com/${locale}/tools/`
   })
 
   const title = t("tools_seo_title")
@@ -49,9 +49,9 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     title: `${title} | ${t("tools_free_tools")}`,
     description,
     keywords: keywords.split(", "),
-    authors: [{ name: "GeeksKai" }],
-    creator: "GeeksKai",
-    publisher: "GeeksKai",
+    authors: [{ name: "DecimalTools" }],
+    creator: "DecimalTools",
+    publisher: "DecimalTools",
 
     // Open Graph
     openGraph: {
@@ -59,13 +59,13 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       description,
       type: "website",
       url,
-      siteName: "GeeksKai Tools",
+      siteName: "DecimalTools",
       images: [
         {
           url: "/static/og-images/tools.jpg",
           width: 1200,
           height: 630,
-          alt: "GeeksKai Tools - Free Online Tools",
+          alt: "DecimalTools - Free Online Tools",
         },
       ],
       locale: ogLocale,
@@ -77,7 +77,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       title: `${title} | ${t("tools_free_tools")}`,
       description,
       images: ["/static/og-images/tools.jpg"],
-      creator: "@geekskai",
+      creator: "@decimaltools",
     },
 
     // SEO Settings
@@ -96,8 +96,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     // Canonical and Language Alternates
     alternates: {
       canonical: isDefaultLocale
-        ? "https://geekskai.com/tools/"
-        : `https://geekskai.com/${locale}/tools/`,
+        ? "https://decimaltools.com/tools/"
+        : `https://decimaltools.com/${locale}/tools/`,
       languages: {
         ...languages,
       },
@@ -110,8 +110,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
     // App metadata
     other: {
-      "application-name": "GeeksKai Tools",
-      "apple-mobile-web-app-title": "GeeksKai Tools",
+      "application-name": "DecimalTools",
+      "apple-mobile-web-app-title": "DecimalTools",
       "format-detection": "telephone=no",
       "mobile-web-app-capable": "yes",
       "apple-mobile-web-app-capable": "yes",
@@ -131,7 +131,7 @@ export default async function Layout({ children, params }: Props) {
   }
 
   const t = await getTranslations({ locale, namespace: "ToolsPage" })
-  const baseUrl = "https://geekskai.com"
+  const baseUrl = "https://decimaltools.com"
   const path = "/tools/"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}${path}`
 
@@ -196,11 +196,11 @@ export default async function Layout({ children, params }: Props) {
     },
     provider: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "DecimalTools",
+      url: "https://decimaltools.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://geekskai.com/static/logo.png",
+        url: "https://decimaltools.com/static/decimaltools.png",
       },
     },
     isAccessibleForFree: true,

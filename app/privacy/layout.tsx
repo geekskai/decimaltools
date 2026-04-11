@@ -31,7 +31,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     alternates: {
       canonical: "./",
       languages: {
-        "x-default": "https://geekskai.com/privacy/",
+        "x-default": "https://decimaltools.com/privacy/",
       },
       types: {
         "application/rss+xml": `${siteMetadata.siteUrl}/feed.xml`,
@@ -68,18 +68,18 @@ export default async function RootLayout({
   const { locale } = await params
   return (
     <html lang={locale} className={`scroll-smooth`} suppressHydrationWarning>
-      <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/logo.png`} />
+      <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/decimaltools.png`} />
       <link
         rel="icon"
         type="image/png"
         sizes="48x48"
-        href={`${basePath}/static/favicons/favicon-180X80.png`}
+        href={`${basePath}/static/favicons/favicon.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href={`${basePath}/static/favicons/favicon-100X45.png`}
+        href={`${basePath}/static/favicons/favicon.png`}
       />
       <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
       <link

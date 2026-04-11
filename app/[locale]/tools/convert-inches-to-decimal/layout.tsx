@@ -13,15 +13,15 @@ export async function generateMetadata({
   const isDefaultLocale = locale === "en"
   const lastModified = new Date(LAST_MODIFIED_ISO)
   const canonical = isDefaultLocale
-    ? `https://geekskai.com/tools/${TOOL_SLUG}/`
-    : `https://geekskai.com/${locale}/tools/${TOOL_SLUG}/`
+    ? `https://decimaltools.com/tools/${TOOL_SLUG}/`
+    : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}/`
 
   const languages: Record<string, string> = {
-    "x-default": `https://geekskai.com/tools/${TOOL_SLUG}/`,
+    "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}/`,
   }
 
   supportedLocales.forEach((loc) => {
-    languages[loc] = `https://geekskai.com/${loc}/tools/${TOOL_SLUG}/`
+    languages[loc] = `https://decimaltools.com/${loc}/tools/${TOOL_SLUG}/`
   })
 
   return {
@@ -33,7 +33,7 @@ export async function generateMetadata({
       description: t("seo_description"),
       type: "website",
       url: canonical,
-      siteName: "GeeksKai",
+      siteName: "DecimalTools",
       images: [
         {
           url: "/static/images/inches-to-decimal-converter-og.jpg",
@@ -82,8 +82,8 @@ export default async function Layout({
   const t = await getTranslations({ locale: params.locale, namespace: "ConvertInchesToDecimal" })
   const isDefaultLocale = params.locale === "en"
   const pageUrl = isDefaultLocale
-    ? `https://geekskai.com/tools/${TOOL_SLUG}/`
-    : `https://geekskai.com/${params.locale}/tools/${TOOL_SLUG}/`
+    ? `https://decimaltools.com/tools/${TOOL_SLUG}/`
+    : `https://decimaltools.com/${params.locale}/tools/${TOOL_SLUG}/`
 
   const webApplicationSchema = {
     "@context": "https://schema.org",
@@ -121,8 +121,8 @@ export default async function Layout({
     },
     provider: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "DecimalTools",
+      url: "https://decimaltools.com",
     },
   }
 
@@ -147,13 +147,13 @@ export default async function Layout({
         "@type": "ListItem",
         position: 1,
         name: t("breadcrumb.home"),
-        item: "https://geekskai.com/",
+        item: "https://decimaltools.com/",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: t("breadcrumb.tools"),
-        item: "https://geekskai.com/tools/",
+        item: "https://decimaltools.com/tools/",
       },
       {
         "@type": "ListItem",
@@ -173,12 +173,12 @@ export default async function Layout({
     dateModified: new Date(LAST_MODIFIED_ISO).toISOString(),
     author: {
       "@type": "Organization",
-      name: "GeeksKai",
+      name: "DecimalTools",
     },
     publisher: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "DecimalTools",
+      url: "https://decimaltools.com",
     },
     mainEntityOfPage: pageUrl,
   }
@@ -186,9 +186,9 @@ export default async function Layout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "GeeksKai",
-    url: "https://geekskai.com",
-    logo: "https://geekskai.com/static/logo.png",
+    name: "DecimalTools",
+    url: "https://decimaltools.com",
+    logo: "https://decimaltools.com/static/decimaltools.png",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",

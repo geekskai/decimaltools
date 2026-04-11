@@ -14,16 +14,6 @@ module.exports = {
     "./data/**/*.mdx",
   ],
   darkMode: "class",
-  // async redirects() {
-  //   return [
-  //     {
-  //       source:
-  //         'https://geekskai.com/2021/02/17/101-GitHub-Repos-Absolute-List-Of-Useful-Repos/LINK',
-  //       destination: '/404',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
   theme: {
     extend: {
       lineHeight: {
@@ -37,16 +27,16 @@ module.exports = {
       },
       colors: {
         primary: {
-          50: "#FFEEED", // Soft pink
-          100: "#FFD5D3",
-          200: "#FFABA8",
-          300: "#FF817C",
-          400: "#FF5751",
-          500: "#FF6B6B", // Base color
-          600: "#D95353",
-          700: "#B33A3A",
-          800: "#8C2222",
-          900: "#660A0A", // Deep burgundy
+          50: "#e8fef7", // 极淡的青绿色，适合背景
+          100: "#d1fdf0",
+          200: "#a3fbe1",
+          300: "#75f9d2",
+          400: "#47f7c3",
+          500: "#16f2b3", // Base color (Mars Green)
+          600: "#12c28f", // 略深，适合 Hover 状态
+          700: "#0d916b", // 深色，适合点击状态或边框
+          800: "#096147",
+          900: "#043024", // 极深，适合文字或深色模式
           // 50: '#E6FFFC', // Lightest cyan (95% luminosity)
           // 100: '#B3FFF5',
           // 200: '#80FFEE',
@@ -75,7 +65,7 @@ module.exports = {
           100: "#FFD5D3",
           200: "#FFABA8",
           300: "#FF817C",
-          400: "#FF5751",
+          400: "#47f7c3",
           500: "#FF6B6B", // Base color
           600: "#D95353",
           700: "#B33A3A",
@@ -92,7 +82,7 @@ module.exports = {
         DEFAULT: {
           css: {
             a: {
-              color: theme("colors.primary.500"),
+              color: theme("colors.primary.400"),
               "&:hover": {
                 color: `${theme("colors.primary.600")}`,
               },
@@ -113,9 +103,9 @@ module.exports = {
         invert: {
           css: {
             a: {
-              color: theme("colors.primary.500"),
+              color: theme("colors.primary.400"),
               "&:hover": {
-                color: `${theme("colors.primary.400")}`,
+                color: `${theme("colors.primary.600")}`,
               },
               code: { color: theme("colors.primary.400") },
             },

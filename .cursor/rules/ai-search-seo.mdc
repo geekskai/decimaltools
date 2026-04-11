@@ -320,7 +320,7 @@ export function generateToolSchema(tool: Tool) {
     "@type": "WebApplication",
     name: tool.name,
     description: tool.description,
-    url: `https://geekskai.com${tool.href}`,
+    url: `https://decimaltools.com${tool.href}`,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
     offers: {
@@ -330,8 +330,8 @@ export function generateToolSchema(tool: Tool) {
     },
     provider: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "decimaltools",
+      url: "https://decimaltools.com",
     },
     featureList: tool.features,
     // Only add accurate data

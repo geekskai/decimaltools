@@ -5,9 +5,9 @@
 ![geekskai-blog](/public/static/images/geekskai-blog.png)
 
 [![GitHub stars](https://img.shields.io/github/stars/geekskai/blog.svg?style=social&label=Stars)](https://github.com/geekskai/blog)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/blog)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/decimaltools)
 
-[在线演示](https://geekskai.com/) | [English Docs](https://github.com/geekskai/blog/blob/main/README.md)
+[在线演示](https://decimaltools.com/) | [English Docs](https://github.com/geekskai/decimaltools/blob/main/README.md)
 
 _下一代高性能、SEO友好的博客解决方案_
 
@@ -89,7 +89,7 @@ _Lighthouse 性能评分 - 展现卓越的性能指标_
 # 克隆项目
 
 ```bash
-npx degit 'geekskai/blog'
+npx degit 'geekskai/decimaltools'
 ```
 
 # 安装依赖
@@ -115,8 +115,7 @@ yarn dev
 1. 修改 `siteMetadata.js` 配置网站信息
 2. 调整 `next.config.js` 配置安全策略
 3. 修改 `authors/default.md` 设置作者信息
-4. 编辑 `projectsData.ts` 更新项目展示
-5. 自定义 `headerNavLinks.ts` 配置导航菜单
+4. 自定义 `headerNavLinks.ts` 配置导航菜单
 
 ## 📝 创建文章
 
@@ -207,7 +206,7 @@ BEEHIVE_API_KEY=
 BEEHIVE_PUBLICATION_ID=
 ```
 
-- Netlify: [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/geekskai/blog)
+- Netlify: [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/geekskai/decimaltools)
 
 ### 静态部署
 
@@ -234,18 +233,18 @@ $ EXPORT=1 UNOPTIMIZED=1 yarn build
 
 ## 📱 联系我们
 
-- [博客](https://geekskai.com/)
+- [博客](https://decimaltools.com/)
 - [邮箱](geeks.kai@gmail.com)
 
 ## 📄 开源协议
 
-[MIT](https://github.com/geekskai/blog/blob/main/LICENSE) © [geeks kai](https://geekskai.com)
+[MIT](https://github.com/geekskai/decimaltools/blob/main/LICENSE) © [geeks kai](https://decimaltools.com)
 
 ---
 
 <div align="center">
 
-由 [geeks kai](https://geekskai.com) 用 ❤️ 打造
+由 [geeks kai](https://decimaltools.com) 用 ❤️ 打造
 
 ⭐ 如果这个项目对你有帮助，请给我们一个星星，这是对我们最大的鼓励！
 

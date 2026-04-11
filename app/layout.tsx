@@ -36,15 +36,15 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   }
 
   const ogLocale = localeMap[locale] || "en_US"
-  const baseUrl = "https://geekskai.com"
+  const baseUrl = "https://decimaltools.com"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}/`
 
   const languages = {
-    "x-default": "https://geekskai.com/",
+    "x-default": "https://decimaltools.com/",
   }
 
   supportedLocales.forEach((locale) => {
-    languages[locale] = `https://geekskai.com/${locale}/`
+    languages[locale] = `https://decimaltools.com/${locale}/`
   })
 
   return {
@@ -56,13 +56,13 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       description: description,
       type: "website",
       url: url,
-      siteName: "GeeksKai Tools",
+      siteName: "DecimalTools",
       images: [
         {
           url: "/static/images/og/geekskai-home.png",
           width: 1200,
           height: 630,
-          alt: "GeeksKai Tools - Free AI-Powered Tools and Useful Online Utilities",
+          alt: "DecimalTools - Free AI-Powered Tools and Useful Online Utilities",
         },
       ],
       locale: ogLocale,
@@ -72,8 +72,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       description: description,
       card: "summary_large_image",
       images: ["/static/images/og/geekskai-home.png"],
-      creator: "@geekskai",
-      site: "@geekskai",
+      creator: "@decimaltools",
+      site: "@decimaltools",
     },
     robots: {
       index: true,
@@ -86,11 +86,13 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
         "max-snippet": -1,
       },
     },
-    authors: [{ name: "GeeksKai" }],
-    creator: "GeeksKai",
-    publisher: "GeeksKai",
+    authors: [{ name: "DecimalTools" }],
+    creator: "DecimalTools",
+    publisher: "DecimalTools",
     alternates: {
-      canonical: isDefaultLocale ? "https://geekskai.com/" : `https://geekskai.com/${locale}/`,
+      canonical: isDefaultLocale
+        ? "https://decimaltools.com/"
+        : `https://decimaltools.com/${locale}/`,
       languages: {
         ...languages,
       },
@@ -98,8 +100,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     category: "Tools",
     classification: "Tools",
     other: {
-      "application-name": "GeeksKai Tools",
-      "apple-mobile-web-app-title": "GeeksKai Tools",
+      "application-name": "DecimalTools",
+      "apple-mobile-web-app-title": "DecimalTools",
       "format-detection": "telephone=no",
       "mobile-web-app-capable": "yes",
       "apple-mobile-web-app-capable": "yes",

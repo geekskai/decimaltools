@@ -312,12 +312,12 @@ export function KnowledgeGraphSchema({ entities }: { entities: Entity[] }) {
     "@context": "https://schema.org",
     "@graph": entities.map((entity) => ({
       "@type": getSchemaType(entity.type),
-      "@id": `https://geekskai.com/#${entity.id}`,
+      "@id": `https://decimaltools.com/#${entity.id}`,
       name: entity.name,
       relatedTo: entity.relationships
         .filter((r) => r.type === "relatedTo")
         .map((r) => ({
-          "@id": `https://geekskai.com/#${r.target}`,
+          "@id": `https://decimaltools.com/#${r.target}`,
         })),
     })),
   }
@@ -542,7 +542,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* DNS预解析 */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://api.geekskai.com" />
+        <link rel="dns-prefetch" href="https://api.decimaltools.com" />
 
         {/* 预连接 */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
@@ -579,7 +579,7 @@ export function generateToolSchema(tool: Tool) {
     "@type": "WebApplication",
     name: tool.name,
     description: tool.description,
-    url: `https://geekskai.com${tool.href}`,
+    url: `https://decimaltools.com${tool.href}`,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
     offers: {
@@ -589,8 +589,8 @@ export function generateToolSchema(tool: Tool) {
     },
     provider: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "decimaltools",
+      url: "https://decimaltools.com",
     },
     featureList: tool.features,
     // 只添加准确的数据
@@ -631,7 +631,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://geekskai.com${item.url}`,
+      item: `https://decimaltools.com${item.url}`,
     })),
   }
 }

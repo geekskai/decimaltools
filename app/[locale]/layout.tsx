@@ -34,11 +34,11 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
   const isDefaultLocale = locale === "en"
   const languages = {
-    "x-default": "https://geekskai.com/",
+    "x-default": "https://decimaltools.com/",
   }
 
   supportedLocales.forEach((locale) => {
-    languages[locale] = `https://geekskai.com/${locale}/`
+    languages[locale] = `https://decimaltools.com/${locale}/`
   })
 
   return {
@@ -49,14 +49,14 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       title: title,
       description: description,
       type: "website",
-      url: "https://geekskai.com/",
-      siteName: "GeeksKai Tools",
+      url: "https://decimaltools.com/",
+      siteName: "DecimalTools",
       images: [
         {
           url: "/static/images/og/geekskai-home.png",
           width: 1200,
           height: 630,
-          alt: "GeeksKai Tools",
+          alt: "DecimalTools",
         },
       ],
       locale: "en_US",
@@ -71,11 +71,13 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       index: true,
       follow: true,
     },
-    authors: [{ name: "GeeksKai" }],
-    creator: "GeeksKai",
-    publisher: "GeeksKai",
+    authors: [{ name: "DecimalTools" }],
+    creator: "DecimalTools",
+    publisher: "DecimalTools",
     alternates: {
-      canonical: isDefaultLocale ? "https://geekskai.com/" : `https://geekskai.com/${locale}/`,
+      canonical: isDefaultLocale
+        ? "https://decimaltools.com/"
+        : `https://decimaltools.com/${locale}/`,
       languages: {
         ...languages,
       },
@@ -83,8 +85,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     category: "Tools",
     classification: "Tools",
     other: {
-      "application-name": "GeeksKai Tools",
-      "apple-mobile-web-app-title": "GeeksKai Tools",
+      "application-name": "DecimalTools",
+      "apple-mobile-web-app-title": "DecimalTools",
     },
   }
 }
@@ -108,7 +110,7 @@ export default async function RootLayout({
 
   // Generate JSON-LD Structured Data
   const t = await getTranslations("HomePage")
-  const baseUrl = "https://geekskai.com"
+  const baseUrl = "https://decimaltools.com"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}/`
 
   const popularTools = toolsData.map((tool, index) => ({
@@ -149,15 +151,15 @@ export default async function RootLayout({
       {
         "@type": "Organization",
         "@id": `${baseUrl}/#organization`,
-        name: "GeeksKai",
+        name: "DecimalTools",
         url: baseUrl,
         logo: {
           "@type": "ImageObject",
-          url: `${baseUrl}/static/logo.png`,
+          url: `${baseUrl}/static/decimaltools.png`,
           width: 512,
           height: 512,
         },
-        sameAs: ["https://github.com/geekskai", "https://twitter.com/geekskai"],
+        sameAs: ["https://github.com/decimaltools", "https://twitter.com/decimaltools"],
         contactPoint: {
           "@type": "ContactPoint",
           contactType: "Customer Service",
@@ -168,7 +170,7 @@ export default async function RootLayout({
         "@type": "WebSite",
         "@id": `${baseUrl}/#website`,
         url: baseUrl,
-        name: "GeeksKai Tools",
+        name: "DecimalTools",
         description: t("home_seo_description"),
         publisher: {
           "@id": `${baseUrl}/#organization`,
@@ -229,18 +231,18 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`scroll-smooth`} suppressHydrationWarning>
-      <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/logo.png`} />
+      <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/decimaltools.png`} />
       <link
         rel="icon"
         type="image/png"
         sizes="48x48"
-        href={`${basePath}/static/favicons/favicon-180X80.png`}
+        href={`${basePath}/static/favicons/favicon.png`}
       />
       <link
         rel="icon"
         type="image/png"
         sizes="16x16"
-        href={`${basePath}/static/favicons/favicon-100X45.png`}
+        href={`${basePath}/static/favicons/favicon.png`}
       />
       <link rel="manifest" href={`${basePath}/static/favicons/site.webmanifest`} />
       <link

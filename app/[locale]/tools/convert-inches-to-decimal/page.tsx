@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { Link } from "@/app/i18n/navigation"
+import Link from "next/link"
 import type { ConversionResult } from "./types"
 import ConverterInterface from "./components/ConverterInterface"
 import VisualRuler, { CompactRuler } from "./components/VisualRuler"

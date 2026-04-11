@@ -127,7 +127,7 @@ async function fetchExchangeRateFromAPI(
     const response = await fetch(`https://openexchangerates.org/api/latest.json?app_id=${apiKey}`, {
       headers: {
         Accept: "application/json",
-        "User-Agent": "GeeksKai-Currency-Converter/1.0",
+        "User-Agent": "DecimalTools-Currency-Converter/1.0",
       },
       // 10 second timeout
       signal: AbortSignal.timeout(10000),
@@ -185,7 +185,7 @@ async function fetchExchangeRateFromAPI(
         {
           headers: {
             Accept: "application/json",
-            "User-Agent": "GeeksKai-Currency-Converter/1.0",
+            "User-Agent": "DecimalTools-Currency-Converter/1.0",
           },
           signal: AbortSignal.timeout(5000),
         }

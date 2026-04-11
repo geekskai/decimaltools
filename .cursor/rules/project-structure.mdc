@@ -12,7 +12,6 @@ This project is a Next.js-based blog with the following key directories and file
 - [layouts/](mdc:layouts): Layout components for different page types (e.g., posts, lists, authors).
 - [data/](mdc:data): Static data files, site metadata, navigation links, and author information.
 - [utils/](mdc:utils): Utility functions and data helpers.
-- [public/](mdc:public): Static assets such as images, SVGs, and JSON files for search and graphics.
 - [scripts/](mdc:scripts): Build and post-build scripts (e.g., RSS generation).
 - [faq/](mdc:faq): Markdown documentation for custom components and features.
 - [contentlayer.config.ts](mdc:contentlayer.config.ts): Contentlayer configuration for content processing.

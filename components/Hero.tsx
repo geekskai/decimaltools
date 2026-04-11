@@ -1,55 +1,15 @@
 "use client"
-// import { motion } from 'framer-motion'
-// import Link from 'next/link'
 import Link from "./Link"
 import siteMetadata from "@/data/siteMetadata"
-
-// import { skillsData } from '@/utils/data/skills'
-import { skillsImage } from "@/utils/skill-image"
-// import Image from 'next/image'
-import Marquee from "react-fast-marquee"
-
+import React from "react"
 import { ReactElement } from "react"
-// import { renderCanvas } from "./renderCanvas"
-import Github from "./Github"
-
-// import Link from 'next/link'
 import { BsGithub, BsLinkedin } from "react-icons/bs"
 import { FaFacebook, FaTwitterSquare } from "react-icons/fa"
 import { MdDownload } from "react-icons/md"
 import { RiContactsFill } from "react-icons/ri"
 import { SiLeetcode } from "react-icons/si"
-
-// import { experiences } from '@/utils/data/experience'
 import Image from "next/image"
-import { BsPersonWorkspace } from "react-icons/bs"
-import experience from "../app/assets/lottie/code.json"
-import AnimationLottie from "./helper/animation-lottie"
-import GlowCard from "./helper/glow-card"
 import { useTranslations } from "next-intl"
-
-const skillsData = [
-  "HTML",
-  "CSS",
-  "Javascript",
-  "Typescript",
-  "React",
-  "Next JS",
-  "Tailwind",
-  "MongoDB",
-  "MySQL",
-  "PostgreSQL",
-  "Git",
-  "AWS",
-  "Bootstrap",
-  "Docker",
-  "Go",
-  "Figma",
-  "Firebase",
-  "MaterialUI",
-  "Nginx",
-  "Strapi",
-]
 
 export const experiences = [
   {
@@ -88,15 +48,14 @@ function HeroSection() {
       <div className="grid grid-cols-1 items-start gap-y-8 lg:grid-cols-2 lg:gap-12">
         <div className="order-2 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:order-1 lg:pt-10">
           <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
-            {t("hero_hello")} <br />
+            {/* {t("hero_hello")} <br /> */}
             {t.rich("hero_h1_0", {
-              name: siteMetadata.author,
               rich: (chunks) => <span className="text-pink-500">{chunks}</span>,
               rich1: (chunks) => <span className="text-[#16f2b3]">{chunks}</span>,
             })}
           </h1>
 
-          <div className="my-12 flex items-center gap-5">
+          {/* <div className="my-12 flex items-center gap-5">
             <Link
               href={siteMetadata.github}
               target="_blank"
@@ -132,9 +91,9 @@ function HeroSection() {
             >
               <FaTwitterSquare size={30} />
             </Link>
-          </div>
+          </div> */}
 
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <Link
               href="/about"
               className="rounded-full bg-gradient-to-r from-violet-600 to-pink-500 p-[1px] transition-all duration-300 hover:from-pink-500 hover:to-violet-600"
@@ -154,9 +113,9 @@ function HeroSection() {
               <span>{t("hero_get_resume")}</span>
               <MdDownload size={16} />
             </Link>
-          </div>
+          </div> */}
         </div>
-        <div className="relative order-1 rounded-lg border border-[#1b2c68a0] bg-gradient-to-r from-[#0d1224] to-[#0a0d37] lg:order-2">
+        {/* <div className="relative order-1 rounded-lg border border-[#1b2c68a0] bg-gradient-to-r from-[#0d1224] to-[#0a0d37] lg:order-2">
           <div className="flex flex-row">
             <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-pink-500 to-violet-600"></div>
             <div className="h-[1px] w-full bg-gradient-to-r from-violet-600 to-transparent"></div>
@@ -255,169 +214,9 @@ function HeroSection() {
               </div>
             </code>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
-  )
-}
-
-function AboutSection() {
-  const t = useTranslations("HomePage")
-  return (
-    <div id="about" className="relative my-12 lg:my-16">
-      <div className="absolute -right-8 top-16 hidden flex-col items-center lg:flex">
-        <h2 className="w-fit rotate-90 rounded-md bg-[#1a1443] p-2 px-5 text-xl text-white">
-          {t("hero_about_me")}
-        </h2>
-        <span className="h-36 w-[2px] bg-[#1a1443]"></span>
-      </div>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-        <div className="order-2 lg:order-1">
-          <p className="mb-5 text-xl font-medium uppercase text-[#16f2b3]">{t("hero_who_i_am")}</p>
-          <p className="text-sm text-gray-200 lg:text-lg">{t("hero_who_i_am_description")}</p>
-        </div>
-        <div className="order-1 flex justify-center lg:order-2">
-          <Image
-            src="/me.jpg"
-            width={280}
-            height={280}
-            alt="geeksKai"
-            className="cursor-pointer rounded-lg grayscale transition-all duration-1000 hover:scale-110 hover:grayscale-0"
-          />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Experience() {
-  const t = useTranslations("HomePage")
-  return (
-    <div id="experience" className="relative z-50 my-12 border-t border-[#25213b] lg:my-24">
-      <Image
-        src="/section.svg"
-        alt="Hero"
-        width={1572}
-        height={795}
-        className="absolute top-0 -z-10"
-      />
-
-      <div className="my-5 flex justify-center lg:py-8">
-        <div className="flex  items-center">
-          <span className="h-[2px] w-24 bg-[#1a1443]"></span>
-          <span className="w-fit rounded-md bg-[#1a1443] p-2 px-5 text-xl text-white">
-            {t("hero_experiences")}
-          </span>
-          <span className="h-[2px] w-24 bg-[#1a1443]"></span>
-        </div>
-      </div>
-
-      <div className="py-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-          <div className="flex items-start justify-center">
-            <div className="h-full w-full">
-              <AnimationLottie animationPath={experience} />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex flex-col gap-6">
-              {experiences.map((experience) => (
-                <GlowCard key={experience.id} identifier={`experience-${experience.id}`}>
-                  <div className="relative p-3">
-                    <Image
-                      src="/blur-23.svg"
-                      alt="Hero"
-                      width={1080}
-                      height={200}
-                      className="absolute bottom-0 opacity-80"
-                    />
-                    <div className="flex justify-center">
-                      <p className="text-xs text-[#16f2b3] sm:text-sm">{experience.duration}</p>
-                    </div>
-                    <div className="flex items-center gap-x-8 px-3 py-5">
-                      <div className="text-violet-500  transition-all duration-300 hover:scale-125">
-                        <BsPersonWorkspace size={36} />
-                      </div>
-                      <div>
-                        <p className="mb-2 text-base font-medium uppercase sm:text-xl">
-                          {experience.title}
-                        </p>
-                        <p className="text-sm sm:text-base">{experience.company}</p>
-                      </div>
-                    </div>
-                  </div>
-                </GlowCard>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Skills() {
-  const t = useTranslations("HomePage")
-  return (
-    <div id="skills" className="relative z-10 my-12 border-t border-[#25213b] lg:my-24">
-      <div className="absolute left-[42%] top-6 h-[100px] w-[100px] translate-x-1/2 rounded-full bg-violet-100 opacity-20 blur-3xl  filter"></div>
-
-      <div className="flex -translate-y-[1px] justify-center">
-        <div className="w-3/4">
-          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-violet-500  to-transparent" />
-        </div>
-      </div>
-
-      <div className="my-5 flex justify-center lg:py-8">
-        <div className="flex  items-center">
-          <span className="h-[2px] w-24 bg-[#1a1443]"></span>
-          <span className="w-fit rounded-md bg-[#1a1443] p-2 px-5 text-xl text-white">
-            {t("hero_skills")}
-          </span>
-          <span className="h-[2px] w-24 bg-[#1a1443]"></span>
-        </div>
-      </div>
-
-      <div className="my-12 w-full">
-        <Marquee
-          gradient={false}
-          speed={80}
-          pauseOnHover={true}
-          pauseOnClick={true}
-          delay={0}
-          play={true}
-          direction="left"
-        >
-          {skillsData.map((skill, id) => (
-            <div
-              className="group relative m-3 flex h-fit w-36 min-w-fit cursor-pointer flex-col items-center justify-center rounded-lg transition-all duration-500 hover:scale-[1.15] sm:m-5"
-              key={id}
-            >
-              <div className="h-full w-full rounded-lg border border-[#1f223c] bg-[#11152c] shadow-none shadow-gray-50 transition-all duration-500 group-hover:border-violet-500">
-                <div className="flex -translate-y-[1px] justify-center">
-                  <div className="w-3/4">
-                    <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center justify-center gap-3 p-6">
-                  <div className="h-8 sm:h-10">
-                    <Image
-                      src={skillsImage(skill)}
-                      alt={skill}
-                      width={40}
-                      height={40}
-                      className="h-full w-auto rounded-lg"
-                    />
-                  </div>
-                  <p className="text-sm text-white sm:text-lg">{skill}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </Marquee>
-      </div>
-    </div>
   )
 }
 
@@ -425,10 +224,6 @@ export default function Hero(): ReactElement {
   return (
     <div>
       <HeroSection />
-      <AboutSection />
-      <Github />
-      <Experience />
-      <Skills />
     </div>
   )
 }

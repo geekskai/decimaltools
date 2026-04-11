@@ -1,12 +1,12 @@
 import Link from "./Link"
 import SocialIcon from "./social-icons"
 import siteMetadata from "@/data/siteMetadata"
-// import Logo from "/public/static/logo.png"
 import Image from "next/image"
 import { Zap, Heart, ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
 import LinkNext from "next/link"
 import { toolsData } from "@/data/toolsData"
+import React from "react"
 
 // Popular tools data for footer
 // const popularTools = toolsData.slice(0, 4)
@@ -66,15 +66,15 @@ const SiteFooter = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <Link href="/" className="group inline-flex items-center gap-3">
+              <Link href="/" className="group inline-flex items-center gap-1">
                 <Image
-                  src={`${process.env.BASE_PATH || ""}/static/logo.png`}
-                  alt="geekskai Logo"
-                  width={100}
-                  height={36}
-                  className="h-[36px] w-[100px] transition-transform duration-300 group-hover:scale-105"
+                  src={`${process.env.BASE_PATH || ""}/static/decimaltools.png`}
+                  alt="DecimalTools Logo"
+                  width={40}
+                  height={40}
+                  className="h-[40px] w-[40px] transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="text-xl font-bold text-white">geekskai</div>
+                <div className="text-xl font-bold text-white">DecimalTools</div>
               </Link>
             </div>
             <p className="mb-6 text-sm leading-relaxed text-slate-400">{t("footer_description")}</p>
@@ -213,7 +213,7 @@ const SiteFooter = () => {
                   href="/"
                   className="font-medium text-white transition-colors duration-300 hover:text-blue-300"
                 >
-                  geekskai
+                  DecimalTools
                 </Link>
                 <span>• {t("footer_all_rights_reserved")}</span>
               </div>

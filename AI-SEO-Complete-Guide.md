@@ -755,12 +755,12 @@ export function KnowledgeGraphSchema({ entities }: { entities: Entity[] }) {
     "@context": "https://schema.org",
     "@graph": entities.map((entity) => ({
       "@type": getSchemaType(entity.type),
-      "@id": `https://geekskai.com/#${entity.id}`,
+      "@id": `https://decimaltools.com/#${entity.id}`,
       name: entity.name,
       relatedTo: entity.relationships
         .filter((r) => r.type === "relatedTo")
         .map((r) => ({
-          "@id": `https://geekskai.com/#${r.target}`,
+          "@id": `https://decimaltools.com/#${r.target}`,
         })),
     })),
   }
@@ -915,7 +915,7 @@ export function generateToolSchema(tool: Tool) {
     "@type": "WebApplication",
     name: tool.name,
     description: tool.description,
-    url: `https://geekskai.com${tool.href}`,
+    url: `https://decimaltools.com${tool.href}`,
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
     offers: {
@@ -925,8 +925,8 @@ export function generateToolSchema(tool: Tool) {
     },
     provider: {
       "@type": "Organization",
-      name: "GeeksKai",
-      url: "https://geekskai.com",
+      name: "decimaltools",
+      url: "https://decimaltools.com",
     },
     featureList: tool.features,
     // Only add accurate data
@@ -967,7 +967,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://geekskai.com${item.url}`,
+      item: `https://decimaltools.com${item.url}`,
     })),
   }
 }

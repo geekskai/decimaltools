@@ -104,13 +104,13 @@ const PrivacyPolicy = () => {
               <p>
                 <strong>Website</strong> refers to geeks kai, accessible from{" "}
                 <Link
-                  href="https://geekskai.com/"
+                  href="https://decimaltools.com/"
                   rel="external nofollow noopener"
                   target="_blank"
                   className="text-primary-500 hover:text-primary-400"
-                  aria-label="geekskai website link"
+                  aria-label="decimaltools website link"
                 >
-                  https://geekskai.com/
+                  https://decimaltools.com/
                 </Link>
               </p>
             </li>

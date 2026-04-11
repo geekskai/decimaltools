@@ -2,17 +2,17 @@
 
 <div align="center">
 
-[![Blog Template Preview](/public/static/images/geekskai-blog.png)](https://geekskai.com/)
+[![Blog Template Preview](/public/static/images/geekskai-blog.png)](https://decimaltools.com/)
 
-[![Google Search Console](/public/static/images/blog-2025-12-06.png)](https://geekskai.com/)
+[![Google Search Console](/public/static/images/blog-2025-12-06.png)](https://decimaltools.com/)
 
-[![GitHub stars](https://img.shields.io/github/stars/geekskai/blog.svg?style=social&label=Stars)](https://github.com/geekskai/blog)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/blog)
+[![GitHub stars](https://img.shields.io/github/stars/geekskai/blog.svg?style=social&label=Stars)](https://github.com/geekskai/decimaltools)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/decimaltools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Ready-06B6D4.svg)](https://tailwindcss.com/)
 
-[Live Website](https://geekskai.com/) | [中文文档](https://github.com/geekskai/blog/blob/main/README-CN.md)
+[Live Website](https://decimaltools.com/) | [中文文档](https://github.com/geekskai/decimaltools/blob/main/README-CN.md)
 
 _Your next powerful, SEO-friendly, and lightning-fast blog template_
 
@@ -94,13 +94,13 @@ _Your next powerful, SEO-friendly, and lightning-fast blog template_
 ### Get started in seconds
 
 ```bash
-git clone https://github.com/geekskai/blog.git
+git clone https://github.com/geekskai/decimaltools.git
 ```
 
 ### or clone directly
 
 ```bash
-npx degit 'geekskai/blog'
+npx degit 'geekskai/decimaltools'
 ```
 
 ### Install dependencies
@@ -173,7 +173,7 @@ Your content here with support for:
 
 ### One-Click Deployments
 
-- Vercel: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/blog)
+- Vercel: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/decimaltools)
 
 in `.env` file and set Vercel [environment variables](https://vercel.com/geekskais-projects/blog/settings/environment-variables)
 
@@ -251,14 +251,14 @@ NEXT_PUBLIC_GISCUS_CATEGORY=
 
 NEXT_PUBLIC_GISCUS_REPOSITORY_ID=
 
-NEXT_PUBLIC_GISCUS_REPO=geekskai/blog
+NEXT_PUBLIC_GISCUS_REPO=geekskai/decimaltools
 
 NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=
 
 OPEN_EXCHANGE_RATES_API_KEY=
 ```
 
-- Netlify: [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/geekskai/blog)
+- Netlify: [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/geekskai/decimaltools)
 
 ### Static Hosting
 
@@ -314,13 +314,13 @@ A comprehensive tool to evaluate job satisfaction and compensation value. This t
 - **History management and sharing**
 - **Modern responsive design**
 
-**Attribution**: Original concept and implementation by [Zippland](https://github.com/Zippland/worth-calculator) under MIT License. Enhanced and localized by GeeksKai Team.
+**Attribution**: Original concept and implementation by [Zippland](https://github.com/Zippland/worth-calculator) under MIT License. Enhanced and localized by decimaltools Team.
 
 For detailed attribution information, see: [`app/tools/job-worth-calculator/ATTRIBUTION.md`](app/tools/job-worth-calculator/ATTRIBUTION.md)
 
 ## 📄 License
 
-[MIT](https://github.com/geekskai/blog/blob/main/LICENSE) © [geeks kai](https://geekskai.com)
+[MIT](https://github.com/geekskai/decimaltools/blob/main/LICENSE) © [geeks kai](https://decimaltools.com)
 
 ### Third-Party Licenses
 
@@ -334,7 +334,7 @@ All original copyright notices and license terms are preserved in accordance wit
 
 <div align="center">
 
-Made with ❤️ by [geeks kai](https://geekskai.com)
+Made with ❤️ by [geeks kai](https://decimaltools.com)
 
 ⭐ Star us on GitHub — it motivates us a lot!
 
