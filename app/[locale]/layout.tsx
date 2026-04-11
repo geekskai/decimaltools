@@ -37,9 +37,9 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     "x-default": "https://decimaltools.com/",
   }
 
-  supportedLocales.forEach((locale) => {
-    languages[locale] = `https://decimaltools.com/${locale}/`
-  })
+  // supportedLocales.forEach((locale) => {
+  //   languages[locale] = `https://decimaltools.com/${locale}`
+  // })
 
   return {
     title: title,
@@ -49,7 +49,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       title: title,
       description: description,
       type: "website",
-      url: "https://decimaltools.com/",
+      url: "https://decimaltools.com",
       siteName: "DecimalTools",
       images: [
         {
@@ -76,7 +76,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     publisher: "DecimalTools",
     alternates: {
       canonical: isDefaultLocale
-        ? "https://decimaltools.com/"
+        ? "https://decimaltools.com"
         : `https://decimaltools.com/${locale}/`,
       languages: {
         ...languages,
@@ -111,7 +111,7 @@ export default async function RootLayout({
   // Generate JSON-LD Structured Data
   const t = await getTranslations("HomePage")
   const baseUrl = "https://decimaltools.com"
-  const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}/`
+  const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}`
 
   const popularTools = toolsData.map((tool, index) => ({
     "@type": "SoftwareApplication",

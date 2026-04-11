@@ -1,7 +1,7 @@
 "use client"
 
-import { Link } from "@/app/i18n/navigation"
-import { useState, useMemo } from "react"
+import Link from "next/link"
+import React, { useState, useMemo } from "react"
 import {
   Zap,
   Users,
