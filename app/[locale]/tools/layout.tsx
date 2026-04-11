@@ -29,16 +29,16 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
 
   const ogLocale = localeMap[locale] || "en_US"
   const baseUrl = "https://decimaltools.com"
-  const path = "/tools/"
+  const path = "/tools"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}${path}`
 
   const isDefaultLocale = locale === "en"
   const languages = {
-    "x-default": "https://decimaltools.com/tools/",
+    "x-default": "https://decimaltools.com/tools",
   }
 
   supportedLocales.forEach((locale) => {
-    languages[locale] = `https://decimaltools.com/${locale}/tools/`
+    languages[locale] = `https://decimaltools.com/${locale}/tools`
   })
 
   const title = t("tools_seo_title")
@@ -96,8 +96,8 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     // Canonical and Language Alternates
     alternates: {
       canonical: isDefaultLocale
-        ? "https://decimaltools.com/tools/"
-        : `https://decimaltools.com/${locale}/tools/`,
+        ? "https://decimaltools.com/tools"
+        : `https://decimaltools.com/${locale}/tools`,
       languages: {
         ...languages,
       },
@@ -132,7 +132,7 @@ export default async function Layout({ children, params }: Props) {
 
   const t = await getTranslations({ locale, namespace: "ToolsPage" })
   const baseUrl = "https://decimaltools.com"
-  const path = "/tools/"
+  const path = "/tools"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}${path}`
 
   // 动态生成结构化数据
@@ -152,30 +152,10 @@ export default async function Layout({ children, params }: Props) {
       itemListElement: [
         {
           "@type": "SoftwareApplication",
-          name: "Board Foot Calculator",
-          description: "Professional lumber calculator for construction and woodworking projects",
-          url: `${baseUrl}${locale === "en" ? "" : `/${locale}`}/tools/board-foot-calculator/`,
-          applicationCategory: "UtilityApplication",
-          operatingSystem: "Any",
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-          },
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.8",
-            ratingCount: "1250",
-            bestRating: "5",
-            worstRating: "1",
-          },
-        },
-        {
-          "@type": "SoftwareApplication",
-          name: "CM to Inches Converter",
-          description: "Convert between centimeters and inches with Nordic measurement support",
-          url: `${baseUrl}${locale === "en" ? "" : `/${locale}`}/tools/cm-til-tommer/`,
+          name: "Convert Inches to Decimal",
+          description:
+            "Professional inches to decimal converter for construction, woodworking, and manufacturing. Convert fractional inches (5 3/4) to decimal inches (5.75) instantly with visual ruler and precision control.",
+          url: "https://decimaltools.com/tools/convert-inches-to-decimal",
           applicationCategory: "UtilityApplication",
           operatingSystem: "Any",
           offers: {

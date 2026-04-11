@@ -180,7 +180,7 @@ export default async function RootLayout({
           "@type": "SearchAction",
           target: {
             "@type": "EntryPoint",
-            urlTemplate: `${baseUrl}${locale === "en" ? "" : `/${locale}`}/tools/?q={search_term_string}`,
+            urlTemplate: `${baseUrl}${locale === "en" ? "" : `/${locale}`}/tools?q={search_term_string}`,
           },
           "query-input": "required name=search_term_string",
         },

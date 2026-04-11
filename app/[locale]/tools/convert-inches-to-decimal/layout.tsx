@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { supportedLocales } from "app/i18n/routing"
+// import { supportedLocales } from "app/i18n/routing"
 import { getTranslations } from "next-intl/server"
 import React from "react"
 import { LAST_MODIFIED_ISO, TOOL_SLUG } from "./seoData"
@@ -13,16 +13,16 @@ export async function generateMetadata({
   const isDefaultLocale = locale === "en"
   const lastModified = new Date(LAST_MODIFIED_ISO)
   const canonical = isDefaultLocale
-    ? `https://decimaltools.com/tools/${TOOL_SLUG}/`
-    : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}/`
+    ? `https://decimaltools.com/tools/${TOOL_SLUG}`
+    : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}`
 
   const languages: Record<string, string> = {
-    "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}/`,
+    "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
   }
 
-  supportedLocales.forEach((loc) => {
-    languages[loc] = `https://decimaltools.com/${loc}/tools/${TOOL_SLUG}/`
-  })
+  // supportedLocales.forEach((loc) => {
+  //   languages[loc] = `https://decimaltools.com/${loc}/tools/${TOOL_SLUG}`
+  // })
 
   return {
     title: t("seo_title"),
@@ -82,8 +82,8 @@ export default async function Layout({
   const t = await getTranslations({ locale: params.locale, namespace: "ConvertInchesToDecimal" })
   const isDefaultLocale = params.locale === "en"
   const pageUrl = isDefaultLocale
-    ? `https://decimaltools.com/tools/${TOOL_SLUG}/`
-    : `https://decimaltools.com/${params.locale}/tools/${TOOL_SLUG}/`
+    ? `https://decimaltools.com/tools/${TOOL_SLUG}`
+    : `https://decimaltools.com/${params.locale}/tools/${TOOL_SLUG}`
 
   const webApplicationSchema = {
     "@context": "https://schema.org",

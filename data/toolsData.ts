@@ -55,7 +55,7 @@ export const toolsData: ToolData[] = [
     description:
       "Professional inches to decimal converter for construction, woodworking, and manufacturing. Convert fractional inches (5 3/4) to decimal inches (5.75) instantly with visual ruler and precision control.",
     icon: Ruler,
-    href: "/tools/convert-inches-to-decimal/",
+    href: "/tools/convert-inches-to-decimal",
     features: [
       "Bidirectional Fraction ↔ Decimal Conversion",
       "Visual Ruler with Measurements",

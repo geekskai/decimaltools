@@ -418,16 +418,10 @@ export default function InchesToDecimalConverter() {
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
-                  href="/tools/"
+                  href="/tools"
                   className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-200 transition-colors duration-300 hover:bg-emerald-500/20"
                 >
                   {t("geo_sections.browse_all_tools")}
-                </Link>
-                <Link
-                  href="/tools/cm-to-tommer-converter/"
-                  className="rounded-xl border border-teal-400/30 bg-teal-500/10 px-4 py-2 text-sm text-teal-200 transition-colors duration-300 hover:bg-teal-500/20"
-                >
-                  {t("geo_sections.related_tool_cm_tommer")}
                 </Link>
               </div>
             </section>

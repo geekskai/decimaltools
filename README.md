@@ -26,7 +26,7 @@ If the original blog template helped you, consider starring **[geekskai/blog](ht
 
 ## Features
 
-- **Tools** — Interactive calculators and converters (e.g. [Inches to Decimal](https://decimaltools.com/tools/convert-inches-to-decimal/)), with UX tuned for quick copy-paste and reference.
+- **Tools** — Interactive calculators and converters (e.g. [Inches to Decimal](https://decimaltools.com/tools/convert-inches-to-decimal)), with UX tuned for quick copy-paste and reference.
 - **Content** — Blog-style **MDX** posts under `data/blog` (math via KaTeX, SEO metadata, optional FAQ front matter).
 - **i18n** — [next-intl](https://next-intl-docs.vercel.app/)–based locale routing under `app/[locale]`.
 - **Performance & SEO** — Next.js 14 App Router, static generation where configured, sitemap/IndexNow scripts as in repo.
