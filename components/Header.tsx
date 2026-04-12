@@ -95,7 +95,7 @@ const Header = () => {
                 <div className="max-w-8xl w-[95vw]">
                   {/* Subtle glow effect */}
                   <div className="absolute inset-x-4 inset-y-0 -z-10 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover/dropdown:opacity-100"></div>
-                  <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900/95 p-10 shadow-2xl backdrop-blur-xl">
+                  <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900 p-10 shadow-2xl backdrop-blur-xl">
                     {/* Header */}
                     <div className="mb-8 flex items-center justify-between border-b border-slate-700/50 pb-4">
                       <div className="flex items-center gap-3">

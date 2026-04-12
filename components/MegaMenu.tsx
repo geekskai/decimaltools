@@ -64,12 +64,12 @@ const MegaMenu = ({ closeMenu }: { closeMenu?: () => void }) => {
                     href={tool.href}
                     target="_blank"
                     onClick={closeMenu}
-                    className="group flex items-center gap-3 whitespace-nowrap text-[15px] font-medium text-slate-400 transition-all duration-200 hover:text-white"
+                    className="group flex select-none items-center gap-3 whitespace-nowrap text-[15px] font-medium text-slate-400 transition-all duration-200 hover:text-white"
                   >
-                    <span className="w-5 shrink-0 text-center font-bold text-slate-600 opacity-60 transition-all group-hover:text-blue-500 group-hover:opacity-100">
+                    <span className="w-5 shrink-0 text-center font-bold text-slate-100 opacity-60 transition-all group-hover:text-blue-500 group-hover:opacity-100">
                       to
                     </span>
-                    <span className="truncate transition-transform group-hover:translate-x-1">
+                    <span className="truncate text-primary-500 transition-transform group-hover:translate-x-1">
                       {tool.title}
                     </span>
                     {tool.badge && (
