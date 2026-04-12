@@ -13,13 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogRoutes = allBlogs
     .filter((post) => !post.draft)
     .map((post) => ({
-      url: `${siteUrl}/${post.path}/`,
+      url: `${siteUrl}/${post.path}`,
       lastModified: post.lastmod || post.date,
       // priority: 0.7,
       // changeFrequency: "monthly" as const,
     }))
 
-  const routes = ["", "blog/", "projects/", "tools/", "tags/", "about/"].map((route) => ({
+  const routes = ["", "blog", "projects", "tools", "tags", "about"].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split("T")[0],
     // priority: route === "" ? 1.0 : route === "tools/" ? 0.9 : 0.8,
@@ -27,8 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Generate static routes for all locales
-  // const staticRoutes = ["", "blog/", "projects/", "tools/", "tags/", "about/"]
-  const staticRoutes = ["tools/"].flatMap((route) => {
+  // const staticRoutes = ["", "blog", "projects", "tools", "tags", "about"]
+  const staticRoutes = ["tools"].flatMap((route) => {
     return supportedLocales.map((locale) => ({
       url: `${siteUrl}${locale === defaultLocale ? "" : `/${locale}`}/${route}`,
       lastModified: new Date().toISOString().split("T")[0],
