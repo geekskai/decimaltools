@@ -7,7 +7,7 @@ import { supportedLocales } from "./i18n/routing"
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = siteMetadata.siteUrl
   const defaultLocale = "en"
-  const VIN_VEHICLE_TYPES = ["motorcycle", "rv", "trailer", "classic-car"] as const
+  // const VIN_VEHICLE_TYPES = ["motorcycle", "rv", "trailer", "classic-car"] as const
 
   // Generate blog routes for all locales
   const blogRoutes = allBlogs
@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       // changeFrequency: "monthly" as const,
     }))
 
-  const routes = ["", "blog", "projects", "tools", "tags", "about"].map((route) => ({
+  const routes = ["", "blog", "terms", "privacy", "tools", "tags", "about"].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split("T")[0],
     // priority: route === "" ? 1.0 : route === "tools/" ? 0.9 : 0.8,
@@ -28,24 +28,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Generate static routes for all locales
   // const staticRoutes = ["", "blog", "projects", "tools", "tags", "about"]
-  const staticRoutes = ["tools"].flatMap((route) => {
-    return supportedLocales.map((locale) => ({
-      url: `${siteUrl}${locale === defaultLocale ? "" : `/${locale}`}/${route}`,
-      lastModified: new Date().toISOString().split("T")[0],
-      // priority: route === "" ? 1.0 : route === "tools/" ? 0.9 : 0.8,
-      // changeFrequency: "weekly" as const,
-      // Add alternates for SEO
-      alternates: {
-        languages: supportedLocales.reduce(
-          (acc, lang) => {
-            acc[lang] = `${siteUrl}${lang === defaultLocale ? "" : `/${lang}`}/${route}`
-            return acc
-          },
-          {} as Record<string, string>
-        ),
-      },
-    }))
-  })
+  // const staticRoutes = ["tools"].flatMap((route) => {
+  //   return supportedLocales.map((locale) => ({
+  //     url: `${siteUrl}${locale === defaultLocale ? "" : `/${locale}`}/${route}`,
+  //     lastModified: new Date().toISOString().split("T")[0],
+  //     // priority: route === "" ? 1.0 : route === "tools/" ? 0.9 : 0.8,
+  //     // changeFrequency: "weekly" as const,
+  //     // Add alternates for SEO
+  //     alternates: {
+  //       languages: supportedLocales.reduce(
+  //         (acc, lang) => {
+  //           acc[lang] = `${siteUrl}${lang === defaultLocale ? "" : `/${lang}`}/${route}`
+  //           return acc
+  //         },
+  //         {} as Record<string, string>
+  //       ),
+  //     },
+  //   }))
+  // })
 
   // Generate tool routes for all locales
   const toolRoutes = toolsData.flatMap((tool) => {
@@ -60,15 +60,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // priority: 0.8,
         // changeFrequency: "weekly" as const,
         // Add alternates for SEO
-        alternates: {
-          languages: supportedLocales.reduce(
-            (acc, lang) => {
-              acc[lang] = `${siteUrl}${lang === defaultLocale ? "" : `/${lang}`}/${toolPath}`
-              return acc
-            },
-            {} as Record<string, string>
-          ),
-        },
+        // alternates: {
+        //   languages: supportedLocales.reduce(
+        //     (acc, lang) => {
+        //       acc[lang] = `${siteUrl}${lang === defaultLocale ? "" : `/${lang}`}/${toolPath}`
+        //       return acc
+        //     },
+        //     {} as Record<string, string>
+        //   ),
+        // },
       }
     })
   })
@@ -78,7 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...routes,
     ...blogRoutes,
     ...toolRoutes,
-    ...staticRoutes,
+    // ...staticRoutes,
     // ...vinDecoderExpansionRoutes,
   ]
 

@@ -148,11 +148,11 @@ const SiteFooter = () => {
                 <span>{t("footer_tags")}</span>
               </LinkNext>
               <LinkNext
-                href="/projects"
+                href="/about"
                 className="group flex items-center gap-2 text-slate-400 transition-all duration-300 hover:translate-x-1 hover:text-white"
               >
                 <div className="h-1 w-1 rounded-full bg-purple-400 transition-all duration-300 group-hover:scale-150 group-hover:bg-purple-300"></div>
-                <span>{t("footer_projects")}</span>
+                <span>{t("footer_about")}</span>
               </LinkNext>
               <LinkNext
                 href="/privacy/"

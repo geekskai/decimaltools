@@ -6,17 +6,19 @@ import Image from "@/components/Image"
 interface Props {
   children: ReactNode
   content: Omit<Authors, "_id" | "_raw" | "body">
+  /** Visible H1; defaults to a product-style About heading */
+  heading?: string
 }
 
-export default function AuthorLayout({ children, content }: Props) {
+export default function AuthorLayout({ children, content, heading = "About DecimalTools" }: Props) {
   const { name, avatar, occupation, company, email, twitter, linkedin, github } = content
 
   return (
     <>
       <div className="divide-y divide-stone-700">
         <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-stone-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            About
+          <h1 className="text-center text-3xl font-extrabold leading-9 tracking-tight text-stone-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+            {heading}
           </h1>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
@@ -24,7 +26,7 @@ export default function AuthorLayout({ children, content }: Props) {
             {avatar && (
               <Image
                 src={avatar}
-                alt="avatar"
+                alt={`${name} profile photo`}
                 width={192}
                 height={192}
                 className="h-48 w-48 rounded-full"

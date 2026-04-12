@@ -9,7 +9,7 @@ export const metadata = genPageMetadata({
 })
 
 const SITE_URL = "https://decimaltools.com"
-const LAST_UPDATED = "April 5, 2026"
+const LAST_UPDATED = "April 12, 2026"
 
 export default function TermsOfServicePage() {
   return (
@@ -72,10 +72,10 @@ export default function TermsOfServicePage() {
               1. Description of Free Services
             </h2>
             <p className="mb-4 leading-relaxed text-gray-700">
-              DecimalTools is a comprehensive platform providing{" "}
-              <strong>free online web tools</strong>, including audio and video converting
-              utilities. All accessible features and functionalities are provided to you entirely at{" "}
-              <strong>no cost</strong>.
+              DecimalTools is a platform providing <strong>free online web tools</strong>—such as
+              measurement converters, productivity utilities, and related helpers—with more tools
+              added over time. All accessible features and functionalities are provided to you
+              entirely at <strong>no cost</strong>.
             </p>
             <p className="leading-relaxed text-gray-700">
               We reserve the right to upgrade, modify, or discontinue any part of our free service
@@ -255,8 +255,8 @@ export default function TermsOfServicePage() {
             <p className="leading-relaxed text-gray-700">
               Because our website, tools, and services are provided completely free of charge, we
               will not be held liable for any loss or damage of any nature. In no event shall
-              Geekskai be responsible for indirect, consequential, or incidental damages resulting
-              from your use of, or inability to use, our platform.
+              DecimalTools or its operators be responsible for indirect, consequential, or
+              incidental damages resulting from your use of, or inability to use, our platform.
             </p>
           </section>
 
@@ -268,10 +268,10 @@ export default function TermsOfServicePage() {
               10. DMCA & Copyright Infringement
             </h2>
             <p className="mb-4 leading-relaxed text-gray-700">
-              Geekskai deeply respects the intellectual property rights of others. If you are a
+              DecimalTools deeply respects the intellectual property rights of others. If you are a
               copyright owner or an agent thereof, and believe that any functionality or user action
-              on Geekskai infringes upon your legally protected copyrights, we urge you to submit a
-              formal infringement notice.
+              on DecimalTools infringes upon your legally protected copyrights, we urge you to
+              submit a formal infringement notice.
             </p>
             <p className="leading-relaxed text-gray-700">
               Please include proof of copyright ownership and specific URLs, and email us directly
@@ -295,9 +295,9 @@ export default function TermsOfServicePage() {
             </h2>
             <p className="leading-relaxed text-gray-700">
               We maintain the right to revise or modify these Terms of Service at any given time to
-              reflect new features or legal requirements. By continuing to use Geekskai following
-              the publication of any modifications, you implicitly agree to be legally bound by the
-              most recent updated terms.
+              reflect new features or legal requirements. By continuing to use DecimalTools
+              following the publication of any modifications, you implicitly agree to be legally
+              bound by the most recent updated terms.
             </p>
           </section>
 

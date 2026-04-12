@@ -1,7 +1,11 @@
 import { genPageMetadata } from "app/seo"
 import Link from "@/components/Link"
 
-export const metadata = genPageMetadata({ title: "Privacy" })
+export const metadata = genPageMetadata({
+  title: "Privacy Policy",
+  description:
+    "How DecimalTools collects, uses, and protects information when you use our free online tools at decimaltools.com.",
+})
 
 const PrivacyPolicy = () => {
   return (
@@ -9,7 +13,7 @@ const PrivacyPolicy = () => {
       <div className="mx-auto max-w-4xl overflow-hidden rounded-lg bg-white shadow-xl">
         <div className="px-6 py-8">
           <h1 className="mb-6 text-center text-3xl font-bold text-gray-900">Privacy Policy</h1>
-          <p className="mb-8 text-center text-sm text-gray-600">Last updated: January 08, 2025</p>
+          <p className="mb-8 text-center text-sm text-gray-600">Last updated: April 12, 2026</p>
           <div className="space-y-6 text-gray-700">
             <p>
               This Privacy Policy describes Our policies and procedures on the collection, use and
@@ -51,8 +55,8 @@ const PrivacyPolicy = () => {
             <li>
               <p>
                 <strong>Company</strong> (referred to as either &quot;the Company&quot;,
-                &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to geeks
-                kai.
+                &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to{" "}
+                <strong>DecimalTools</strong>, the service operated at decimaltools.com.
               </p>
             </li>
             <li>
@@ -102,7 +106,7 @@ const PrivacyPolicy = () => {
             </li>
             <li>
               <p>
-                <strong>Website</strong> refers to geeks kai, accessible from{" "}
+                <strong>Website</strong> refers to DecimalTools, accessible from{" "}
                 <Link
                   href="https://decimaltools.com/"
                   rel="external nofollow noopener"
@@ -151,31 +155,33 @@ const PrivacyPolicy = () => {
           <ul className="list-disc space-y-2 pl-6 text-gray-700">
             <li>
               <p>
-                <strong>Google Analytics</strong>
+                <strong>Umami (analytics)</strong>
                 <br />
-                1. Purpose: Website traffic analysis
+                1. Purpose: Privacy-focused, aggregated website traffic and usage statistics
                 <br />
-                2. Data collected: Usage patterns, device information, location data
+                2. Data collected: Page views, referrers, and general device/browser metadata as
+                configured by our analytics provider (no cookies required for basic operation)
                 <br />
                 3. More information:{" "}
                 <Link
-                  href="https://policies.google.com/privacy?hl=en"
+                  href="https://umami.is/privacy"
                   rel="external nofollow noopener"
                   target="_blank"
                   className="text-primary-500 hover:text-primary-400"
-                  aria-label="Google Analytics Privacy Policy link"
+                  aria-label="Umami privacy policy link"
                 >
-                  Google Analytics Privacy Policy
+                  Umami privacy policy
                 </Link>
               </p>
             </li>
             <li>
               <p>
-                <strong>Google Adsense</strong>
+                <strong>Google AdSense</strong>
                 <br />
-                1. Purpose: Display personalized advertisements
+                1. Purpose: Display advertisements
                 <br />
-                2. Data collected: Browsing preferences, interests
+                2. Data collected: May include ad delivery and relevance signals as described by
+                Google
                 <br />
                 3. More information:{" "}
                 <Link
@@ -183,9 +189,9 @@ const PrivacyPolicy = () => {
                   rel="external nofollow noopener"
                   target="_blank"
                   className="text-primary-500 hover:text-primary-400"
-                  aria-label="Google Adsense Privacy Policy link"
+                  aria-label="Google privacy policy link"
                 >
-                  Google Adsense Privacy Policy
+                  Google Privacy Policy
                 </Link>
               </p>
             </li>
@@ -210,7 +216,8 @@ const PrivacyPolicy = () => {
             If you have any questions about this Privacy Policy, You can contact us:
           </p>
           <ul className="list-disc space-y-2 pl-6 text-gray-700">
-            <li>By email: geeks.kai@gmail.com</li>
+            <li>By email: postmaster@decimaltools.com</li>
+            <li>Alternatively: geeks.kai@gmail.com</li>
           </ul>
         </div>
       </div>
