@@ -37,9 +37,9 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       siteMetadata.title,
     ],
     alternates: {
-      canonical: `https://decimaltools.com/tags/${tag}/`,
+      canonical: `https://decimaltools.com/tags/${tag}`,
       languages: {
-        "x-default": `https://decimaltools.com/tags/${tag}/`,
+        "x-default": `https://decimaltools.com/tags/${tag}`,
       },
       types: {
         "application/rss+xml": `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
