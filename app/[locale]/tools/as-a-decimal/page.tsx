@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/app/i18n/navigation"
 import {
   featuredPseoFractions,
@@ -22,7 +22,9 @@ function getLocalizedHubPath(locale: string): string {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: "FractionToDecimal" })
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale: locale, namespace: "FractionToDecimal" })
   const canonical = `${siteMetadata.siteUrl}${getLocalizedHubPath(params.locale)}`
   const defaultPath = `${siteMetadata.siteUrl}/tools/${PSEO_BASE_SEGMENT}`
   const lastModified = new Date(PSEO_LAST_MODIFIED_DATE)
@@ -79,7 +81,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function AsADecimalHubPage({ params }: PageProps) {
-  const t = await getTranslations({ locale: params.locale, namespace: "FractionToDecimal" })
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations({ locale: locale, namespace: "FractionToDecimal" })
   const pageUrl = `${siteMetadata.siteUrl}${getLocalizedHubPath(params.locale)}`
   const hubFacts = Array.from({ length: 4 }, (_, index) => ({
     label: t(`hub.core_fact_${index + 1}_label`),

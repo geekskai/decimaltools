@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound, permanentRedirect } from "next/navigation"
 import { Suspense } from "react"
 import { Link } from "@/app/i18n/navigation"
@@ -107,6 +107,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
+  setRequestLocale(locale)
   const state = resolvePageState(params)
 
   if (!state || !state.isWhitelisted) {
@@ -185,6 +187,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function FractionAsDecimalPage({ params }: PageProps) {
+  const { locale } = await params
+  setRequestLocale(locale)
   const state = resolvePageState(params)
 
   if (!state || !state.isWhitelisted) {
