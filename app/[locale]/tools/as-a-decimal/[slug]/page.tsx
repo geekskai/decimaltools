@@ -307,7 +307,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
 
   return (
     <div className="py-10 sm:py-12">
-      <div className="mx-auto max-w-5xl space-y-8">
+      <div className="mx-auto max-w-7xl space-y-8">
         <header className="rounded-3xl border border-violet-500/20 bg-slate-900/70 p-6 shadow-xl backdrop-blur sm:p-8">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">
             DecimalTools

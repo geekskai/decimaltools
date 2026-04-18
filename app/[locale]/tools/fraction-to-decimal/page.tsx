@@ -42,7 +42,7 @@ export default function FractionToDecimalPage() {
       <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-violet-950/20 to-slate-900" />
 
       <div className="relative px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl space-y-10">
+        <div className="mx-auto max-w-7xl space-y-10">
           <header className="text-center">
             <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
               {t("page_title")}
