@@ -15,15 +15,24 @@ export function convertFractionToDecimal(input: string, precision: number = 4): 
     throw new Error(parsed.error || "Invalid input")
   }
 
-  // Calculate decimal value
+  // Calculate decimal value (plain decimal input uses decimalOnlyTotal; see lib/fraction-math)
   const fractionDecimal = parsed.fraction ? parsed.fraction.decimal : 0
-  const totalDecimal = parsed.wholeNumber + fractionDecimal
+  const totalDecimal =
+    parsed.decimalOnlyTotal !== undefined
+      ? parsed.decimalOnlyTotal
+      : parsed.wholeNumber + fractionDecimal
 
   // Format the result
   const formatted = formatDecimal(totalDecimal, precision)
 
+  // Fractional part for inch common-fraction lookup (e.g. 5.75 → 0.75)
+  const equivalentHint =
+    parsed.decimalOnlyTotal !== undefined
+      ? totalDecimal - Math.floor(totalDecimal)
+      : fractionDecimal
+
   // Find common equivalent fractions
-  const commonEquivalents = findCommonEquivalents(fractionDecimal)
+  const commonEquivalents = findCommonEquivalents(equivalentHint)
 
   return {
     input: input.trim(),

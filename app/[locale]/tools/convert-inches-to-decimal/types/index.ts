@@ -24,6 +24,8 @@ export interface ParsedInput {
   fraction: Fraction | null
   precision: number
   error?: string
+  /** Present when input was a plain decimal string; total value is this (not wholeNumber + fraction). */
+  decimalOnlyTotal?: number
 }
 
 export interface FractionResult {

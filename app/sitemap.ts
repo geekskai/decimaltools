@@ -2,6 +2,12 @@ import { MetadataRoute } from "next"
 import { allBlogs } from "contentlayer/generated"
 import siteMetadata from "@/data/siteMetadata"
 import { toolsData } from "@/data/toolsData"
+import {
+  PSEO_ENABLED_LOCALES,
+  PSEO_LAST_MODIFIED_DATE,
+  getPseoPath,
+  pseoFractionPairs,
+} from "@/data/pseo-fractions"
 import { supportedLocales } from "./i18n/routing"
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -73,11 +79,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   })
 
+  const pseoRoutes = pseoFractionPairs.flatMap(({ numerator, denominator }) =>
+    supportedLocales
+      .filter((locale) =>
+        PSEO_ENABLED_LOCALES.includes(locale as (typeof PSEO_ENABLED_LOCALES)[number])
+      )
+      .map((locale) => ({
+        url: `${siteUrl}${locale === defaultLocale ? "" : `/${locale}`}${getPseoPath(numerator, denominator)}`,
+        lastModified: PSEO_LAST_MODIFIED_DATE,
+      }))
+  )
+
   // Generate robots.txt friendly sitemap
   const allRoutes = [
     ...routes,
     ...blogRoutes,
     ...toolRoutes,
+    ...pseoRoutes,
     // ...staticRoutes,
     // ...vinDecoderExpansionRoutes,
   ]

@@ -50,6 +50,24 @@ export const gradients = {
 
 export const toolsData: ToolData[] = [
   {
+    id: "fraction-to-decimal",
+    title: "Fraction to Decimal",
+    description:
+      "Convert proper fractions, improper fractions, and mixed numbers to decimals — and decimals back to simplified fractions. Built for homework and quick math (not tape-measure inches).",
+    icon: Calculator,
+    href: "/tools/fraction-to-decimal",
+    features: [
+      "Fraction ↔ decimal with clear repeating-decimal notes",
+      "Shared math engine with our other converters",
+      "Adjustable precision & one-tap copy",
+      "Free, fast, mobile-friendly",
+    ],
+    badge: "Math",
+    badgeColor: "bg-violet-500",
+    gradient: gradients.education,
+    category: "Education",
+  },
+  {
     id: "convert-inches-to-decimal",
     title: "Convert Inches to Decimal",
     description:

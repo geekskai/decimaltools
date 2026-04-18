@@ -1,4 +1,6 @@
 import type { ParsedInput, Fraction, ValidationResult } from "../types"
+import { gcd as findGCD } from "@/lib/fraction-math"
+import { parseMathFractionInput } from "@/lib/fraction-math"
 
 // Common fractions lookup for quick conversion
 export const COMMON_FRACTIONS = {
@@ -36,8 +38,7 @@ export const COMMON_FRACTIONS = {
 } as const
 
 /**
- * Parse fractional input string into components
- * Supports formats: "5 3/4", "5-3/4", "3/4", "5.75", "5 3/4\"", etc.
+ * Parse fractional input string into components (inches UI: strips units, then uses shared math parser).
  */
 export function parseFractionalInput(input: string, precision: number = 4): ParsedInput {
   const cleanInput = input
@@ -45,7 +46,6 @@ export function parseFractionalInput(input: string, precision: number = 4): Pars
     .replace(/["""'']/g, "")
     .replace(/inches?/gi, "")
 
-  // Handle empty input
   if (!cleanInput) {
     return {
       isValid: false,
@@ -58,100 +58,43 @@ export function parseFractionalInput(input: string, precision: number = 4): Pars
     }
   }
 
-  // Try to parse as decimal first
-  const decimalMatch = cleanInput.match(/^(\d*\.?\d+)$/)
-  if (decimalMatch) {
-    const decimal = parseFloat(decimalMatch[1])
-    if (isNaN(decimal) || decimal < 0) {
-      return {
-        isValid: false,
-        wholeNumber: 0,
-        numerator: 0,
-        denominator: 1,
-        fraction: null,
-        precision,
-        error: "Invalid decimal number",
-      }
-    }
+  const math = parseMathFractionInput(cleanInput, { allowPureDecimal: true })
 
+  if (!math.ok) {
     return {
-      isValid: true,
-      wholeNumber: Math.floor(decimal),
+      isValid: false,
+      wholeNumber: 0,
       numerator: 0,
       denominator: 1,
       fraction: null,
       precision,
+      error: math.error,
     }
   }
 
-  // Parse mixed number formats: "5 3/4", "5-3/4"
-  const mixedMatch = cleanInput.match(/^(\d+)[\s-]+(\d+)\/(\d+)$/)
-  if (mixedMatch) {
-    const wholeNumber = parseInt(mixedMatch[1], 10)
-    const numerator = parseInt(mixedMatch[2], 10)
-    const denominator = parseInt(mixedMatch[3], 10)
-
-    if (denominator === 0) {
-      return {
-        isValid: false,
-        wholeNumber: 0,
-        numerator: 0,
-        denominator: 1,
-        fraction: null,
-        precision,
-        error: "Division by zero is not allowed",
-      }
-    }
-
-    const fraction = createFraction(numerator, denominator)
+  if (math.value.kind === "decimal_only") {
+    const total = math.value.value
     return {
       isValid: true,
-      wholeNumber,
-      numerator,
-      denominator,
-      fraction,
+      wholeNumber: Math.floor(total),
+      numerator: 0,
+      denominator: 1,
+      fraction: null,
       precision,
+      decimalOnlyTotal: total,
     }
   }
 
-  // Parse simple fraction: "3/4"
-  const fractionMatch = cleanInput.match(/^(\d+)\/(\d+)$/)
-  if (fractionMatch) {
-    const numerator = parseInt(fractionMatch[1], 10)
-    const denominator = parseInt(fractionMatch[2], 10)
+  const v = math.value
+  const fraction = createFraction(v.numerator, v.denominator)
 
-    if (denominator === 0) {
-      return {
-        isValid: false,
-        wholeNumber: 0,
-        numerator: 0,
-        denominator: 1,
-        fraction: null,
-        precision,
-        error: "Division by zero is not allowed",
-      }
-    }
-
-    const fraction = createFraction(numerator, denominator)
-    return {
-      isValid: true,
-      wholeNumber: 0,
-      numerator,
-      denominator,
-      fraction,
-      precision,
-    }
-  }
-
-  // If no pattern matches, return error
   return {
-    isValid: false,
-    wholeNumber: 0,
-    numerator: 0,
-    denominator: 1,
-    fraction: null,
+    isValid: true,
+    wholeNumber: v.whole,
+    numerator: v.numerator,
+    denominator: v.denominator,
+    fraction,
     precision,
-    error: 'Invalid format. Try: "5 3/4", "3/4", or "5.75"',
   }
 }
 
@@ -159,12 +102,12 @@ export function parseFractionalInput(input: string, precision: number = 4): Pars
  * Create a fraction object with simplified form
  */
 export function createFraction(numerator: number, denominator: number): Fraction {
-  const gcd = findGCD(numerator, denominator)
+  const g = findGCD(numerator, denominator)
   const simplified =
-    gcd > 1
+    g > 1
       ? {
-          numerator: numerator / gcd,
-          denominator: denominator / gcd,
+          numerator: numerator / g,
+          denominator: denominator / g,
           simplified: null,
           decimal: numerator / denominator,
         }
@@ -178,12 +121,7 @@ export function createFraction(numerator: number, denominator: number): Fraction
   }
 }
 
-/**
- * Find Greatest Common Divisor using Euclidean algorithm
- */
-export function findGCD(a: number, b: number): number {
-  return b === 0 ? a : findGCD(b, a % b)
-}
+export { findGCD }
 
 /**
  * Find common equivalent fractions for a given decimal

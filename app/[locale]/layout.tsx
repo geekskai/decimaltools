@@ -13,7 +13,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { hasLocale } from "next-intl"
 import { routing, supportedLocales } from "../i18n/routing"
 import { notFound } from "next/navigation"
-import { getTranslations, setRequestLocale } from "next-intl/server"
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { toolsData } from "@/data/toolsData"
 import Script from "next/script"
 
@@ -28,6 +28,7 @@ type Props = {
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { locale } = await params
   const t = await getTranslations("HomePage")
+  const metadataBase = new URL("https://decimaltools.com")
 
   const title = t("home_seo_title")
   const description = t("home_seo_description") + " " + t("home_seo_keywords")
@@ -42,6 +43,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   // })
 
   return {
+    metadataBase,
     title: title,
     description: description,
     keywords: [t("home_seo_keywords")],
@@ -107,6 +109,8 @@ export default async function RootLayout({
 
   // Enable static rendering
   setRequestLocale(locale)
+
+  const messages = await getMessages()
 
   // Generate JSON-LD Structured Data
   const t = await getTranslations("HomePage")
@@ -272,7 +276,7 @@ export default async function RootLayout({
           src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
           strategy="afterInteractive"
         />
-        <NextIntlClientProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
