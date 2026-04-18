@@ -32,8 +32,8 @@ export default function FractionToDecimalPage() {
   )
   const popularFractions = featuredPseoFractions
   const fractionFamilies = [
-    [1, 2, 3, 4].map((numerator) => ({ numerator, denominator: 6 })),
-    [1, 2, 3, 4, 5].map((numerator) => ({ numerator, denominator: 8 })),
+    [1].map((numerator) => ({ numerator, denominator: 6 })),
+    [1, 3, 5].map((numerator) => ({ numerator, denominator: 8 })),
     [1, 3, 5, 7, 9].map((numerator) => ({ numerator, denominator: 16 })),
   ]
 
