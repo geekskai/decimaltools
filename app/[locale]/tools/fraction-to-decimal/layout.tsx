@@ -15,9 +15,9 @@ export async function generateMetadata({
     ? `https://decimaltools.com/tools/${TOOL_SLUG}`
     : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}`
 
-  const languages: Record<string, string> = {
-    "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
-  }
+  // const languages: Record<string, string> = {
+  //   "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
+  // }
 
   return {
     title: t("seo_title"),
@@ -57,7 +57,7 @@ export async function generateMetadata({
     },
     alternates: {
       canonical,
-      languages,
+      // languages,
     },
     other: {
       "last-modified": lastModified.toISOString(),

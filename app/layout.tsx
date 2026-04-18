@@ -43,9 +43,9 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
     "x-default": "https://decimaltools.com/",
   }
 
-  supportedLocales.forEach((locale) => {
-    languages[locale] = `https://decimaltools.com/${locale}/`
-  })
+  // supportedLocales.forEach((locale) => {
+  //   languages[locale] = `https://decimaltools.com/${locale}/`
+  // })
 
   return {
     title: title,
@@ -93,9 +93,9 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       canonical: isDefaultLocale
         ? "https://decimaltools.com/"
         : `https://decimaltools.com/${locale}/`,
-      languages: {
-        ...languages,
-      },
+      // languages: {
+      //   ...languages,
+      // },
     },
     category: "Tools",
     classification: "Tools",

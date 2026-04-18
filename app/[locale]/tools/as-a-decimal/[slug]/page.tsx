@@ -107,9 +107,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale } = await params
+  const resolvedParams = await params
+  const { locale } = resolvedParams
   setRequestLocale(locale)
-  const state = resolvePageState(params)
+  const state = resolvePageState(resolvedParams)
 
   if (!state || !state.isWhitelisted) {
     return {
@@ -136,10 +137,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }),
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        en: `${siteMetadata.siteUrl}${getPseoPath(canonicalNumerator, canonicalDenominator)}`,
-        "x-default": `${siteMetadata.siteUrl}${getPseoPath(canonicalNumerator, canonicalDenominator)}`,
-      },
+      // languages: {
+      //   en: `${siteMetadata.siteUrl}${getPseoPath(canonicalNumerator, canonicalDenominator)}`,
+      //   "x-default": `${siteMetadata.siteUrl}${getPseoPath(canonicalNumerator, canonicalDenominator)}`,
+      // },
     },
     openGraph: {
       title: t("pseo.seo_title", {
@@ -187,9 +188,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function FractionAsDecimalPage({ params }: PageProps) {
-  const { locale } = await params
+  const resolvedParams = await params
+  const { locale } = resolvedParams
   setRequestLocale(locale)
-  const state = resolvePageState(params)
+  const state = resolvePageState(resolvedParams)
 
   if (!state || !state.isWhitelisted) {
     notFound()

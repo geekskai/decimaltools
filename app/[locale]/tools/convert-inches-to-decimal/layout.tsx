@@ -16,9 +16,9 @@ export async function generateMetadata({
     ? `https://decimaltools.com/tools/${TOOL_SLUG}`
     : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}`
 
-  const languages: Record<string, string> = {
-    "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
-  }
+  // const languages: Record<string, string> = {
+  //   "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
+  // }
 
   // supportedLocales.forEach((loc) => {
   //   languages[loc] = `https://decimaltools.com/${loc}/tools/${TOOL_SLUG}`
@@ -62,7 +62,7 @@ export async function generateMetadata({
     },
     alternates: {
       canonical,
-      languages,
+      // languages,
     },
     other: {
       "last-modified": lastModified.toISOString(),

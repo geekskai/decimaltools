@@ -22,10 +22,11 @@ function getLocalizedHubPath(locale: string): string {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale } = await params
+  const resolvedParams = await params
+  const { locale } = resolvedParams
   setRequestLocale(locale)
   const t = await getTranslations({ locale: locale, namespace: "FractionToDecimal" })
-  const canonical = `${siteMetadata.siteUrl}${getLocalizedHubPath(params.locale)}`
+  const canonical = `${siteMetadata.siteUrl}${getLocalizedHubPath(locale)}`
   const defaultPath = `${siteMetadata.siteUrl}/tools/${PSEO_BASE_SEGMENT}`
   const lastModified = new Date(PSEO_LAST_MODIFIED_DATE)
 
@@ -67,10 +68,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     alternates: {
       canonical,
-      languages: {
-        en: defaultPath,
-        "x-default": defaultPath,
-      },
+      // languages: {
+      //   en: defaultPath,
+      //   "x-default": defaultPath,
+      // },
     },
     other: {
       "last-modified": lastModified.toISOString(),
@@ -81,10 +82,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function AsADecimalHubPage({ params }: PageProps) {
-  const { locale } = await params
+  const resolvedParams = await params
+  const { locale } = resolvedParams
   setRequestLocale(locale)
   const t = await getTranslations({ locale: locale, namespace: "FractionToDecimal" })
-  const pageUrl = `${siteMetadata.siteUrl}${getLocalizedHubPath(params.locale)}`
+  const pageUrl = `${siteMetadata.siteUrl}${getLocalizedHubPath(locale)}`
   const hubFacts = Array.from({ length: 4 }, (_, index) => ({
     label: t(`hub.core_fact_${index + 1}_label`),
     value: t(`hub.core_fact_${index + 1}_value`),

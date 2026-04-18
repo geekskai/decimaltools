@@ -34,9 +34,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
       type: "website",
     },
     alternates: {
-      languages: {
-        "x-default": "https://decimaltools.com/tags/",
-      },
+      // languages: {
+      //   "x-default": "https://decimaltools.com/tags/",
+      // },
       canonical: "./",
       types: {
         "application/rss+xml": `${siteMetadata.siteUrl}/feed.xml`,
