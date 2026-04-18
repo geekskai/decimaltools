@@ -48,6 +48,7 @@ export const featuredPseoFractions: PseoFractionPair[] = [
   { numerator: 2, denominator: 3 },
   { numerator: 4, denominator: 3 },
   { numerator: 3, denominator: 4 },
+  { numerator: 4, denominator: 5 },
   { numerator: 5, denominator: 6 },
   { numerator: 1, denominator: 8 },
   { numerator: 3, denominator: 8 },
