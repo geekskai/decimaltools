@@ -45,9 +45,9 @@ function HeroSection() {
         className="absolute -top-[98px] -z-10"
       />
 
-      <div className="grid grid-cols-1 items-start gap-y-8 lg:grid-cols-2 lg:gap-12">
+      <div className="grid grid-cols-1 items-start gap-y-8">
         <div className="order-2 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:order-1 lg:pt-10">
-          <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
+          <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-5xl">
             {/* {t("hero_hello")} <br /> */}
             {t.rich("hero_h1_0", {
               rich: (chunks) => <span className="text-pink-500">{chunks}</span>,

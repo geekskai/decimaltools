@@ -59,7 +59,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       siteName: "DecimalTools",
       images: [
         {
-          url: "/static/images/og/geekskai-home.png",
+          url: "/static/images/og/decimaltools-home.png",
           width: 1200,
           height: 630,
           alt: "DecimalTools - Free AI-Powered Tools and Useful Online Utilities",
@@ -71,7 +71,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
       title: title,
       description: description,
       card: "summary_large_image",
-      images: ["/static/images/og/geekskai-home.png"],
+      images: ["/static/images/og/decimaltools-home.png"],
       creator: "@decimaltools",
       site: "@decimaltools",
     },

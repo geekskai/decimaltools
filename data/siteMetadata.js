@@ -1,10 +1,10 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: "DecimalTools – Free AI-Powered Tools and Useful Online Utilities",
+  title: "Free Decimal Converter & Calculator | DecimalTools",
   author: "DecimalTools",
   headerTitle: "DecimalTools",
   description:
-    "Explore powerful AI tools and free online utilities to boost productivity. DecimalTools is your smart toolbox for content, code, and file conversion.",
+    "Free online decimal converter. Convert fractions to decimals, inches to decimal, decimals to hours and more — instantly. No sign-up. Works on mobile & desktop.",
   language: "en-us",
   theme: "dark", // system, dark or light
   siteUrl: "https://decimaltools.com",
