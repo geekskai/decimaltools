@@ -44,13 +44,17 @@ export function getPseoPath(numerator: number, denominator: number): string {
 
 export const featuredPseoFractions: PseoFractionPair[] = [
   { numerator: 1, denominator: 2 },
+  { numerator: 1, denominator: 3 },
   { numerator: 2, denominator: 3 },
+  { numerator: 4, denominator: 3 },
   { numerator: 3, denominator: 4 },
   { numerator: 5, denominator: 6 },
   { numerator: 1, denominator: 8 },
   { numerator: 3, denominator: 8 },
   { numerator: 5, denominator: 8 },
   { numerator: 7, denominator: 8 },
+  { numerator: 7, denominator: 9 },
+  { numerator: 5, denominator: 9 },
   { numerator: 5, denominator: 16 },
   { numerator: 9, denominator: 16 },
 ]
