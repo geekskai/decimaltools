@@ -8,13 +8,13 @@ function HeroSection() {
 
   return (
     <section className="relative flex flex-col items-center justify-between py-4 lg:py-12">
-      <Image
+      {/* <Image
         src="/hero.svg"
         alt="Hero"
         width={1572}
         height={795}
         className="absolute -top-[98px] -z-10"
-      />
+      /> */}
 
       <div className="grid grid-cols-1 items-start gap-y-8">
         <div className="order-2 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:order-1 lg:pt-10">
