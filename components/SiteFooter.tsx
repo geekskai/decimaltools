@@ -1,7 +1,7 @@
 import Link from "./Link"
 import SocialIcon from "./social-icons"
 import siteMetadata from "@/data/siteMetadata"
-import Image from "next/image"
+import Image from "./Image"
 import { Zap, Heart, ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
 import LinkNext from "next/link"
@@ -44,23 +44,14 @@ import React from "react"
 const SiteFooter = () => {
   const t = useTranslations("HomePage")
   return (
-    <footer className="relative mt-20 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-black">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-gradient-to-tr from-purple-500/10 to-pink-500/10 blur-3xl"></div>
-        <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 blur-3xl"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 top-20 h-1 w-1 animate-pulse rounded-full bg-blue-400 opacity-60 delay-0"></div>
-        <div className="absolute right-1/3 top-32 h-0.5 w-0.5 animate-pulse rounded-full bg-purple-400 opacity-40 delay-700"></div>
-        <div className="absolute bottom-40 left-1/3 h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400 opacity-50 delay-1000"></div>
-        <div className="absolute bottom-20 right-1/4 h-1 w-1 animate-pulse rounded-full bg-pink-400 opacity-30 delay-500"></div>
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <footer
+      className="mt-20 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-black"
+      style={{
+        backgroundImage:
+          "radial-gradient(circle at top right, rgba(59,130,246,0.12), transparent 24rem), radial-gradient(circle at bottom left, rgba(168,85,247,0.12), transparent 24rem), radial-gradient(circle at center, rgba(16,185,129,0.06), transparent 18rem)",
+      }}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="grid gap-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand Section */}
@@ -68,10 +59,11 @@ const SiteFooter = () => {
             <div className="mb-6">
               <Link href="/" className="group inline-flex items-center gap-1">
                 <Image
-                  src={`${process.env.BASE_PATH || ""}/static/decimaltools.png`}
+                  src="/static/decimaltools.png"
                   alt="DecimalTools Logo"
                   width={40}
                   height={40}
+                  sizes="40px"
                   className="h-[40px] w-[40px] transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="text-xl font-bold text-white">DecimalTools</div>

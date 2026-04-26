@@ -10,12 +10,10 @@ const output = process.env.EXPORT ? "export" : undefined
 const basePath = process.env.BASE_PATH || undefined
 // const unoptimized = process.env.UNOPTIMIZED ? true : undefined
 
-/**
- * @type {import('next/dist/next-server/server/config').NextConfig}
- **/
 module.exports = () => {
   const plugins = [withContentlayer, withBundleAnalyzer, withNextIntl]
-  const nextConfig = plugins.reduce((acc, next) => next(acc), {
+  /** @type {import("next").NextConfig} */
+  const nextConfig = plugins.reduce((config, plugin) => plugin(config), {
     async redirects() {
       return [
         {
@@ -30,9 +28,6 @@ module.exports = () => {
     // trailingSlash: true,
     reactStrictMode: true,
     pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-    eslint: {
-      dirs: ["app", "components", "layouts", "scripts"],
-    },
     images: {
       remotePatterns: [
         {
@@ -85,16 +80,11 @@ module.exports = () => {
 
       return config
     },
-    // Optimize font loading
-    optimizeFonts: true,
-    // Allow font optimization to fail gracefully
     experimental: {
       optimizePackageImports: ["lucide-react", "react-icons", "@headlessui/react", "date-fns"],
     },
     // Compress output
     compress: true,
-    // Optimize production builds
-    swcMinify: true,
     // 忽略 TypeScript 构建错误（用于第三方库的类型问题）
     typescript: {
       ignoreBuildErrors: true,

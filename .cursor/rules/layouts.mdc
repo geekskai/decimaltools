@@ -1,15 +1,13 @@
 ---
-description:
-globs:
+description: Layout guidance for stable page structure and mobile-first performance
+globs: layouts/**/*.{ts,tsx,js,jsx},app/**/*layout*.tsx
 alwaysApply: false
 ---
-# layouts Directory Guide
+# Layouts Guide
 
-The [layouts/](mdc:layouts) directory contains layout components for different types of pages:
-
-- [AuthorLayout.tsx](mdc:layouts/AuthorLayout.tsx): Layout for author profile pages.
-- [ListLayout.tsx](mdc:layouts/ListLayout.tsx): Layout for listing blog posts or other items.
-- [ListLayoutWithTags.tsx](mdc:layouts/ListLayoutWithTags.tsx): List layout with tag filtering support.
-- [PostLayout.tsx](mdc:layouts/PostLayout.tsx): Layout for individual blog post pages.
-
-Use these layouts to wrap content and provide consistent structure across the site.
+- Layouts should provide stable structure first, then decorative polish.
+- Prefer backgrounds on the layout container itself instead of positioned decorative children.
+- Keep page sections in normal document flow to reduce mobile CLS risk.
+- When a layout renders images, supply fixed dimensions and `sizes`.
+- Blog and list layouts should not mark repeated thumbnails as `priority`.
+- Root and segment layouts should follow Next 16 conventions, including async route params where required.

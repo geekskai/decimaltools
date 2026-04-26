@@ -29,6 +29,7 @@ export default function AuthorLayout({ children, content, heading = "About Decim
                 alt={`${name} profile photo`}
                 width={192}
                 height={192}
+                sizes="192px"
                 className="h-48 w-48 rounded-full"
               />
             )}

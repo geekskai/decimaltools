@@ -49,23 +49,14 @@ export default function ToolsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-gradient-to-br from-blue-400/20 to-purple-400/20 blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-gradient-to-tr from-purple-400/20 to-pink-400/20 blur-3xl"></div>
-          <div className="absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-r from-emerald-400/10 to-cyan-400/10 blur-3xl"></div>
-        </div>
-
-        {/* Floating Elements */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-20 h-2 w-2 animate-pulse rounded-full bg-blue-400 opacity-60"></div>
-          <div className="absolute right-1/3 top-32 h-1 w-1 animate-pulse rounded-full bg-purple-400 opacity-40 delay-700"></div>
-          <div className="absolute bottom-40 left-1/3 h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400 opacity-50 delay-1000"></div>
-          <div className="absolute bottom-20 right-1/4 h-1 w-1 animate-pulse rounded-full bg-pink-400 opacity-30 delay-500"></div>
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <div
+        className="overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at top right, rgba(96,165,250,0.18), transparent 22rem), radial-gradient(circle at bottom left, rgba(192,132,252,0.18), transparent 22rem), radial-gradient(circle at center, rgba(52,211,153,0.1), transparent 18rem)",
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
           <div className="text-center">
             {/* Animated Badge */}
             <div className="mb-8 flex justify-center">
@@ -187,15 +178,15 @@ export default function ToolsPage() {
       </div>
 
       {/* Tools Section */}
-      <div id="tools-section" className="relative bg-gradient-to-b from-slate-900/50 to-slate-950">
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute left-1/4 top-20 h-px w-20 bg-gradient-to-r from-transparent via-blue-300/50 to-transparent"></div>
-          <div className="absolute right-1/3 top-40 h-px w-16 bg-gradient-to-r from-transparent via-purple-300/50 to-transparent"></div>
-          <div className="absolute bottom-32 left-1/3 h-px w-24 bg-gradient-to-r from-transparent via-emerald-300/50 to-transparent"></div>
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div
+        id="tools-section"
+        className="bg-gradient-to-b from-slate-900/50 to-slate-950"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(148,163,184,0.06), transparent 8rem), radial-gradient(circle at top left, rgba(59,130,246,0.08), transparent 18rem)",
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="mb-16 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-slate-800/60 px-4 py-2 text-sm font-medium text-slate-200 shadow-lg ring-1 ring-slate-700/50 backdrop-blur-sm">

@@ -13,6 +13,7 @@ const Card = ({ title, description, imgSrc, href, hrefRel }) => (
               className="object-cover object-center md:h-36 lg:h-48"
               width={544}
               height={306}
+              sizes="(max-width: 768px) 100vw, 544px"
             />
           </Link>
         ) : (
@@ -22,6 +23,7 @@ const Card = ({ title, description, imgSrc, href, hrefRel }) => (
             className="object-cover object-center md:h-36 lg:h-48"
             width={544}
             height={306}
+            sizes="(max-width: 768px) 100vw, 544px"
           />
         ))}
       <div className="p-6">

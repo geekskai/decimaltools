@@ -1,11 +1,11 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import siteMetadata from "@/data/siteMetadata"
 import headerNavLinks from "@/data/headerNavLinks"
 import Link from "./Link"
 import MobileNav from "./MobileNav"
 import SearchButton from "./SearchButton"
-import Image from "next/image"
+import Image from "./Image"
 import { ChevronDown, Zap, Star, Sparkles } from "lucide-react"
 import { toolsData } from "@/data/toolsData"
 // import LanguageSelect from "./LanguageSelect"
@@ -17,12 +17,9 @@ const Header = () => {
   // Close dropdown on escape key
   const t = useTranslations("HomePage")
   const tt = useTranslations("ToolsPage")
-  const [toolCount, setToolCount] = useState<number | null>(null)
+  const toolCount = toolsData.length
 
   useEffect(() => {
-    // Keep header count client-resolved to avoid hydration mismatches.
-    setToolCount(toolsData.length)
-
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         // Find the dropdown and remove hover state
@@ -38,22 +35,20 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="sticky top-0 z-80 border-b border-slate-800/50 bg-slate-950/80 shadow-xl backdrop-blur-xl">
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5"></div>
-      <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 xl:px-0">
+    <header className="sticky top-0 z-80 border-b border-slate-800/50 bg-[linear-gradient(90deg,rgba(59,130,246,0.05),transparent,rgba(168,85,247,0.05)),rgba(2,6,23,0.8)] shadow-xl backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 xl:px-0">
         {/* Logo Section */}
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="group flex items-center gap-1">
-            <div className="relative">
+            <div className="rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 shadow-[0_0_24px_rgba(59,130,246,0.12)] transition-shadow duration-300 group-hover:shadow-[0_0_32px_rgba(168,85,247,0.2)]">
               <Image
                 src="/static/decimaltools.png"
                 alt="DecimalTools Logo"
                 width={40}
                 height={40}
+                sizes="40px"
                 className="h-[40px] w-[40px] transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
             </div>
             {typeof siteMetadata.headerTitle === "string" ? (
               <div className="hidden bg-gradient-to-r from-white to-slate-300 bg-clip-text text-2xl font-bold text-transparent sm:block">
@@ -114,7 +109,7 @@ const Header = () => {
                       <div className="flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2">
                         <Star className="h-4 w-4 text-blue-400" />
                         <span className="text-sm font-semibold text-blue-300">
-                          {toolCount ?? ""} {t("header_nav_tools")}
+                          {toolCount} {t("header_nav_tools")}
                         </span>
                       </div>
                     </div>

@@ -22,9 +22,7 @@ export default function Home({ posts }) {
   return (
     <>
       <Hero />
-      <div className="divide-y divide-stone-700">
-        <div className="absolute left-[42%] top-6 h-[100px] w-[100px] translate-x-1/2 rounded-full bg-violet-100 opacity-20 blur-3xl  filter"></div>
-
+      <div className="divide-y divide-stone-700 bg-[radial-gradient(circle_at_72%_1.5rem,rgba(237,233,254,0.16),transparent_5rem)]">
         <div className="flex -translate-y-[1px] justify-center">
           <div className="w-3/4">
             <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-violet-500  to-transparent" />

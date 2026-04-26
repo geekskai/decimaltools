@@ -96,10 +96,10 @@ export default function ListLayoutWithTags({
                       <Image
                         alt={title}
                         src={images}
-                        priority
                         className="h-[192px] w-[384px] rounded-lg object-cover object-center"
                         width={384}
                         height={192}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 384px"
                       />
                     )}
                     <div className="flex items-center gap-2">
@@ -109,6 +109,7 @@ export default function ListLayoutWithTags({
                           alt="avatar"
                           width={20}
                           height={20}
+                          sizes="20px"
                           className="size-5 rounded-full"
                         />
                       )}
