@@ -1,6 +1,5 @@
 import {
   Calculator,
-  FileText,
   Palette,
   Monitor,
   Sparkles,
@@ -49,6 +48,42 @@ export const gradients = {
 }
 
 export const toolsData: ToolData[] = [
+  {
+    id: "gauge-to-decimal",
+    title: "Gauge to Decimal",
+    description:
+      "Convert gauge sizes to decimal inches and millimeters for sheet metal and wire standards. Fast material-specific results with tolerance ranges and quick search.",
+    icon: Microscope,
+    href: "/tools/gauge-to-decimal",
+    features: [
+      "Supports sheet steel, galvanized, stainless, aluminum, and AWG wire",
+      "Shows inch + millimeter values with production-friendly precision",
+      "Tolerance range and visual thickness reference included",
+      "Free, fast, mobile-friendly",
+    ],
+    badge: "Manufacturing",
+    badgeColor: "bg-emerald-500",
+    gradient: gradients.utility,
+    category: "Utility",
+  },
+  {
+    id: "decimal-to-text",
+    title: "Decimal to Text",
+    description:
+      "Decode decimal character codes into plain text instantly. Convert inputs like 72 101 108 108 111 to Hello for debugging, quick data checks, and encoding practice.",
+    icon: Hash,
+    href: "/tools/decimal-to-text",
+    features: [
+      "Supports space/comma/newline separated decimal codes",
+      "ASCII and Unicode code point decoding",
+      "Copy-ready output with normalized decimal + hex previews",
+      "Free, fast, mobile-friendly",
+    ],
+    badge: "Writing",
+    badgeColor: "bg-cyan-500",
+    gradient: gradients.analytics,
+    category: "Utility",
+  },
   {
     id: "fraction-to-decimal",
     title: "Fraction to Decimal",
