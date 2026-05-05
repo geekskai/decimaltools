@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense } from "react"
+import { Suspense, useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/app/i18n/navigation"
 import {
@@ -14,6 +14,9 @@ import { CONTENT_VERSION, LAST_MODIFIED_ISO } from "./seoData"
 
 export default function FractionToDecimalPage() {
   const t = useTranslations("FractionToDecimal")
+  const [chartQuery, setChartQuery] = useState("")
+  const [chartPreset, setChartPreset] = useState<"all" | "common">("all")
+  const [chartCopyMsg, setChartCopyMsg] = useState("")
 
   const faqItems = Array.from({ length: 8 }, (_, index) => ({
     question: t(`geo_sections.faq.question_${index + 1}`),
@@ -54,6 +57,74 @@ export default function FractionToDecimalPage() {
     ],
   ]
 
+  const fractionChartRows = useMemo(() => {
+    const rows = [
+      [1, 2],
+      [1, 3],
+      [2, 3],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10],
+      [1, 16],
+      [3, 16],
+      [5, 16],
+      [7, 16],
+      [9, 16],
+      [11, 16],
+      [13, 16],
+      [15, 16],
+    ].map(([numerator, denominator]) => {
+      const decimal = (numerator / denominator).toFixed(6).replace(/\.?0+$/, "")
+      return { numerator, denominator, decimal }
+    })
+
+    const query = chartQuery.trim().toLowerCase()
+    if (!query) return rows
+    return rows.filter(
+      (row) =>
+        `${row.numerator}/${row.denominator}`.includes(query) ||
+        row.decimal.includes(query) ||
+        `${row.numerator} ${row.denominator}`.includes(query)
+    )
+  }, [chartQuery])
+
+  const groupedChartRows = useMemo(() => {
+    const rowsToGroup =
+      chartPreset === "common"
+        ? fractionChartRows.filter((row) => [2, 4, 8, 16].includes(row.denominator))
+        : fractionChartRows
+    const map = new Map<number, typeof fractionChartRows>()
+    for (const row of rowsToGroup) {
+      const current = map.get(row.denominator) ?? []
+      current.push(row)
+      map.set(row.denominator, current)
+    }
+    return Array.from(map.entries()).sort((a, b) => a[0] - b[0])
+  }, [chartPreset, fractionChartRows])
+
+  const copyChartDecimal = async (decimal: string) => {
+    try {
+      await navigator.clipboard.writeText(decimal)
+      setChartCopyMsg(t("chart_copied"))
+      setTimeout(() => setChartCopyMsg(""), 1500)
+    } catch {
+      setChartCopyMsg(t("converter.copy_failed"))
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-950">
       <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-violet-950/20 to-slate-900" />
@@ -83,6 +154,111 @@ export default function FractionToDecimalPage() {
           >
             <FractionConverter defaultInput="5/6" syncInputWithUrl />
           </Suspense>
+
+          <section className="rounded-3xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-bold text-white">{t("chart_title")}</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300">{t("chart_intro")}</p>
+                <div className="mt-3 inline-flex rounded-xl border border-slate-700 bg-slate-950/60 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setChartPreset("all")}
+                    className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                      chartPreset === "all"
+                        ? "bg-cyan-500/20 text-cyan-100"
+                        : "text-slate-300 hover:text-white"
+                    }`}
+                  >
+                    {t("chart_filter_all")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setChartPreset("common")}
+                    className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                      chartPreset === "common"
+                        ? "bg-cyan-500/20 text-cyan-100"
+                        : "text-slate-300 hover:text-white"
+                    }`}
+                  >
+                    {t("chart_filter_common")}
+                  </button>
+                </div>
+              </div>
+              <div className="w-full sm:w-auto">
+                <label className="mb-2 block text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+                  {t("chart_search_label")}
+                </label>
+                <input
+                  value={chartQuery}
+                  onChange={(event) => setChartQuery(event.target.value)}
+                  placeholder={t("chart_search_placeholder")}
+                  className="h-10 w-full rounded-xl border border-slate-600 bg-slate-950/80 px-3 text-sm text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:w-72"
+                />
+              </div>
+            </div>
+
+            {fractionChartRows.length ? (
+              <div className="mt-5 space-y-4">
+                {groupedChartRows.map(([denominator, rows]) => (
+                  <div
+                    key={denominator}
+                    className="overflow-x-auto rounded-2xl border border-slate-700 bg-slate-950/60"
+                  >
+                    <p className="border-b border-slate-700 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                      {t("chart_group_label", { denominator })}
+                    </p>
+                    <table className="w-full min-w-[420px] text-left text-sm">
+                      <thead className="border-b border-slate-800 text-slate-400">
+                        <tr>
+                          <th className="px-4 py-2">{t("chart_col_fraction")}</th>
+                          <th className="px-4 py-2">{t("chart_col_decimal")}</th>
+                          <th className="px-4 py-2 text-right">{t("chart_col_action")}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {rows.map((row) => (
+                          <tr
+                            key={`${row.numerator}/${row.denominator}`}
+                            className="border-b border-slate-800/80"
+                          >
+                            <td className="px-4 py-3 font-medium text-white">
+                              {row.numerator}/{row.denominator}
+                            </td>
+                            <td className="px-4 py-3 font-mono text-cyan-200">{row.decimal}</td>
+                            <td className="px-4 py-3 text-right">
+                              <div className="flex flex-wrap justify-end gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => copyChartDecimal(row.decimal)}
+                                  className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-200 transition hover:bg-emerald-500/20"
+                                >
+                                  {t("chart_copy_decimal")}
+                                </button>
+                                <Link
+                                  href={`/tools/fraction-to-decimal?input=${encodeURIComponent(
+                                    `${row.numerator}/${row.denominator}`
+                                  )}`}
+                                  className="rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-200 transition hover:bg-cyan-500/20"
+                                >
+                                  {t("chart_use_in_calculator")}
+                                </Link>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))}
+                {chartCopyMsg ? <p className="text-xs text-emerald-200">{chartCopyMsg}</p> : null}
+              </div>
+            ) : (
+              <p className="mt-5 rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
+                {t("chart_empty")}
+              </p>
+            )}
+          </section>
 
           <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="rounded-3xl border border-violet-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">

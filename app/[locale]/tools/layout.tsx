@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import React from "react"
 import { hasLocale } from "next-intl"
-import { routing, supportedLocales } from "../../i18n/routing"
+import { routing } from "../../i18n/routing"
 import { notFound } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 // import { supportedLocales as supportedLocalesList } from "@/components/LanguageSelect"
@@ -16,18 +16,9 @@ type Props = {
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "ToolsPage" })
-  const lastModified = new Date("2026-02-18")
-  // 语言映射
-  const localeMap: Record<string, string> = {
-    en: "en_US",
-    ja: "ja_JP",
-    ko: "ko_KR",
-    no: "no_NO",
-    "zh-cn": "zh_CN",
-    da: "da_DK",
-  }
+  const lastModified = new Date("2026-05-06")
 
-  const ogLocale = localeMap[locale] || "en_US"
+  const ogLocale = "en_US"
   const baseUrl = "https://decimaltools.com"
   const path = "/tools"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}${path}`

@@ -49,6 +49,10 @@ export default function FractionConverter({
   const [primaryLine, setPrimaryLine] = useState("")
   const [secondaryLine, setSecondaryLine] = useState("")
   const [copyMsg, setCopyMsg] = useState("")
+  const quickExamples =
+    mode === "fraction-to-decimal"
+      ? ["1/2", "3/8", "5/6", "1 3/4", "2 5/8"]
+      : ["0.375", "0.625", "1.25", "2.75", "3.5"]
 
   useEffect(() => {
     latestInputRef.current = input
@@ -200,6 +204,31 @@ export default function FractionConverter({
         autoComplete="off"
         spellCheck={false}
       />
+
+      <div className="mb-5">
+        <p className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+          {t("quick_examples_title")}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {quickExamples.map((example) => (
+            <button
+              key={example}
+              type="button"
+              onClick={() => setInput(example)}
+              className="rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1.5 text-xs text-violet-200 transition hover:border-violet-400 hover:bg-violet-500/20"
+            >
+              {example}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setInput("")}
+            className="rounded-full border border-slate-600 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-800"
+          >
+            {t("clear")}
+          </button>
+        </div>
+      </div>
 
       {mode === "fraction-to-decimal" && (
         <div className="mb-6">
