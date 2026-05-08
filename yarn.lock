@@ -2899,6 +2899,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@microsoft/clarity@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@microsoft/clarity@npm:1.0.2"
+  checksum: 3b5db4cc017662a9f5f380b07c944d92f52a631b32656c7a8e278ca9748032b6f0564c5ecf2b902a47acd1a2dab7f8a470a6589ed56b79122f8dc90272ec0253
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.11":
   version: 0.2.12
   resolution: "@napi-rs/wasm-runtime@npm:0.2.12"
@@ -5719,6 +5726,7 @@ __metadata:
   resolution: "decimaltools@workspace:."
   dependencies:
     "@headlessui/react": 2.2.10
+    "@microsoft/clarity": ^1.0.2
     "@next/bundle-analyzer": 16.2.4
     "@svgr/webpack": ^8.0.1
     "@tailwindcss/forms": ^0.5.7

@@ -16,6 +16,8 @@ import { notFound } from "next/navigation"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { toolsData } from "@/data/toolsData"
 import Script from "next/script"
+import ClarityTracker from "../../components/ClarityTracker"
+
 
 export const revalidate = 86400 // 24 hours
 
@@ -277,6 +279,7 @@ export default async function RootLayout({
           strategy="afterInteractive"
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <ClarityTracker />
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
