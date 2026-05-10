@@ -51,7 +51,7 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
 
   return (
     <div
-      className={`relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/25 via-purple-500/20 to-pink-500/25 p-8 shadow-2xl backdrop-blur-xl ${className}`}
+      className={`relative overflow-hidden rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/25 via-purple-500/20 to-pink-500/25 p-4 shadow-2xl backdrop-blur-xl sm:p-5 md:p-6 lg:p-8 ${className}`}
     >
       {/* Decorative background elements */}
       <div className="absolute -right-16 -top-16 h-36 w-36 rounded-full bg-gradient-to-br from-purple-500/15 to-pink-500/15 blur-3xl"></div>
@@ -59,56 +59,64 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
 
       <div className="relative">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <div className="mb-4 inline-flex items-center gap-3 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-pink-500/10 px-6 py-3 backdrop-blur-sm">
-            <span className="text-xl md:text-2xl">📚</span>
-            <h2 className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-xl font-bold text-transparent">
+        <div className="mb-5 text-center md:mb-8">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-pink-500/10 px-4 py-2 backdrop-blur-sm sm:gap-3 sm:px-6 sm:py-3">
+            <span className="text-lg md:text-2xl">📚</span>
+            <h2 className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-lg font-bold text-transparent sm:text-xl">
               {t("quick_reference.title")}
             </h2>
           </div>
-          <p className="text-slate-300">{t("quick_reference.description")}</p>
+          <p className="text-sm leading-relaxed text-slate-300 md:text-base">
+            {t("quick_reference.description")}
+          </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="mb-6 flex flex-wrap justify-center gap-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                activeTab === tab.id
-                  ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25"
-                  : "border border-purple-500/30 bg-purple-500/10 text-slate-300 hover:bg-purple-500/20 hover:text-white"
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span className="hidden sm:inline">{tab.label}</span>
-            </button>
-          ))}
+        <div className="mb-5 overflow-x-auto md:mb-6">
+          <div className="flex min-w-max justify-start gap-2 md:justify-center">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-300 sm:gap-2 sm:px-4 sm:text-sm ${
+                  activeTab === tab.id
+                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25"
+                    : "border border-purple-500/30 bg-purple-500/10 text-slate-300 hover:bg-purple-500/20 hover:text-white"
+                }`}
+              >
+                <span>{tab.icon}</span>
+                <span className="hidden sm:inline">{tab.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Content */}
-        <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-6 backdrop-blur-sm">
+        <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-4 backdrop-blur-sm md:p-6">
           {/* Common Fractions Tab */}
           {activeTab === "common" && (
             <div>
-              <h3 className="mb-6 text-lg font-semibold text-white">Most Common Fractions</h3>
+              <h3 className="mb-4 text-base font-semibold text-white md:mb-6 md:text-lg">
+                Most Common Fractions
+              </h3>
 
               {/* Organized by denominator groups */}
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Halves and Quarters */}
                 <div>
-                  <h4 className="mb-3 text-sm font-medium text-purple-300">Halves & Quarters</h4>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <h4 className="mb-3 text-xs font-medium text-purple-300 md:text-sm">
+                    Halves & Quarters
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                     {Object.entries(COMMON_FRACTIONS)
                       .filter(([fraction]) => fraction.includes("/2") || fraction.includes("/4"))
                       .map(([fraction, decimal]) => (
                         <div
                           key={fraction}
-                          className="group relative overflow-hidden rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-4 backdrop-blur-sm transition-all duration-300 hover:border-purple-400/50 hover:shadow-lg hover:shadow-purple-500/25"
+                          className="group relative overflow-hidden rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-3 backdrop-blur-sm transition-all duration-300 hover:border-purple-400/50 hover:shadow-lg hover:shadow-purple-500/25 md:p-4"
                         >
                           <div className="text-center">
-                            <div className="mb-2 font-mono text-lg font-bold text-white">
+                            <div className="mb-1 font-mono text-base font-bold text-white md:mb-2 md:text-lg">
                               {fraction}
                             </div>
                             <div className="mb-1 text-xs text-slate-400">=</div>
@@ -122,17 +130,17 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
 
                 {/* Eighths */}
                 <div>
-                  <h4 className="mb-3 text-sm font-medium text-purple-300">Eighths</h4>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <h4 className="mb-3 text-xs font-medium text-purple-300 md:text-sm">Eighths</h4>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                     {Object.entries(COMMON_FRACTIONS)
                       .filter(([fraction]) => fraction.includes("/8") && !fraction.includes("/32"))
                       .map(([fraction, decimal]) => (
                         <div
                           key={fraction}
-                          className="group relative overflow-hidden rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-4 backdrop-blur-sm transition-all duration-300 hover:border-purple-400/50 hover:shadow-lg hover:shadow-purple-500/25"
+                          className="group relative overflow-hidden rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-3 backdrop-blur-sm transition-all duration-300 hover:border-purple-400/50 hover:shadow-lg hover:shadow-purple-500/25 md:p-4"
                         >
                           <div className="text-center">
-                            <div className="mb-2 font-mono text-lg font-bold text-white">
+                            <div className="mb-1 font-mono text-base font-bold text-white md:mb-2 md:text-lg">
                               {fraction}
                             </div>
                             <div className="mb-1 text-xs text-slate-400">=</div>
@@ -146,8 +154,10 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
 
                 {/* Sixteenths */}
                 <div>
-                  <h4 className="mb-4 text-sm font-medium text-purple-300">Sixteenths</h4>
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <h4 className="mb-3 text-xs font-medium text-purple-300 md:mb-4 md:text-sm">
+                    Sixteenths
+                  </h4>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                     {Object.entries(COMMON_FRACTIONS)
                       .filter(([fraction]) => fraction.includes("/16"))
                       .map(([fraction, decimal]) => (
@@ -174,14 +184,18 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
                   fraction.includes("/32")
                 ) && (
                   <div>
-                    <h4 className="mb-4 text-sm font-medium text-purple-300">Thirty-seconds</h4>
+                    <h4 className="mb-3 text-xs font-medium text-purple-300 md:mb-4 md:text-sm">
+                      Thirty-seconds
+                    </h4>
 
                     {/* Split into two rows for better mobile layout */}
                     <div className="space-y-3">
                       {/* First row: 1/32 to 15/32 */}
                       <div>
-                        <div className="mb-2 text-xs text-purple-200/60">1/32 - 15/32</div>
-                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        <div className="mb-2 text-[11px] text-purple-200/60 md:text-xs">
+                          1/32 - 15/32
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                           {Object.entries(COMMON_FRACTIONS)
                             .filter(([fraction]) => {
                               const match = fraction.match(/(\d+)\/32/)
@@ -208,8 +222,10 @@ export default function QuickReference({ className = "" }: QuickReferenceProps) 
 
                       {/* Second row: 17/32 to 31/32 */}
                       <div>
-                        <div className="mb-2 text-xs text-purple-200/60">17/32 - 31/32</div>
-                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        <div className="mb-2 text-[11px] text-purple-200/60 md:text-xs">
+                          17/32 - 31/32
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                           {Object.entries(COMMON_FRACTIONS)
                             .filter(([fraction]) => {
                               const match = fraction.match(/(\d+)\/32/)

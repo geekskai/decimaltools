@@ -9,11 +9,8 @@ export async function generateMetadata({
   params: { locale: string }
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "FractionToDecimal" })
-  const isDefaultLocale = locale === "en"
   const lastModified = new Date(LAST_MODIFIED_ISO)
-  const canonical = isDefaultLocale
-    ? `https://decimaltools.com/tools/${TOOL_SLUG}`
-    : `https://decimaltools.com/${locale}/tools/${TOOL_SLUG}`
+  const canonical = `https://decimaltools.com/tools/${TOOL_SLUG}`
 
   // const languages: Record<string, string> = {
   //   "x-default": `https://decimaltools.com/tools/${TOOL_SLUG}`,
@@ -75,10 +72,7 @@ export default async function Layout({
   params: { locale: string }
 }) {
   const t = await getTranslations({ locale: params.locale, namespace: "FractionToDecimal" })
-  const isDefaultLocale = params.locale === "en"
-  const pageUrl = isDefaultLocale
-    ? `https://decimaltools.com/tools/${TOOL_SLUG}`
-    : `https://decimaltools.com/${params.locale}/tools/${TOOL_SLUG}`
+  const pageUrl = `https://decimaltools.com/tools/${TOOL_SLUG}`
 
   const webApplicationSchema = {
     "@context": "https://schema.org",

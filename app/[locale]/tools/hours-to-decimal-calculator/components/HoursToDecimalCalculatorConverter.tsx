@@ -149,28 +149,28 @@ export default function HoursToDecimalCalculatorConverter() {
   }
 
   return (
-    <section className="from-cyan-500/18 via-blue-500/8 to-purple-500/18 rounded-3xl border border-cyan-500/30 bg-gradient-to-br p-4 shadow-lg md:p-6">
-      <div className="space-y-5 md:space-y-6">
+    <section className="from-cyan-500/18 via-blue-500/8 to-purple-500/18 rounded-3xl border border-cyan-500/30 bg-gradient-to-br p-3.5 shadow-lg sm:p-4 md:p-6 lg:p-7">
+      <div className="space-y-4 sm:space-y-5 md:space-y-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-cyan-400/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 px-4 py-2 md:gap-3 md:px-5 md:py-2.5">
-            <span className="text-2xl">⏱️</span>
-            <h2 className="bg-gradient-to-r from-cyan-300 via-blue-200 to-purple-300 bg-clip-text text-xl font-bold text-transparent md:text-2xl">
+          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-cyan-400/30 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 px-3.5 py-1.5 sm:gap-2.5 sm:px-4 sm:py-2 md:gap-3 md:px-5 md:py-2.5">
+            <span className="text-xl sm:text-2xl">⏱️</span>
+            <h2 className="bg-gradient-to-r from-cyan-300 via-blue-200 to-purple-300 bg-clip-text text-lg font-bold text-transparent sm:text-xl md:text-2xl">
               {t("title")}
             </h2>
           </div>
-          <p className="mx-auto mt-3 max-w-5xl text-xs leading-6 text-slate-300 md:mt-4 md:text-base">
+          <p className="mx-auto mt-2.5 max-w-5xl text-xs leading-6 text-slate-300 sm:mt-3 sm:text-sm md:mt-4 md:text-base">
             {t("description")}
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 md:items-stretch">
-          <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3.5 md:p-5">
+        <div className="grid gap-3.5 md:items-stretch lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-5">
+          <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3 md:p-5">
             <div className="flex h-full flex-col gap-4">
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setInputMode("smart")}
-                  className={`rounded-xl border px-3 py-2 text-xs transition md:text-sm ${
+                  className={`rounded-xl border px-3 py-2.5 text-xs transition sm:py-2 md:text-sm ${
                     inputMode === "smart"
                       ? "border-cyan-300 bg-cyan-500/20 text-white"
                       : "border-cyan-500/30 bg-slate-950/60 text-cyan-100 hover:border-cyan-400"
@@ -181,7 +181,7 @@ export default function HoursToDecimalCalculatorConverter() {
                 <button
                   type="button"
                   onClick={() => setInputMode("standard")}
-                  className={`rounded-xl border px-3 py-2 text-xs transition md:text-sm ${
+                  className={`rounded-xl border px-3 py-2.5 text-xs transition sm:py-2 md:text-sm ${
                     inputMode === "standard"
                       ? "border-cyan-300 bg-cyan-500/20 text-white"
                       : "border-cyan-500/30 bg-slate-950/60 text-cyan-100 hover:border-cyan-400"
@@ -193,17 +193,19 @@ export default function HoursToDecimalCalculatorConverter() {
 
               {inputMode === "smart" ? (
                 <div>
-                  <label className="mb-2 block text-sm font-semibold text-cyan-100">
+                  <label className="mb-1.5 block text-sm font-semibold text-cyan-100 md:mb-2">
                     {t("smart_label")}
                   </label>
                   <input
                     value={smartInput}
                     onChange={(event) => setSmartInput(event.target.value)}
                     placeholder={t("smart_placeholder")}
-                    className="h-12 w-full rounded-2xl border border-cyan-500/30 bg-slate-950/70 px-4 text-sm text-white placeholder-slate-500 transition-all duration-300 focus:border-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 md:text-base"
+                    className="h-11 w-full rounded-2xl border border-cyan-500/30 bg-slate-950/70 px-3.5 text-sm text-white placeholder-slate-500 transition-all duration-300 focus:border-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500/20 sm:h-12 sm:px-4 md:text-base"
                     aria-label={t("smart_label")}
                   />
-                  <p className="mt-2 text-xs text-slate-400 md:text-sm">{t("smart_helper")}</p>
+                  <p className="mt-1.5 text-xs leading-5 text-slate-400 md:mt-2 md:text-sm">
+                    {t("smart_helper")}
+                  </p>
                 </div>
               ) : (
                 <div>
@@ -213,21 +215,21 @@ export default function HoursToDecimalCalculatorConverter() {
                       value={hoursInput}
                       onChange={(event) => setHoursInput(event.target.value)}
                       placeholder={t("hours_placeholder")}
-                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none sm:px-3"
                       inputMode="decimal"
                     />
                     <input
                       value={minutesInput}
                       onChange={(event) => setMinutesInput(event.target.value)}
                       placeholder={t("minutes_placeholder")}
-                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none sm:px-3"
                       inputMode="decimal"
                     />
                     <input
                       value={secondsInput}
                       onChange={(event) => setSecondsInput(event.target.value)}
                       placeholder={t("seconds_placeholder")}
-                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-3 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none"
+                      className="h-11 rounded-xl border border-cyan-500/30 bg-slate-950/70 px-2.5 text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none sm:px-3"
                       inputMode="decimal"
                     />
                   </div>
@@ -242,7 +244,7 @@ export default function HoursToDecimalCalculatorConverter() {
                       key={mode}
                       type="button"
                       onClick={() => setRoundingMode(mode)}
-                      className={`rounded-xl border px-3 py-2 text-xs transition md:text-sm ${
+                      className={`rounded-xl border px-3 py-2.5 text-xs transition sm:py-2 md:text-sm ${
                         roundingMode === mode
                           ? "border-cyan-300 bg-cyan-500/20 text-white"
                           : "border-cyan-500/30 bg-slate-950/60 text-cyan-100 hover:border-cyan-400"
@@ -262,100 +264,104 @@ export default function HoursToDecimalCalculatorConverter() {
                   value={hourlyRateInput}
                   onChange={(event) => setHourlyRateInput(event.target.value)}
                   placeholder={t("rate_placeholder")}
-                  className="h-11 w-full rounded-xl border border-emerald-500/30 bg-slate-950/70 px-3 text-sm text-white placeholder-slate-500 focus:border-emerald-400 focus:outline-none"
+                  className="h-11 w-full rounded-xl border border-emerald-500/30 bg-slate-950/70 px-3.5 text-sm text-white placeholder-slate-500 focus:border-emerald-400 focus:outline-none"
                   inputMode="decimal"
                 />
               </div>
             </div>
           </div>
 
-          <div className="from-emerald-500/12 to-teal-500/8 rounded-2xl border border-emerald-500/25 bg-gradient-to-br p-3.5 md:p-5">
-            <p className="pb-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-200 md:text-sm md:tracking-[0.18em]">
+          <div className="from-emerald-500/12 to-teal-500/8 rounded-2xl border border-emerald-500/25 bg-gradient-to-br p-3 md:p-5">
+            <p className="pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-200 sm:text-xs sm:tracking-[0.16em] md:text-sm md:tracking-[0.18em]">
               {t("result_label")}
             </p>
 
             {computed ? (
-              <div className="space-y-3">
-                <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+              <div className="space-y-2.5 sm:space-y-3">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-3.5 md:p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 md:text-xs md:tracking-[0.16em]">
                     {t("decimal_hours")}
                   </p>
-                  <p className="mt-1.5 text-2xl font-bold text-white md:text-4xl">
+                  <p className="mt-1.5 text-xl font-bold text-white sm:text-2xl md:text-4xl">
                     {toFixedHours(computed.roundedHours)} h
                   </p>
-                  <p className="mt-2 text-xs text-slate-300 md:text-sm">
+                  <p className="mt-2 text-xs leading-5 text-slate-300 md:text-sm">
                     {t("exact_hours")}: {toFixedHours(computed.exactHours)} h
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4 text-sm text-slate-100 md:text-base">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3.5 text-sm leading-6 text-slate-100 md:p-4 md:text-base">
                   {t("human_summary_prefix")} {computed.humanSummary}.
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-3.5 md:p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 md:text-xs md:tracking-[0.16em]">
                     {t("clock_feedback")}
                   </p>
                   <div className="mt-3 flex items-center gap-4">
                     <div
-                      className="h-16 w-16 rounded-full border border-cyan-300/40"
+                      className="h-14 w-14 rounded-full border border-cyan-300/40 sm:h-16 sm:w-16"
                       style={{
                         background: `conic-gradient(rgba(34,211,238,0.85) ${computed.progress * 360}deg, rgba(15,23,42,0.8) 0deg)`,
                       }}
                     />
-                    <p className="text-xs text-slate-300 md:text-sm">{t("clock_feedback_note")}</p>
+                    <p className="text-xs leading-5 text-slate-300 md:text-sm">
+                      {t("clock_feedback_note")}
+                    </p>
                   </div>
                 </div>
 
                 {computed.payout != null ? (
-                  <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4">
+                  <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-3.5 md:p-4">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-200 md:text-xs md:tracking-[0.16em]">
                       {t("payout_label")}
                     </p>
-                    <p className="mt-1.5 text-xl font-bold text-emerald-100 md:text-2xl">
+                    <p className="mt-1.5 text-lg font-bold text-emerald-100 sm:text-xl md:text-2xl">
                       ${computed.payout.toFixed(2)}
                     </p>
                   </div>
                 ) : null}
 
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   <button
                     type="button"
                     onClick={copyRounded}
-                    className="rounded-xl border border-white/15 bg-slate-900/50 px-3 py-2 text-xs text-slate-100 transition hover:bg-slate-800 md:text-sm"
+                    className="rounded-xl border border-white/15 bg-slate-900/50 px-3.5 py-2 text-xs text-slate-100 transition hover:bg-slate-800 md:text-sm"
                   >
                     {t("copy")}
                   </button>
                   <button
                     type="button"
                     onClick={addCurrentRow}
-                    className="rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-500/20 md:text-sm"
+                    className="rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3.5 py-2 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-500/20 md:text-sm"
                   >
                     {t("add_row")}
                   </button>
                 </div>
 
                 {copyMessage ? (
-                  <p className="text-xs text-slate-300 md:text-sm">{copyMessage}</p>
+                  <p className="text-xs leading-5 text-slate-300 md:text-sm">{copyMessage}</p>
                 ) : null}
               </div>
             ) : (
-              <div className="mt-2 flex min-h-[11rem] items-center rounded-2xl border border-white/10 bg-slate-950/40 p-4 text-xs text-slate-300 md:min-h-[12rem] md:p-5 md:text-sm">
+              <div className="mt-1.5 flex min-h-[10rem] items-center rounded-2xl border border-white/10 bg-slate-950/40 p-3.5 text-xs leading-6 text-slate-300 sm:mt-2 sm:p-4 md:min-h-[12rem] md:p-5 md:text-sm">
                 {t(parseResult.ok ? "parse_success" : "parse_error")}
               </div>
             )}
           </div>
         </div>
 
-        <div className="from-purple-500/12 to-pink-500/8 rounded-2xl border border-purple-500/25 bg-gradient-to-br p-4 md:p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-lg font-semibold text-purple-100 md:text-xl">{t("batch_title")}</h3>
-            <div className="flex flex-wrap gap-2">
+        <div className="from-purple-500/12 to-pink-500/8 rounded-2xl border border-purple-500/25 bg-gradient-to-br p-3.5 md:p-5">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h3 className="text-base font-semibold text-purple-100 sm:text-lg md:text-xl">
+              {t("batch_title")}
+            </h3>
+            <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
               <button
                 type="button"
                 onClick={exportCsv}
                 disabled={!rows.length}
-                className="rounded-xl border border-white/15 bg-slate-900/50 px-3 py-2 text-xs text-slate-100 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                className="rounded-xl border border-white/15 bg-slate-900/50 px-3.5 py-2 text-xs text-slate-100 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
               >
                 {t("export_csv")}
               </button>
@@ -363,7 +369,7 @@ export default function HoursToDecimalCalculatorConverter() {
                 type="button"
                 onClick={exportPdf}
                 disabled={!rows.length}
-                className="rounded-xl border border-white/15 bg-slate-900/50 px-3 py-2 text-xs text-slate-100 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                className="rounded-xl border border-white/15 bg-slate-900/50 px-3.5 py-2 text-xs text-slate-100 transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
               >
                 {t("export_pdf")}
               </button>
@@ -372,7 +378,7 @@ export default function HoursToDecimalCalculatorConverter() {
 
           {rows.length ? (
             <div className="mt-4 overflow-x-auto">
-              <table className="w-full min-w-[620px] text-left text-xs text-slate-200 md:text-sm">
+              <table className="w-full min-w-[560px] text-left text-xs text-slate-200 md:text-sm">
                 <thead>
                   <tr className="border-b border-white/10 text-slate-400">
                     <th className="px-2 py-2">{t("table_entry")}</th>
@@ -429,7 +435,7 @@ export default function HoursToDecimalCalculatorConverter() {
               </table>
             </div>
           ) : (
-            <p className="mt-4 text-sm text-slate-300">{t("batch_empty")}</p>
+            <p className="mt-4 text-sm leading-6 text-slate-300">{t("batch_empty")}</p>
           )}
         </div>
       </div>

@@ -126,9 +126,7 @@ export default function FractionToDecimalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-violet-950/20 to-slate-900" />
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950/20 to-slate-900">
       <div className="relative px-4 py-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-10">
           <header className="text-center">

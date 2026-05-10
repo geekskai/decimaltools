@@ -55,17 +55,27 @@ Task Progress:
 - [ ] 2) Inspect folder name safety (remove zero-width/invisible chars if present)
 - [ ] 3) Build utils.ts (types + parser + conversion + formatting + helper functions)
 - [ ] 4) Build converter component (live conversion, copy actions, mobile-first UI)
-- [ ] 5) Build page.tsx with structured content blocks
+- [ ] 5) Build page.tsx with structured content blocks and responsive breakpoints (`md`/`lg`)
 - [ ] 6) Build seoData.ts + layout.tsx metadata + JSON-LD
 - [ ] 7) Add en.json namespace and all used keys
 - [ ] 8) Add toolsData card entry
 - [ ] 9) Run ReadLints on touched files
 - [ ] 10) Run yarn lint and fix issues
+- [ ] 11) After finishing updates, sync `app/[locale]/tools/hexa-to-decimal/seoData.ts` `LAST_MODIFIED_ISO` with current local datetime
 ```
 
 ## UI and Content Standard
 
-- Follow project mobile-first style (`md` split layout).
+- Follow project mobile-first style:
+  - Base (no breakpoint class) must be optimized for small mobile screens.
+  - Add and verify `md` + `lg` responsive classes for all major layout blocks.
+- Mobile optimization baseline (required):
+  - Tune compact spacing (`px/py`, `mt/mb`, card gaps) to avoid crowding.
+  - Tune typography (`text-*`, `leading-*`) for readability on narrow screens.
+  - Prevent overflow/mis-tap by sizing touch targets and allowing stacked layout where needed.
+- Desktop adaptation baseline (required):
+  - Use `md`/`lg` to improve content hierarchy, width usage, alignment, and whitespace.
+  - Use multi-column layouts only at appropriate breakpoints; preserve mobile behavior.
 - Keep left input / right result symmetry on desktop.
 - Use concise, practical copy for converter labels.
 - Keep SEO sections consistent:
@@ -111,6 +121,12 @@ After edits:
 2. Run `yarn lint`.
 3. Fix all introduced errors.
 4. Report completion with changed file list and validation status.
+
+## Repository Maintenance Rule
+
+- On every completed implementation update, also update:
+  - `app/[locale]/tools/hexa-to-decimal/seoData.ts`
+  - `LAST_MODIFIED_ISO` must be set to current local datetime (include time, e.g. `YYYY-MM-DDTHH:mm:ss+08:00`).
 
 ## Response Contract
 

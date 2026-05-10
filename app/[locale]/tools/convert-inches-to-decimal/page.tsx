@@ -94,48 +94,45 @@ export default function InchesToDecimalConverter() {
   )
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Background gradient */}
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900"></div>
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
       {/* Content */}
-      <div className="relative space-y-4 sm:space-y-6 md:space-y-8">
+      <div className="relative space-y-4 md:space-y-6 lg:space-y-8">
         {/* Hero Section */}
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6 md:space-y-8">
+        <section className="px-3 py-4 sm:px-4 md:px-6 md:py-6 lg:px-8 lg:py-8">
+          <div className="mx-auto max-w-7xl space-y-4 md:space-y-6 lg:space-y-8">
             {/* Main heading */}
-            <div className="space-y-2 text-center md:space-y-4 lg:space-y-6">
-              <h1 className="text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-6xl">
+            <div className="space-y-3 text-center md:space-y-4 lg:space-y-6">
+              <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-6xl">
                 {t("page_title")}
               </h1>
-              <p className="mx-auto max-w-6xl text-xl text-slate-300 sm:text-2xl">
+              <p className="mx-auto max-w-6xl text-base leading-relaxed text-slate-300 sm:text-lg md:text-xl lg:text-2xl">
                 {t("page_subtitle")}
               </p>
 
-              <div className="mx-auto mt-6 max-w-7xl rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-blue-500/10 p-5 text-left shadow-2xl backdrop-blur-md sm:p-6">
-                <h2 className="mb-3 text-lg font-bold text-blue-200 sm:text-2xl">
+              <div className="mx-auto mt-4 max-w-7xl rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-blue-500/10 p-4 text-left shadow-2xl backdrop-blur-md sm:p-5 md:mt-6 md:p-6">
+                <h2 className="mb-2 text-base font-bold text-blue-200 sm:text-lg md:mb-3 md:text-2xl">
                   {t("geo_sections.quick_answer_title")}
                 </h2>
-                <p className="text-base leading-relaxed text-slate-200 sm:text-lg">
+                <p className="text-sm leading-relaxed text-slate-200 sm:text-base md:text-lg">
                   {t("geo_sections.quick_answer_content")}
                 </p>
               </div>
 
               {/* Key features */}
-              <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 text-sm text-green-300">
+              <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3 md:mt-8 md:gap-4">
+                <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-2 text-xs text-green-300 sm:px-4 sm:text-sm">
                   <span>✓</span>
                   <span>{t("key_features.mobile_optimized")}</span>
                 </div>
-                <div className="flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-2 text-sm text-blue-300">
+                <div className="flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-2 text-xs text-blue-300 sm:px-4 sm:text-sm">
                   <span>✓</span>
                   <span>{t("key_features.offline_capable")}</span>
                 </div>
-                <div className="flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm text-purple-300">
+                <div className="flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-2 text-xs text-purple-300 sm:px-4 sm:text-sm">
                   <span>✓</span>
                   <span>{t("key_features.professional_grade")}</span>
                 </div>
-                <div className="flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-sm text-orange-300">
+                <div className="flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-3 py-2 text-xs text-orange-300 sm:px-4 sm:text-sm">
                   <span>✓</span>
                   <span>{t("key_features.free_forever")}</span>
                 </div>
@@ -143,46 +140,50 @@ export default function InchesToDecimalConverter() {
             </div>
 
             {/* Navigation tabs for mobile */}
-            <div className="mb-8 flex justify-center lg:hidden">
-              <div className="flex rounded-2xl border border-slate-500/30 bg-slate-500/10 p-1">
-                {[
-                  { id: "converter", label: t("navigation_tabs.convert"), icon: "🔧" },
-                  { id: "reference", label: t("navigation_tabs.reference"), icon: "📚" },
-                  { id: "history", label: t("navigation_tabs.history"), icon: "📊" },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveSection(tab.id as any)}
-                    className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                      activeSection === tab.id
-                        ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
-                        : "text-slate-300 hover:text-white"
-                    }`}
-                  >
-                    <span>{tab.icon}</span>
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
+            <div className="mb-6 flex justify-center md:mb-8 lg:hidden">
+              <div className="w-full overflow-x-auto rounded-2xl border border-slate-500/30 bg-slate-500/10 p-1 sm:w-auto">
+                <div className="flex min-w-max">
+                  {[
+                    { id: "converter", label: t("navigation_tabs.convert"), icon: "🔧" },
+                    { id: "reference", label: t("navigation_tabs.reference"), icon: "📚" },
+                    { id: "history", label: t("navigation_tabs.history"), icon: "📊" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveSection(tab.id as any)}
+                      className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-300 sm:gap-2 sm:px-4 sm:text-sm ${
+                        activeSection === tab.id
+                          ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
+                          : "text-slate-300 hover:text-white"
+                      }`}
+                    >
+                      <span>{tab.icon}</span>
+                      <span>{tab.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Main content grid */}
-            <div className="grid gap-8 lg:grid-cols-3">
+            <div className="grid gap-5 md:gap-6 lg:grid-cols-3 lg:gap-8">
               {/* Left column - Converter and Ruler */}
               <div
-                className={`space-y-8 lg:col-span-2 ${activeSection !== "converter" ? "hidden lg:block" : ""}`}
+                className={`space-y-5 md:space-y-6 lg:col-span-2 lg:space-y-8 ${activeSection !== "converter" ? "hidden lg:block" : ""}`}
               >
                 {/* Main converter */}
                 <ConverterInterface onConversion={handleConversion} />
 
                 {/* Visual ruler */}
-                <div className="space-y-4">
+                <div className="space-y-3 md:space-y-4">
                   {/* Ruler toggle */}
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-white">{t("visual_ruler.title")}</h2>
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-lg font-semibold text-white md:text-xl">
+                      {t("visual_ruler.title")}
+                    </h2>
                     <button
                       onClick={() => setShowRuler(!showRuler)}
-                      className={`rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                      className={`w-full rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 sm:w-auto ${
                         showRuler
                           ? "border border-blue-500/50 bg-blue-500/20 text-blue-300"
                           : "border border-slate-500/30 bg-slate-500/10 text-slate-400 hover:text-white"
@@ -221,17 +222,17 @@ export default function InchesToDecimalConverter() {
         </section>
 
         {/* Educational Content Section */}
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-1 sm:gap-2 md:gap-3 lg:grid-cols-2 lg:gap-4">
+        <section className="px-3 pb-2 sm:px-4 md:px-6 lg:px-8">
+          <div className="grid gap-3 md:gap-4 lg:grid-cols-2 lg:gap-5">
             {/* How it works */}
-            <div className=" space-y-1 rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-cyan-500/10 p-8 backdrop-blur-xl sm:space-y-2 md:space-y-3 lg:space-y-4">
-              <h2 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
+            <div className="space-y-2 rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-cyan-500/10 p-5 backdrop-blur-xl sm:space-y-3 md:space-y-4 md:p-6 lg:p-8">
+              <h2 className="text-xl font-bold text-white md:text-2xl lg:text-3xl">
                 {t("educational_content.how_it_works.title")}
               </h2>
-              <div className="space-y-4 text-slate-300">
+              <div className="space-y-3 text-sm leading-relaxed text-slate-300 md:space-y-4 md:text-base">
                 <p>{t("educational_content.how_it_works.description_1")}</p>
                 <p>{t("educational_content.how_it_works.description_2")}</p>
-                <div className="mt-6 space-y-2">
+                <div className="mt-4 space-y-2 md:mt-6">
                   {[1, 2, 3, 4].map((index) => (
                     <div key={index} className="flex items-center gap-3">
                       <span className="text-green-400">✓</span>
@@ -243,54 +244,54 @@ export default function InchesToDecimalConverter() {
             </div>
 
             {/* Why use our tool */}
-            <div className=" space-y-1 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 to-teal-500/10 p-8 backdrop-blur-xl sm:space-y-2 md:space-y-3 lg:space-y-4">
-              <h2 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
+            <div className="space-y-2 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 to-teal-500/10 p-5 backdrop-blur-xl sm:space-y-3 md:space-y-4 md:p-6 lg:p-8">
+              <h2 className="text-xl font-bold text-white md:text-2xl lg:text-3xl">
                 {t("educational_content.best_features.title")}
               </h2>
-              <div className="space-y-6">
-                <div className="flex gap-4">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex gap-3 md:gap-4">
                   <div className="flex-shrink-0">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20">
-                      <span className="text-2xl">📱</span>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 md:h-12 md:w-12">
+                      <span className="text-xl md:text-2xl">📱</span>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-white sm:text-lg md:text-xl lg:text-2xl">
+                    <h3 className="text-base font-semibold text-white md:text-lg lg:text-xl">
                       {t("educational_content.best_features.mobile_optimized.title")}
                     </h3>
-                    <p className="text-slate-300">
+                    <p className="text-sm text-slate-300 md:text-base">
                       {t("educational_content.best_features.mobile_optimized.description")}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3 md:gap-4">
                   <div className="flex-shrink-0">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20">
-                      <span className="text-2xl">⚡</span>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 md:h-12 md:w-12">
+                      <span className="text-xl md:text-2xl">⚡</span>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-white sm:text-lg md:text-xl lg:text-2xl">
+                    <h3 className="text-base font-semibold text-white md:text-lg lg:text-xl">
                       {t("educational_content.best_features.lightning_fast.title")}
                     </h3>
-                    <p className="text-slate-300">
+                    <p className="text-sm text-slate-300 md:text-base">
                       {t("educational_content.best_features.lightning_fast.description")}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3 md:gap-4">
                   <div className="flex-shrink-0">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20">
-                      <span className="text-2xl">🎯</span>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 md:h-12 md:w-12">
+                      <span className="text-xl md:text-2xl">🎯</span>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-white sm:text-lg md:text-xl lg:text-2xl">
+                    <h3 className="text-base font-semibold text-white md:text-lg lg:text-xl">
                       {t("educational_content.best_features.professional_accuracy.title")}
                     </h3>
-                    <p className="text-slate-300">
+                    <p className="text-sm text-slate-300 md:text-base">
                       {t("educational_content.best_features.professional_accuracy.description")}
                     </p>
                   </div>
@@ -301,22 +302,24 @@ export default function InchesToDecimalConverter() {
         </section>
 
         {/* Trust signals */}
-        <section className="px-4 sm:px-6 lg:px-8">
+        <section className="px-3 py-2 sm:px-4 md:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-gradient-to-r from-green-500/10 to-emerald-500/10 px-6 py-2">
-              <span className="text-2xl">🏆</span>
-              <h3 className="text-xl font-semibold text-white">{t("trust_signals.title")}</h3>
+            <div className="inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-gradient-to-r from-green-500/10 to-emerald-500/10 px-4 py-2 md:px-6">
+              <span className="text-xl md:text-2xl">🏆</span>
+              <h3 className="text-base font-semibold text-white md:text-xl">
+                {t("trust_signals.title")}
+              </h3>
             </div>
 
-            <p className="mx-auto mt-4 max-w-6xl text-slate-300">
+            <p className="mx-auto mt-3 max-w-6xl text-sm leading-relaxed text-slate-300 md:mt-4 md:text-base">
               {t("trust_signals.description")}
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-5 flex flex-wrap justify-center gap-2 md:mt-8 md:gap-4">
               {[1, 2, 3, 4].map((index) => (
                 <div
                   key={index}
-                  className={`rounded-full border px-4 py-2 text-sm ${
+                  className={`rounded-full border px-3 py-2 text-xs md:px-4 md:text-sm ${
                     index === 1
                       ? "border-green-500/30 bg-green-500/10 text-green-300"
                       : index === 2
@@ -333,13 +336,15 @@ export default function InchesToDecimalConverter() {
           </div>
         </section>
 
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <article className="rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 p-8 shadow-2xl backdrop-blur-xl">
-              <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+        <section className="px-3 pb-6 sm:px-4 md:px-6 lg:px-8 lg:pb-8">
+          <div className="mx-auto max-w-7xl space-y-5 md:space-y-6 lg:space-y-8">
+            <article className="rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-500/15 to-blue-500/10 p-5 shadow-2xl backdrop-blur-xl md:p-6 lg:p-8">
+              <h2 className="mb-3 text-xl font-bold text-white md:mb-4 md:text-2xl lg:text-3xl">
                 {t("geo_sections.core_facts_title")}
               </h2>
-              <p className="mb-6 text-slate-300">{t("geo_sections.quick_answer_content")}</p>
+              <p className="mb-4 text-sm leading-relaxed text-slate-300 md:mb-6 md:text-base">
+                {t("geo_sections.quick_answer_content")}
+              </p>
               <dl className="grid gap-4 md:grid-cols-2">
                 {coreFacts.map((fact) => (
                   <div
@@ -355,11 +360,11 @@ export default function InchesToDecimalConverter() {
               </dl>
             </article>
 
-            <section className="rounded-3xl border border-orange-500/30 bg-gradient-to-br from-orange-500/15 to-red-500/10 p-8 shadow-2xl backdrop-blur-xl">
-              <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+            <section className="rounded-3xl border border-orange-500/30 bg-gradient-to-br from-orange-500/15 to-red-500/10 p-5 shadow-2xl backdrop-blur-xl md:p-6 lg:p-8">
+              <h2 className="mb-3 text-xl font-bold text-white md:mb-4 md:text-2xl lg:text-3xl">
                 {t("geo_sections.limitations_title")}
               </h2>
-              <ul className="space-y-3 text-slate-200">
+              <ul className="space-y-3 text-sm leading-relaxed text-slate-200 md:text-base">
                 {limitations.map((item) => (
                   <li
                     key={item}
@@ -371,30 +376,32 @@ export default function InchesToDecimalConverter() {
               </ul>
             </section>
 
-            <section className="rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-8 shadow-2xl backdrop-blur-xl">
-              <h2 className="mb-6 text-2xl font-bold text-white sm:text-3xl">
+            <section className="rounded-3xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 to-pink-500/10 p-5 shadow-2xl backdrop-blur-xl md:p-6 lg:p-8">
+              <h2 className="mb-4 text-xl font-bold text-white md:mb-6 md:text-2xl lg:text-3xl">
                 {t("geo_sections.faq_title")}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {faqItems.map((faq, index) => (
                   <article
                     key={faq.question}
-                    className="rounded-2xl border border-purple-400/20 bg-white/5 p-5"
+                    className="rounded-2xl border border-purple-400/20 bg-white/5 p-4 md:p-5"
                   >
-                    <h3 className="text-lg font-semibold text-purple-200">
+                    <h3 className="text-base font-semibold text-purple-200 md:text-lg">
                       {index + 1}. {faq.question}
                     </h3>
-                    <p className="mt-2 text-slate-200">{faq.answer}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-200 md:text-base">
+                      {faq.answer}
+                    </p>
                   </article>
                 ))}
               </div>
             </section>
 
-            <section className="rounded-3xl border border-slate-500/30 bg-gradient-to-br from-slate-700/20 to-slate-900/30 p-8 shadow-2xl backdrop-blur-xl">
-              <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+            <section className="rounded-3xl border border-slate-500/30 bg-gradient-to-br from-slate-700/20 to-slate-900/30 p-5 shadow-2xl backdrop-blur-xl md:p-6 lg:p-8">
+              <h2 className="mb-3 text-xl font-bold text-white md:mb-4 md:text-2xl lg:text-3xl">
                 {t("geo_sections.data_sources_title")}
               </h2>
-              <p className="text-slate-200">
+              <p className="text-sm leading-relaxed text-slate-200 md:text-base">
                 {t("geo_sections.data_sources_prefix")}{" "}
                 <a
                   className="text-cyan-300 underline decoration-cyan-400/60 underline-offset-4"
@@ -408,11 +415,11 @@ export default function InchesToDecimalConverter() {
               </p>
             </section>
 
-            <section className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 to-teal-500/10 p-8 shadow-2xl backdrop-blur-xl">
-              <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl">
+            <section className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/15 to-teal-500/10 p-5 shadow-2xl backdrop-blur-xl md:p-6 lg:p-8">
+              <h2 className="mb-3 text-xl font-bold text-white md:mb-4 md:text-2xl lg:text-3xl">
                 {t("geo_sections.last_updated_related_title")}
               </h2>
-              <p className="text-slate-200">
+              <p className="text-sm leading-relaxed text-slate-200 md:text-base">
                 <strong>{t("geo_sections.last_updated_label")}</strong> {LAST_MODIFIED_ISO} |{" "}
                 <strong>{t("geo_sections.content_version_label")}</strong> {CONTENT_VERSION}
               </p>

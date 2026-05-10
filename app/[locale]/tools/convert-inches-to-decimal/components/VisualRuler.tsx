@@ -24,13 +24,13 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-cyan-500/10 p-6 backdrop-blur-sm ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-cyan-500/10 p-4 backdrop-blur-sm md:p-5 lg:p-6 ${className}`}
     >
       {/* Header */}
-      <div className="mb-6 text-center">
-        <div className="inline-flex items-center gap-3 rounded-full border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 px-4 py-2 backdrop-blur-sm">
-          <span className="text-xl">📏</span>
-          <h3 className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-lg font-bold text-transparent">
+      <div className="mb-4 text-center md:mb-6">
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 px-3 py-2 backdrop-blur-sm md:gap-3 md:px-4">
+          <span className="text-lg md:text-xl">📏</span>
+          <h3 className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-base font-bold text-transparent md:text-lg">
             {t("visual_ruler.title")}
           </h3>
         </div>
@@ -39,7 +39,7 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
       {/* Ruler Container */}
       <div className="relative">
         {/* Main ruler line */}
-        <div className="relative h-16 overflow-x-auto">
+        <div className="relative h-14 overflow-x-auto md:h-16">
           <svg
             width="100%"
             height="64"
@@ -157,10 +157,10 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
 
         {/* Current measurement display */}
         {result && (
-          <div className="mt-4 text-center">
-            <div className="inline-flex items-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-2 backdrop-blur-sm">
+          <div className="mt-3 text-center md:mt-4">
+            <div className="inline-flex items-center gap-2 rounded-lg border border-green-500/30 bg-green-500/10 px-3 py-2 backdrop-blur-sm md:px-4">
               <span className="text-green-300">📍</span>
-              <span className="font-medium text-white">
+              <span className="text-sm font-medium text-white md:text-base">
                 {t("visual_ruler.your_measurement")} {result.input} = {result.formatted}"
               </span>
             </div>
@@ -168,7 +168,7 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
         )}
 
         {/* Scale indicators */}
-        <div className="mt-4 flex justify-between text-xs text-slate-400">
+        <div className="mt-3 flex justify-between text-xs text-slate-400 md:mt-4">
           <span>0"</span>
           <span>{Math.floor(maxValue / 2)}"</span>
           <span>{maxValue}"</span>
@@ -176,7 +176,7 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
       </div>
 
       {/* Ruler legend */}
-      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-2 md:mt-6 md:grid-cols-3 md:gap-3">
         <div className="flex items-center gap-2 text-xs text-slate-300">
           <div className="h-6 w-0.5 bg-blue-400"></div>
           <span>{t("visual_ruler.scale_indicators.whole_inches")}</span>
@@ -192,7 +192,7 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
       </div>
 
       {/* Interactive measurement guide */}
-      <div className="mt-4 rounded-lg border border-blue-500/20 bg-blue-500/5 p-3">
+      <div className="mt-3 rounded-lg border border-blue-500/20 bg-blue-500/5 p-3 md:mt-4">
         <h4 className="mb-2 text-sm font-semibold text-blue-300">
           {t("visual_ruler.reading_guide.title")}
         </h4>
@@ -220,7 +220,7 @@ export function CompactRuler({
 
   return (
     <div
-      className={`rounded-xl border border-blue-500/30 bg-blue-500/10 p-4 backdrop-blur-sm ${className}`}
+      className={`rounded-xl border border-blue-500/30 bg-blue-500/10 p-3 backdrop-blur-sm md:p-4 ${className}`}
     >
       <div className="flex items-center justify-between text-xs text-slate-300">
         <span>0"</span>
@@ -229,14 +229,14 @@ export function CompactRuler({
         <span>3"</span>
       </div>
 
-      <div className="relative mt-2 h-8">
+      <div className="relative mt-2 h-7 md:h-8">
         <div className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-blue-500/50"></div>
 
         {/* Major marks */}
         {[0, 0.5, 1, 1.5, 2, 2.5, 3].map((pos) => (
           <div
             key={pos}
-            className="absolute top-0 h-8 w-0.5 bg-blue-400"
+            className="absolute top-0 h-7 w-0.5 bg-blue-400 md:h-8"
             style={{ left: `${(pos / maxValue) * 100}%` }}
           ></div>
         ))}
@@ -244,7 +244,7 @@ export function CompactRuler({
         {/* Current position */}
         {result && result.decimal <= maxValue && (
           <div
-            className="absolute top-0 h-8 w-1 rounded-full bg-green-400"
+            className="absolute top-0 h-7 w-1 rounded-full bg-green-400 md:h-8"
             style={{ left: `${(result.decimal / maxValue) * 100}%` }}
           ></div>
         )}
