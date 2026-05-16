@@ -1,9 +1,9 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "DecimalTools",
+  "short_name": "DecimalTools",
   "icons": [
     {
-      "src": "/decimaltools.png",
+      "src": "/static/decimaltools.png",
       "sizes": "512x512",
       "type": "image/png"
     }
