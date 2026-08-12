@@ -10,6 +10,7 @@
     "indexnow": "node ./scripts/submit-indexnow.mjs",
     "indexnow:dry": "node ./scripts/submit-indexnow.mjs --dry-run",
     "indexnow:verbose": "node ./scripts/submit-indexnow.mjs --verbose",
+    "test:drill-reference": "node --test tests/drill-reference/*.test.mjs",
     "serve": "next start",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
     "analyze": "cross-env ANALYZE=true next build --webpack",

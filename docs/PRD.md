@@ -2,11 +2,13 @@
 
 **Product:** DecimalTools ([decimaltools.com](https://decimaltools.com) / repo: `decimaltools`)  
 **Document type:** SEO-led utility roadmap  
-**Status:** Draft  
+**Status:** Superseded by [`GROWTH-PLAN.md`](./GROWTH-PLAN.md)
 **Version:** 1.2  
 **Last updated:** April 18, 2026  
 
 ---
+
+> This document is retained as historical context. Do not use its generic calculator expansion or bulk pSEO roadmap as the current product direction. The approved strategy, scope, gates, and execution sequence are defined in [`GROWTH-PLAN.md`](./GROWTH-PLAN.md).
 
 ## 1. Executive summary
 
