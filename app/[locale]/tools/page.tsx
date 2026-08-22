@@ -2,23 +2,14 @@
 
 import Link from "next/link"
 import React, { useState, useMemo } from "react"
-import {
-  Zap,
-  Users,
-  Download,
-  Search,
-  Filter,
-  Grid,
-  Sparkles,
-  Star,
-  ExternalLink,
-} from "lucide-react"
+import { Download, Search, Filter, Grid, Sparkles, Star, ExternalLink } from "lucide-react"
 import { toolsData } from "@/data/toolsData"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 
 export default function ToolsPage() {
   // State management for search and filtering
   const t = useTranslations("ToolsPage")
+  const locale = useLocale()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
 
@@ -46,8 +37,58 @@ export default function ToolsPage() {
     })
   }, [tools, searchTerm, selectedCategory])
 
+  const baseUrl = "https://decimaltools.com"
+  const localizedBaseUrl = `${baseUrl}${locale === "en" ? "" : `/${locale}`}`
+  const localeMap: Record<string, string> = {
+    en: "en-US",
+    ja: "ja-JP",
+    ko: "ko-KR",
+    no: "nb-NO",
+    "zh-cn": "zh-CN",
+    da: "da-DK",
+  }
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${localizedBaseUrl}/tools#collection`,
+    name: t("tools_seo_title"),
+    description: t("tools_seo_description"),
+    url: `${localizedBaseUrl}/tools`,
+    isPartOf: { "@id": `${baseUrl}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: tools.length,
+      itemListElement: tools.map((tool, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "SoftwareApplication",
+          name: tool.title,
+          description: tool.description,
+          url: `${localizedBaseUrl}${tool.href}`,
+          applicationCategory: "UtilityApplication",
+          operatingSystem: "Any",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+        },
+      })),
+    },
+    provider: { "@id": `${baseUrl}/#organization` },
+    isAccessibleForFree: true,
+    inLanguage: localeMap[locale] || "en-US",
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* Hero Section */}
       <div
         className="overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/30 to-purple-950/30"
@@ -101,25 +142,11 @@ export default function ToolsPage() {
               <div className="group cursor-pointer rounded-2xl bg-slate-800/60 px-6 py-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-slate-800 hover:shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600">
-                    <Users className="h-5 w-5 text-white" />
+                    <Grid className="h-5 w-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-white">25K+</div>{" "}
-                    {/* TODO: Replace with actual number */}
-                    <div className="text-sm text-slate-400">{t("tools_happy_users")}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group cursor-pointer rounded-2xl bg-slate-800/60 px-6 py-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-slate-800 hover:shadow-lg">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600">
-                    <Zap className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-2xl font-bold text-white">100%</div>{" "}
-                    {/* TODO: Replace with actual number */}
-                    <div className="text-sm text-slate-400">{t("tools_free_forever")}</div>
+                    <div className="text-2xl font-bold text-white">{tools.length}</div>
+                    <div className="text-sm text-slate-400">{t("tools_free_tools")}</div>
                   </div>
                 </div>
               </div>
@@ -130,8 +157,7 @@ export default function ToolsPage() {
                     <Download className="h-5 w-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-white">0</div>{" "}
-                    {/* TODO: Replace with actual number */}
+                    <div className="text-2xl font-bold text-white">0</div>
                     <div className="text-sm text-slate-400">{t("tools_setup_required")}</div>
                   </div>
                 </div>
@@ -591,23 +617,8 @@ export default function ToolsPage() {
               </div>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-slate-400">
-                <div className="flex -space-x-2">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 ring-2 ring-slate-900"></div>
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-400 to-purple-500 ring-2 ring-slate-900"></div>
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 ring-2 ring-slate-900"></div>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-700 text-xs font-semibold text-white ring-2 ring-slate-900">
-                    +
-                  </div>
-                </div>
-                <span>{t("tools_join_25000_happy_users_worldwide")}</span>
-              </div>
-
-              <div className="text-xs text-slate-500">
-                {t("tools_built_with_by_developers_for_developers")}
-              </div>
+            <div className="text-xs text-slate-500">
+              {t("tools_built_with_by_developers_for_developers")}
             </div>
           </div>
         </div>

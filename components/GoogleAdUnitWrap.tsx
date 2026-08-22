@@ -5,11 +5,14 @@ import React, { useEffect, useRef } from "react"
 const ADS_CLIENT = "ca-pub-2108246014001009"
 const ADS_SLOT = "5811688701"
 const ADS_SCRIPT_SRC = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT}`
+const ADS_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true"
 
 export default function GoogleAdUnitWrap() {
   const adRef = useRef<HTMLModElement>(null)
 
   useEffect(() => {
+    if (!ADS_ENABLED) return
+
     let isCancelled = false
 
     const ensureAdSenseScript = async () => {
@@ -57,6 +60,8 @@ export default function GoogleAdUnitWrap() {
       clearTimeout(timer)
     }
   }, [])
+
+  if (!ADS_ENABLED) return null
 
   return (
     <div className="flex w-full justify-center overflow-x-auto py-2 md:py-4">

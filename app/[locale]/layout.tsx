@@ -11,13 +11,10 @@ import { Metadata } from "next"
 import SiteFooter from "@/components/SiteFooter"
 import { NextIntlClientProvider } from "next-intl"
 import { hasLocale } from "next-intl"
-import { routing, supportedLocales } from "../i18n/routing"
+import { routing } from "../i18n/routing"
 import { notFound } from "next/navigation"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
-import { toolsData } from "@/data/toolsData"
-import Script from "next/script"
 import ClarityTracker from "../../components/ClarityTracker"
-
 
 export const revalidate = 86400 // 24 hours
 
@@ -114,42 +111,8 @@ export default async function RootLayout({
 
   const messages = await getMessages()
 
-  // Generate JSON-LD Structured Data
-  const t = await getTranslations("HomePage")
+  // Generate sitewide JSON-LD structured data.
   const baseUrl = "https://decimaltools.com"
-  const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}`
-
-  const popularTools = toolsData.map((tool, index) => ({
-    "@type": "SoftwareApplication",
-    position: index + 1,
-    name: tool.title,
-    description: tool.description,
-    url: `${baseUrl}${locale === "en" ? "" : `/${locale}`}${tool.href}`,
-    applicationCategory: `${tool.category}Application`,
-    operatingSystem: "Any",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "1000",
-    },
-  }))
-
-  const localeMap: Record<string, string> = {
-    en: "en-US",
-    ja: "ja-JP",
-    ko: "ko-KR",
-    no: "nb-NO",
-    "zh-cn": "zh-CN",
-    da: "da-DK",
-  }
-
-  const inLanguage = localeMap[locale] || "en-US"
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -165,72 +128,20 @@ export default async function RootLayout({
           width: 512,
           height: 512,
         },
-        sameAs: ["https://github.com/decimaltools", "https://twitter.com/decimaltools"],
-        contactPoint: {
-          "@type": "ContactPoint",
-          contactType: "Customer Service",
-          availableLanguage: ["en", "ja", "ko", "zh-cn", "no", "da"],
-        },
+        sameAs: [
+          "https://github.com/geekskai",
+          "https://twitter.com/GeeksKai",
+          "https://www.linkedin.com/in/geekskai",
+        ],
       },
       {
         "@type": "WebSite",
         "@id": `${baseUrl}/#website`,
         url: baseUrl,
         name: "DecimalTools",
-        description: t("home_seo_description"),
         publisher: {
           "@id": `${baseUrl}/#organization`,
         },
-        inLanguage: inLanguage,
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${baseUrl}${locale === "en" ? "" : `/${locale}`}/tools?q={search_term_string}`,
-          },
-          "query-input": "required name=search_term_string",
-        },
-      },
-      {
-        "@type": "WebPage",
-        "@id": `${url}#webpage`,
-        url: url,
-        name: t("home_seo_title"),
-        description: t("home_seo_description"),
-        isPartOf: {
-          "@id": `${baseUrl}/#website`,
-        },
-        about: {
-          "@id": `${baseUrl}/#organization`,
-        },
-        primaryImageOfPage: {
-          "@type": "ImageObject",
-          url: `${baseUrl}/static/images/og/decimaltools-home.png`,
-        },
-        breadcrumb: {
-          "@id": `${url}#breadcrumb`,
-        },
-        inLanguage: inLanguage,
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${url}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: url,
-          },
-        ],
-      },
-      {
-        "@type": "ItemList",
-        "@id": `${url}#tools`,
-        name: t("footer_popular_tools"),
-        description: t("footer_description"),
-        numberOfItems: toolsData.length.toString(),
-        itemListElement: popularTools,
       },
     ],
   }
@@ -266,13 +177,7 @@ export default async function RootLayout({
         {/* JSON-LD Structured Data - Must be in body to avoid hydration error */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {/* External Scripts using Next.js Script component */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2108246014001009"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ClarityTracker />
