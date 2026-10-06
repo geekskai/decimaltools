@@ -17,6 +17,11 @@ module.exports = () => {
     async redirects() {
       return [
         {
+          source: "/blog/page/1",
+          destination: "/blog",
+          permanent: true,
+        },
+        {
           source: "/:path*/feed.xml/",
           destination: "/:path*/feed.xml",
           permanent: true,

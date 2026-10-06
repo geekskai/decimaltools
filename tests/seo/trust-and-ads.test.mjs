@@ -1,3 +1,4 @@
+import { buildSiteSchema } from "../../lib/seo.ts"
 import assert from "node:assert/strict"
 import { readdir, readFile } from "node:fs/promises"
 import path from "node:path"
@@ -27,11 +28,12 @@ test("source does not publish unverified audience or rating claims", async () =>
 })
 
 test("sitewide schema contains only organization and website entities", async () => {
-  const layout = await readFile(path.join(projectRoot, "app/[locale]/layout.tsx"), "utf8")
-
-  assert.match(layout, /"@type": "Organization"/)
-  assert.match(layout, /"@type": "WebSite"/)
-  assert.doesNotMatch(layout, /"@type": "WebPage"|"@type": "ItemList"/)
+  const schema = buildSiteSchema()
+  assert.deepEqual(
+    schema["@graph"].map((entity) => entity["@type"]),
+    ["Organization", "WebSite"]
+  )
+  assert.equal(schema["@graph"][1].publisher["@id"], schema["@graph"][0]["@id"])
 })
 
 test("AdSense remains disabled until explicitly enabled after approval", async () => {

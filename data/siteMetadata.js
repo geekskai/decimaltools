@@ -10,7 +10,7 @@ const siteMetadata = {
   siteUrl: "https://decimaltools.com",
   siteRepo: "https://github.com/geekskai/decimaltools",
   siteLogo: `${process.env.BASE_PATH || ""}/static/decimaltools.png`,
-  socialBanner: `${process.env.BASE_PATH || ""}/static/images/geekskai-blog.png`,
+  socialBanner: `${process.env.BASE_PATH || ""}/og/home`,
   mastodon: "https://mastodon.social/@mastodonuser",
   email: "geeks.kai@gmail.com",
   github: "https://github.com/geekskai",

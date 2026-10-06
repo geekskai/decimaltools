@@ -1,3 +1,5 @@
+import { genPageMetadata, getCanonicalUrl, SEO_ENTITY_IDS, serializeJsonLd } from "@/lib/seo"
+import { getPublishedPosts } from "@/lib/blog-seo"
 import "css/prism.css"
 import "katex/dist/katex.css"
 
@@ -19,66 +21,38 @@ export async function generateMetadata({
 }): Promise<Metadata | undefined> {
   const { slug: slugSegments } = await params
   const slug = decodeURI(slugSegments.join("/"))
-  const post = allBlogs.find((p) => p.slug === slug)
-  const authorList = post?.authors || ["default"]
-  const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Authors)
-  })
+  const post = getPublishedPosts(allBlogs).find((p) => p.slug === slug)
   if (!post) {
     return
   }
 
-  const publishedAt = new Date(post.date).toISOString()
-  const modifiedAt = new Date(post.lastmod || post.date).toISOString()
-  const authors = authorDetails.map((author) => author.name)
-  let imageList = [siteMetadata.socialBanner]
-  if (post.images) {
-    imageList = typeof post.images === "string" ? [post.images] : post.images
-  }
-  const ogImages = imageList.map((img) => {
-    return {
-      url: img.includes("http") ? img : siteMetadata.siteUrl + img,
-    }
-  })
-
-  return {
+  const canonical = getCanonicalUrl(post.canonicalUrl || `/${post.path}`)
+  const image = Array.isArray(post.images) ? post.images[0] : post.images
+  return genPageMetadata({
+    path: canonical,
     title: post.title,
     description: post.summary,
-    keywords: post.keywords,
+    image: image || siteMetadata.socialBanner,
     openGraph: {
-      title: post.title,
-      description: post.summary,
-      siteName: siteMetadata.title,
-      locale: "en_US",
       type: "article",
-      publishedTime: publishedAt,
-      modifiedTime: modifiedAt,
-      url: "./",
-      images: ogImages,
-      authors: authors.length > 0 ? authors : [siteMetadata.author],
+      publishedTime: new Date(post.date).toISOString(),
+      modifiedTime: new Date(post.lastmod || post.date).toISOString(),
+      authors: [getCanonicalUrl("/about")],
     },
-    other: {
-      "application/ld+json": [JSON.stringify(post.structuredData)],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.summary,
-      images: imageList,
-    },
-  }
+  })
 }
 
 export const generateStaticParams = async () => {
-  return allBlogs.map((p) => ({ slug: p.slug.split("/").map((name) => decodeURI(name)) }))
+  return getPublishedPosts(allBlogs).map((p) => ({
+    slug: p.slug.split("/").map((name) => decodeURI(name)),
+  }))
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug: slugSegments } = await params
   const slug = decodeURI(slugSegments.join("/"))
   // Filter out drafts in production
-  const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
+  const sortedCoreContents = allCoreContent(sortPosts(getPublishedPosts(allBlogs)))
   const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
   if (postIndex === -1) {
     return notFound()
@@ -86,27 +60,33 @@ export default async function Page({ params }: { params: Promise<{ slug: string[
 
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
-  const post = allBlogs.find((p) => p.slug === slug) as Blog
+  const post = getPublishedPosts(allBlogs).find((p) => p.slug === slug) as Blog
   const authorList = post?.authors || ["default"]
   const authorDetails = authorList.map((author) => {
     const authorResults = allAuthors.find((p) => p.slug === author)
     return coreContent(authorResults as Authors)
   })
   const mainContent = coreContent(post)
-  const jsonLd = post.structuredData
-  jsonLd["author"] = authorDetails.map((author) => {
-    return {
+  const canonical = getCanonicalUrl(post.canonicalUrl || `/${post.path}`)
+  const jsonLd = {
+    ...post.structuredData,
+    "@id": `${canonical}#article`,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    isPartOf: { "@id": SEO_ENTITY_IDS.website },
+    author: authorDetails.map((author) => ({
       "@type": "Person",
+      "@id": SEO_ENTITY_IDS.author,
       name: author.name,
-      url: siteMetadata.siteUrl + author.avatar,
-    }
-  })
+      url: getCanonicalUrl("/about"),
+    })),
+  }
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <PostLayout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
         <Suspense fallback={<div>Loading content...</div>}>

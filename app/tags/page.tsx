@@ -1,17 +1,20 @@
+import { serializeJsonLd } from "@/lib/seo"
 import Link from "@/components/Link"
 import Tag from "@/components/Tag"
 import { slug } from "github-slugger"
-import tagData from "app/tag-data.json"
+import { allBlogs } from "contentlayer/generated"
+import { getPublishedPosts, getPublishedTagCounts } from "@/lib/blog-seo"
 import { genPageMetadata } from "app/seo"
 import siteMetadata from "@/data/siteMetadata"
 
-const tagCounts = tagData as Record<string, number>
+const tagCounts = getPublishedTagCounts(allBlogs)
 const totalTags = Object.keys(tagCounts).length
-const totalPosts = Object.values(tagCounts).reduce((sum, count) => sum + count, 0)
+const totalPosts = getPublishedPosts(allBlogs).length
 
 export const metadata = genPageMetadata({
+  path: "/tags",
   title: "Tags - Browse All Blog Topics",
-  description: `Browse all ${totalTags} tags and explore ${totalPosts} articles organized by topics on ${siteMetadata.title}. Find content about technology, programming, AI tools, and more.`,
+  description: `Browse all ${totalTags} tags and explore ${totalPosts} articles organized by topics on ${siteMetadata.title}. Find content about fractions, measurement and decimal conversions.`,
   keywords: [
     "blog tags",
     "content categories",
@@ -21,11 +24,9 @@ export const metadata = genPageMetadata({
     "article tags",
   ],
   alternates: {
-    canonical: "https://decimaltools.com/tags/",
+    canonical: "https://decimaltools.com/tags",
   },
   other: {
-    "last-modified": new Date().toISOString(),
-    "update-frequency": "weekly",
     "total-tags": totalTags.toString(),
     "total-posts": totalPosts.toString(),
   },
@@ -50,7 +51,7 @@ export default async function Page() {
         "@type": "ListItem",
         position: 2,
         name: "Tags",
-        item: `${siteMetadata.siteUrl}/tags/`,
+        item: `${siteMetadata.siteUrl}/tags`,
       },
     ],
   }
@@ -60,7 +61,7 @@ export default async function Page() {
     "@type": "CollectionPage",
     name: "Tags - Browse All Blog Topics",
     description: `Browse all ${totalTags} tags and explore ${totalPosts} articles organized by topics`,
-    url: `${siteMetadata.siteUrl}/tags/`,
+    url: `${siteMetadata.siteUrl}/tags`,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: totalTags,
@@ -70,7 +71,7 @@ export default async function Page() {
         item: {
           "@type": "CollectionPage",
           name: tag,
-          url: `${siteMetadata.siteUrl}/tags/${slug(tag)}/`,
+          url: `${siteMetadata.siteUrl}/tags/${slug(tag)}`,
           description: `${tagCounts[tag]} ${tagCounts[tag] === 1 ? "article" : "articles"} tagged with "${tag}"`,
         },
       })),
@@ -82,11 +83,11 @@ export default async function Page() {
       {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(collectionPageSchema) }}
       />
 
       {/* Core Facts Section for AI Extraction */}
@@ -100,8 +101,8 @@ export default async function Page() {
               <p className="text-slate-300">
                 Explore <strong>{totalTags}</strong> tags covering <strong>{totalPosts}</strong>{" "}
                 {totalPosts === 1 ? "article" : "articles"} on {siteMetadata.title}. Find content
-                organized by topics including <strong>technology</strong>,{" "}
-                <strong>programming</strong>, <strong>AI tools</strong>, and more.
+                organized by topics including <strong>fractions</strong>,{" "}
+                <strong>measurement</strong>, and <strong>decimal conversions</strong>.
               </p>
             </div>
             <div className="flex flex-col gap-2 text-sm text-slate-400">
@@ -129,7 +130,7 @@ export default async function Page() {
               <div key={t} className="mb-2 mr-5 mt-2">
                 <Tag text={t} />
                 <Link
-                  href={`/tags/${slug(t)}/`}
+                  href={`/tags/${slug(t)}`}
                   className="-ml-2 text-sm font-semibold uppercase text-stone-300"
                   aria-label={`View ${tagCounts[t]} ${tagCounts[t] === 1 ? "post" : "posts"} tagged ${t}`}
                 >

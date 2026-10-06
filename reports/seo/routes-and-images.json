@@ -1,0 +1,181 @@
+{
+  "routes": [
+    {
+      "path": "/blog/page/1",
+      "expectedStatus": 308,
+      "status": 308,
+      "location": "/blog",
+      "result": "PASS"
+    },
+    {
+      "path": "/blog/page/0",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/blog/page/2",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/blog/page/1oops",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/tools/as-a-decimal/2-4",
+      "expectedStatus": 308,
+      "status": 308,
+      "location": "/tools/as-a-decimal/1-2",
+      "result": "PASS"
+    },
+    {
+      "path": "/tools/as-a-decimal/1-2",
+      "expectedStatus": 200,
+      "status": 200,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/tools/as-a-decimal/0-2",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/tools/as-a-decimal/999-1000",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    },
+    {
+      "path": "/en/tools",
+      "expectedStatus": 307,
+      "status": 307,
+      "location": "/tools",
+      "result": "PASS"
+    },
+    {
+      "path": "/tools/",
+      "expectedStatus": 308,
+      "status": 308,
+      "location": "/tools",
+      "result": "PASS"
+    },
+    {
+      "path": "/og/unknown",
+      "expectedStatus": 404,
+      "status": 404,
+      "location": null,
+      "result": "PASS"
+    }
+  ],
+  "images": [
+    {
+      "slug": "home",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "tools",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "decimal-to-char",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "decimal-to-millimeter",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "decimal-to-inches-calculator",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "millimeters-to-decimal",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "hexa-to-decimal",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "inches-to-decimals",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "gauge-to-decimal",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "decimal-to-text",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "convert-inches-to-decimal",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "fraction-to-decimal",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "hours-to-decimal-calculator",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    },
+    {
+      "slug": "time-to-decimal-converter",
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import SiteSchema from "@/components/SiteSchema"
 import "css/tailwind.css"
 import "pliny/search/algolia.css"
 import "remark-github-blockquote-alert/alert.css"
@@ -6,72 +7,17 @@ import { SearchProvider, SearchConfig } from "pliny/search"
 import Header from "@/components/Header"
 import SectionContainer from "@/components/SectionContainer"
 import siteMetadata from "@/data/siteMetadata"
-import { Metadata } from "next"
 import SiteFooter from "@/components/SiteFooter"
 import { NextIntlClientProvider } from "next-intl"
+import { setRequestLocale } from "next-intl/server"
 
 export const revalidate = 86400 // 24 hours
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  // const { locale } = await params
-  // const t = await getTranslations("BlogPage")
-
-  const metadata: Metadata = {
-    metadataBase: new URL(siteMetadata.siteUrl),
-    title: {
-      default: siteMetadata.title,
-      template: `%s`,
-    },
-    description: siteMetadata.description,
-    openGraph: {
-      title: siteMetadata.title,
-      description: siteMetadata.description,
-      url: "./",
-      siteName: siteMetadata.title,
-      images: [siteMetadata.socialBanner],
-      locale: "en_US",
-      type: "website",
-    },
-    alternates: {
-      canonical: "./",
-      // languages: {
-      //   "x-default": "https://decimaltools.com/blog",
-      // },
-      types: {
-        "application/rss+xml": `${siteMetadata.siteUrl}/feed.xml`,
-      },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
-    twitter: {
-      title: siteMetadata.title,
-      card: "summary_large_image",
-      images: [siteMetadata.socialBanner],
-    },
-  }
-  return metadata
-}
-
-export default async function RootLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: { locale: string }
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  setRequestLocale("en")
   const basePath = process.env.BASE_PATH || ""
-  const { locale } = await params
   return (
-    <html lang={locale} className={`scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth`} suppressHydrationWarning>
       <link rel="apple-touch-icon" sizes="76x76" href={`${basePath}/static/decimaltools.png`} />
       <link
         rel="icon"
@@ -97,7 +43,8 @@ export default async function RootLayout({
       <meta name="msapplication-TileColor" content="#000000" />
       <link rel="alternate" type="application/rss+xml" href={`${basePath}/feed.xml`} />
       <body className="min-h-screen bg-gradient-to-b from-[#020617] via-[#0a0f1f] to-[#000D1A]/90 pl-[calc(100vw-100%)] text-white antialiased">
-        <NextIntlClientProvider>
+        <SiteSchema />
+        <NextIntlClientProvider locale="en">
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
             <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>

@@ -1,7 +1,9 @@
+import { getCanonicalUrl, SEO_ENTITY_IDS } from "./lib/seo"
+import { getPublishedPosts, getPublishedTagCounts } from "./lib/blog-seo"
+import type { Blog as BlogDocument } from "contentlayer/generated"
 import { defineDocumentType, ComputedFields, makeSource } from "contentlayer2/source-files"
 import { writeFileSync } from "fs"
 import readingTime from "reading-time"
-import { slug } from "github-slugger"
 import path from "path"
 import { fromHtmlIsomorphic } from "hast-util-from-html-isomorphic"
 // Remark packages
@@ -25,7 +27,6 @@ import siteMetadata from "./data/siteMetadata"
 import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js"
 
 const root = process.cwd()
-const isProduction = process.env.NODE_ENV === "production"
 
 // heroicon mini link
 const icon = fromHtmlIsomorphic(
@@ -60,31 +61,19 @@ const computedFields: ComputedFields = {
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
-function createTagCount(allBlogs) {
-  const tagCount: Record<string, number> = {}
-  allBlogs.forEach((file) => {
-    if (file.tags && (!isProduction || file.draft !== true)) {
-      file.tags.forEach((tag) => {
-        const formattedTag = slug(tag)
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1
-        } else {
-          tagCount[formattedTag] = 1
-        }
-      })
-    }
-  })
+function createTagCount(allBlogs: BlogDocument[]) {
+  const tagCount = getPublishedTagCounts(allBlogs)
   writeFileSync("./app/tag-data.json", JSON.stringify(tagCount))
 }
 
-function createSearchIndex(allBlogs) {
+function createSearchIndex(allBlogs: BlogDocument[]) {
   if (
     siteMetadata?.search?.provider === "kbar" &&
     siteMetadata.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
       `public/${path.basename(siteMetadata.search.kbarConfig.searchDocumentsPath)}`,
-      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+      JSON.stringify(allCoreContent(sortPosts(getPublishedPosts(allBlogs))))
     )
     console.log("Local search index generated...")
   }
@@ -107,11 +96,6 @@ export const Blog = defineDocumentType(() => ({
     layout: { type: "string" },
     bibliography: { type: "string" },
     canonicalUrl: { type: "string" },
-    // 添加 FAQ 字段
-    faqs: {
-      type: "json",
-      default: [],
-    },
   },
   computedFields: {
     ...computedFields,
@@ -124,23 +108,24 @@ export const Blog = defineDocumentType(() => ({
         // 构建基础数据
         const baseStructuredData = {
           "@context": "https://schema.org",
-          "@type": doc.faqs?.length > 0 ? ["BlogPosting", "FAQPage"] : "BlogPosting",
+          "@type": "BlogPosting",
           headline: doc.title,
           datePublished: doc.date,
           dateModified: doc.lastmod || doc.date,
           description: doc.summary,
-          url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}/`,
+          url: getCanonicalUrl(doc.canonicalUrl || `/${doc._raw.flattenedPath}`),
           // 优化图片结构
           image: {
             "@type": "ImageObject",
-            url: siteMetadata.siteUrl + imageSrc,
+            url: new URL(imageSrc, siteMetadata.siteUrl).toString(),
             width: 1200,
             height: 630,
           },
           // 添加发布者信息
           publisher: {
+            "@id": SEO_ENTITY_IDS.organization,
             "@type": "Organization",
-            name: siteMetadata.title,
+            name: "DecimalTools",
             logo: {
               "@type": "ImageObject",
               url: `${siteMetadata.siteUrl}/static/decimaltools.png`,
@@ -148,29 +133,6 @@ export const Blog = defineDocumentType(() => ({
               height: 112,
             },
           },
-        }
-
-        // 检查 faqs 是否有数据
-        const hasFaqs =
-          doc.faqs &&
-          typeof doc.faqs === "object" &&
-          Array.isArray(doc.faqs._array || doc.faqs) &&
-          (doc.faqs._array || doc.faqs).length > 0
-
-        if (hasFaqs) {
-          const faqsArray = doc.faqs._array || doc.faqs
-          return {
-            ...baseStructuredData,
-            "@type": ["BlogPosting", "FAQPage"],
-            mainEntity: faqsArray.map((faq) => ({
-              "@type": "Question",
-              name: faq.question,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: faq.answer,
-              },
-            })),
-          }
         }
 
         return baseStructuredData

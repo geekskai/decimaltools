@@ -37,8 +37,8 @@
     "projects_description": "Here are some of the projects I have worked on."
   },
   "ToolsPage": {
-    "tools_seo_title": "Free Tools that supercharge your workflow",
-    "tools_seo_description": "Discover powerful, free online tools crafted for developers, creators, and innovators.",
+    "tools_seo_title": "Free Decimal, Measurement & Time Converters | DecimalTools",
+    "tools_seo_description": "Choose from 12 free tools for fractions, decimal inches, millimeters, time and character codes. Compare features and find the converter for your task.",
     "tools_seo_keywords": "Tools that your workflow",
     "tools_free_tools": "Free Tools",
     "tools_always_updated": "Always Updated",
@@ -79,8 +79,8 @@
     "tools_built_with_by_developers_for_developers": "Built with ❤️ by developers, for developers"
   },
   "ConvertInchesToDecimal": {
-    "seo_title": "Convert Inches to Decimal - Free Fraction to Decimal Calculator Tool",
-    "seo_description": "Convert inches to decimal instantly with our free calculator. Transform fractional inches (5 3/4) to decimal inches (5.75) for construction, woodworking & manufacturing. Mobile-optimized, works offline.",
+    "seo_title": "Inches to Decimal Converter with Visual Ruler | DecimalTools",
+    "seo_description": "Convert fractional inches to decimal inches and back. Check measurements on a visual ruler, choose precision, and reuse recent conversions.",
     "seo_keywords": "convert inches to decimal, inches to decimal converter, fraction to decimal inches, fractional inches calculator, decimal inches converter, construction measurement converter, woodworking decimal converter, imperial to decimal converter, fraction calculator tool, decimal conversion calculator, construction measurement tools, job site calculator, mobile fraction converter",
     "breadcrumb": {
       "home": "Home",
@@ -1021,8 +1021,8 @@
     }
   },
   "DecimalToInchesCalculator": {
-    "seo_title": "Decimal to Inches Calculator - Decimal to Fraction Inch Converter | DecimalTools",
-    "seo_description": "Convert decimal inches into exact and nearest fractions with 1/4 to 1/64 precision, rounding direction controls, feet-inch formatting, and digital ruler mapping.",
+    "seo_title": "Decimal Inches to Fractions & Tape Measure | DecimalTools",
+    "seo_description": "Convert decimal inches to exact or nearest tape-measure fractions. Select 1/4 to 1/64 precision, rounding direction and feet-inch output.",
     "seo_keywords": "decimal to inches calculator, decimal to fraction inches, inch fraction converter, woodworking decimal to fraction, machinist inch converter, tape measure fraction calculator",
     "breadcrumb": {
       "home": "Home",
@@ -1240,8 +1240,8 @@
     }
   },
   "InchesToDecimals": {
-    "seo_title": "Inches to Decimals Converter - Fraction and Mixed Inch Calculator | DecimalTools",
-    "seo_description": "Convert fractional inches like 5/8 or 1 3/4 into decimal inches instantly. Includes mixed-number parser, quick fraction grid, auto-copy mode, and mm preview.",
+    "seo_title": "Fractional Inches to Decimals: Quick Input & Chart | DecimalTools",
+    "seo_description": "Turn fractions and mixed inches into decimal inches with a quick fraction grid, auto-copy option and millimeter preview. Choose up to 6 decimal places.",
     "seo_keywords": "inches to decimals, fraction to decimal inches, mixed inches converter, 5/8 to decimal, woodworking inch decimal calculator",
     "breadcrumb": {
       "home": "Home",

@@ -1,12 +1,25 @@
+import { serializeJsonLd } from "@/lib/seo"
+import { genPageMetadata, getShareImageUrl } from "@/lib/seo"
+import { getPublishedPosts } from "@/lib/blog-seo"
 import { sortPosts, allCoreContent } from "pliny/utils/contentlayer"
 import { allBlogs } from "contentlayer/generated"
 import Main from "../Main"
 import { getTranslations } from "next-intl/server"
 
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "HomePage" })
+  return genPageMetadata({
+    path: "/",
+    title: t("home_seo_title"),
+    description: t("home_seo_description"),
+  })
+}
+
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "HomePage" })
-  const sortedPosts = sortPosts(allBlogs)
+  const sortedPosts = sortPosts(getPublishedPosts(allBlogs))
   const posts = allCoreContent(sortedPosts)
   const baseUrl = "https://decimaltools.com"
   const url = `${baseUrl}${locale === "en" ? "" : `/${locale}`}`
@@ -29,7 +42,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
     about: { "@id": `${baseUrl}/#organization` },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${baseUrl}/static/images/og/decimaltools-home.png`,
+      url: getShareImageUrl(),
     },
     inLanguage: localeMap[locale] || "en-US",
   }
@@ -39,7 +52,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          __html: serializeJsonLd(structuredData),
         }}
       />
       <Main posts={posts} />

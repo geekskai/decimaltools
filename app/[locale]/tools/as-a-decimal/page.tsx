@@ -1,3 +1,5 @@
+import { serializeJsonLd } from "@/lib/seo"
+import { getShareImageUrl } from "@/lib/seo"
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/app/i18n/navigation"
@@ -13,7 +15,7 @@ import {
 import siteMetadata from "@/data/siteMetadata"
 
 type PageProps = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 function getLocalizedHubPath(locale: string): string {
@@ -42,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "DecimalTools",
       images: [
         {
-          url: "/static/images/og/decimaltools-home.png",
+          url: getShareImageUrl("fraction-to-decimal"),
           width: 1200,
           height: 630,
           alt: t("hub.title"),
@@ -53,7 +55,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: t("hub.seo_title"),
       description: t("hub.seo_description"),
-      images: ["/static/images/og/decimaltools-home.png"],
+      images: [getShareImageUrl("fraction-to-decimal")],
     },
     robots: {
       index: true,
@@ -123,18 +125,6 @@ export default async function AsADecimalHubPage({ params }: PageProps) {
       url: `${siteMetadata.siteUrl}${getPseoPath(fraction.numerator, fraction.denominator)}`,
     })),
   }
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  }
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -164,19 +154,16 @@ export default async function AsADecimalHubPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(collectionPageSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(itemListSchema) }}
       />
+
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
       />
 
       <div className="py-10 sm:py-12">

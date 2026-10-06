@@ -1,9 +1,10 @@
+import { serializeJsonLd } from "@/lib/seo"
 import { slug } from "github-slugger"
 import { allCoreContent, sortPosts } from "pliny/utils/contentlayer"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayoutWithTags from "@/layouts/ListLayoutWithTags"
 import { allBlogs } from "contentlayer/generated"
-import tagData from "app/tag-data.json"
+import { getPublishedPosts, getPublishedTagCounts } from "@/lib/blog-seo"
 import { genPageMetadata } from "app/seo"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -16,11 +17,16 @@ export async function generateMetadata({
   const { tag: rawTag } = await params
   const tag = decodeURI(rawTag)
   const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
+    sortPosts(
+      getPublishedPosts(allBlogs).filter(
+        (post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)
+      )
+    )
   )
 
   if (filteredPosts.length === 0) {
     return genPageMetadata({
+      path: `/tags/${tag}`,
       title: `${tag} - Tag Not Found`,
       description: `Tag "${tag}" not found on ${siteMetadata.title}`,
     })
@@ -31,6 +37,7 @@ export async function generateMetadata({
   const description = `Explore ${postCount} ${postCount === 1 ? "article" : "articles"} tagged with "${capitalizedTag}" on ${siteMetadata.title}. Discover in-depth content, tutorials, and insights about ${tag}.`
 
   return genPageMetadata({
+    path: `/tags/${tag}`,
     title: `${capitalizedTag} - Tag Archive`,
     description,
     keywords: [
@@ -51,15 +58,13 @@ export async function generateMetadata({
       },
     },
     other: {
-      "last-modified": new Date().toISOString(),
-      "update-frequency": "weekly",
       "article-count": postCount.toString(),
     },
   })
 }
 
 export const generateStaticParams = async () => {
-  const tagCounts = tagData as Record<string, number>
+  const tagCounts = getPublishedTagCounts(allBlogs)
   const tagKeys = Object.keys(tagCounts)
   const paths = tagKeys.map((tag) => ({
     tag: encodeURI(tag),
@@ -73,7 +78,11 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
   // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(" ").join("-").slice(1)
   const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
+    sortPosts(
+      getPublishedPosts(allBlogs).filter(
+        (post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)
+      )
+    )
   )
   if (filteredPosts.length === 0) {
     return notFound()
@@ -97,13 +106,13 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
         "@type": "ListItem",
         position: 2,
         name: "Tags",
-        item: `${siteMetadata.siteUrl}/tags/`,
+        item: `${siteMetadata.siteUrl}/tags`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: capitalizedTag,
-        item: `${siteMetadata.siteUrl}/tags/${tag}/`,
+        item: `${siteMetadata.siteUrl}/tags/${tag}`,
       },
     ],
   }
@@ -113,7 +122,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
     "@type": "CollectionPage",
     name: `${capitalizedTag} - Tag Archive`,
     description: `Collection of ${postCount} ${postCount === 1 ? "article" : "articles"} tagged with "${capitalizedTag}"`,
-    url: `${siteMetadata.siteUrl}/tags/${tag}/`,
+    url: `${siteMetadata.siteUrl}/tags/${tag}`,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: postCount,
@@ -136,11 +145,11 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
       {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(collectionPageSchema) }}
       />
 
       <ListLayoutWithTags posts={filteredPosts} title={title}>

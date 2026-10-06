@@ -1,3 +1,5 @@
+import { serializeJsonLd } from "@/lib/seo"
+import { getShareImageUrl } from "@/lib/seo"
 import type { Metadata } from "next"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound, permanentRedirect } from "next/navigation"
@@ -9,13 +11,12 @@ import {
   getPseoPath,
   getPseoSlug,
   getRelatedPseoFractions,
-  isPseoWhitelisted,
   PSEO_CONTENT_VERSION,
   PSEO_ENABLED_LOCALES,
   PSEO_LAST_MODIFIED_DATE,
   pseoFractionPairs,
 } from "@/data/pseo-fractions"
-import { getFractionPageModel } from "@/lib/fraction-math"
+import { getLocalizedFractionPath, resolveFractionPageRoute } from "@/lib/fraction-page-route"
 import FractionConverter from "../../fraction-to-decimal/components/FractionConverter"
 
 type PageParams = {
@@ -24,77 +25,7 @@ type PageParams = {
 }
 
 type PageProps = {
-  params: PageParams
-}
-
-function parsePositiveInteger(value: string): number | null {
-  const parsed = Number(value)
-  if (!Number.isInteger(parsed) || parsed <= 0) {
-    return null
-  }
-
-  return parsed
-}
-
-function parseFractionSlug(slug: string): { numerator: number; denominator: number } | null {
-  const parts = slug.split("-")
-  if (parts.length !== 2) {
-    return null
-  }
-
-  const numerator = parsePositiveInteger(parts[0])
-  const denominator = parsePositiveInteger(parts[1])
-  if (!numerator || !denominator) {
-    return null
-  }
-
-  return { numerator, denominator }
-}
-
-function isEnabledLocale(locale: string): boolean {
-  return PSEO_ENABLED_LOCALES.includes(locale as (typeof PSEO_ENABLED_LOCALES)[number])
-}
-
-function getLocalizedPath(locale: string, numerator: number, denominator: number): string {
-  const path = getPseoPath(numerator, denominator)
-  return locale === "en" ? path : `/${locale}${path}`
-}
-
-function getCanonicalUrl(locale: string, numerator: number, denominator: number): string {
-  return `${siteMetadata.siteUrl}${getLocalizedPath(locale, numerator, denominator)}`
-}
-
-function resolvePageState(params: PageParams) {
-  if (!isEnabledLocale(params.locale)) {
-    return null
-  }
-
-  const pair = parseFractionSlug(params.slug)
-  if (!pair) {
-    return null
-  }
-
-  const model = getFractionPageModel(pair.numerator, pair.denominator)
-  if (!model) {
-    return null
-  }
-
-  const canonicalNumerator = model.canonicalNumerator
-  const canonicalDenominator = model.canonicalDenominator
-  const canonicalSlug = getPseoSlug(canonicalNumerator, canonicalDenominator)
-  const isCanonical = params.slug === canonicalSlug
-  const isWhitelisted = isPseoWhitelisted(canonicalNumerator, canonicalDenominator)
-
-  return {
-    locale: params.locale,
-    model,
-    canonicalNumerator,
-    canonicalDenominator,
-    isCanonical,
-    isWhitelisted,
-    canonicalPath: getLocalizedPath(params.locale, canonicalNumerator, canonicalDenominator),
-    canonicalUrl: getCanonicalUrl(params.locale, canonicalNumerator, canonicalDenominator),
-  }
+  params: Promise<PageParams>
 }
 
 export function generateStaticParams() {
@@ -110,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const resolvedParams = await params
   const { locale } = resolvedParams
   setRequestLocale(locale)
-  const state = resolvePageState(resolvedParams)
+  const state = resolveFractionPageRoute(resolvedParams)
 
   if (!state || !state.isWhitelisted) {
     return {
@@ -157,7 +88,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "DecimalTools",
       images: [
         {
-          url: "/static/images/og/decimaltools-home.png",
+          url: getShareImageUrl("fraction-to-decimal"),
           width: 1200,
           height: 630,
           alt: "DecimalTools",
@@ -175,7 +106,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         denominator: canonicalDenominator,
         decimal,
       }),
-      images: ["/static/images/og/decimaltools-home.png"],
+      images: [getShareImageUrl("fraction-to-decimal")],
     },
     robots: {
       index: true,
@@ -191,7 +122,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
   const resolvedParams = await params
   const { locale } = resolvedParams
   setRequestLocale(locale)
-  const state = resolvePageState(resolvedParams)
+  const state = resolveFractionPageRoute(resolvedParams)
 
   if (!state || !state.isWhitelisted) {
     notFound()
@@ -298,19 +229,6 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
     ],
   }
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  }
-
   return (
     <div className="py-10 sm:py-12">
       <div className="mx-auto max-w-7xl space-y-8">
@@ -354,7 +272,11 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
               {featuredLinks.map((fraction) => (
                 <Link
                   key={`${fraction.numerator}/${fraction.denominator}`}
-                  href={getLocalizedPath(state.locale, fraction.numerator, fraction.denominator)}
+                  href={getLocalizedFractionPath({
+                    locale: state.locale,
+                    numerator: fraction.numerator,
+                    denominator: fraction.denominator,
+                  })}
                   className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
                 >
                   {fraction.numerator}/{fraction.denominator}
@@ -385,7 +307,11 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
               {relatedFractions.map((fraction) => (
                 <Link
                   key={`${fraction.numerator}/${fraction.denominator}`}
-                  href={getLocalizedPath(state.locale, fraction.numerator, fraction.denominator)}
+                  href={getLocalizedFractionPath({
+                    locale: state.locale,
+                    numerator: fraction.numerator,
+                    denominator: fraction.denominator,
+                  })}
                   className="rounded-full border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
                 >
                   {fraction.numerator}/{fraction.denominator}
@@ -419,11 +345,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbSchema) }}
       />
     </div>
   )

@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo"
 import { Authors, allAuthors } from "contentlayer/generated"
 import { MDXLayoutRenderer } from "pliny/mdx-components"
 import AuthorLayout from "@/layouts/AuthorLayout"
@@ -7,9 +8,10 @@ import siteMetadata from "@/data/siteMetadata"
 
 const ABOUT_TITLE = "About DecimalTools"
 const ABOUT_DESCRIPTION =
-  "DecimalTools offers free AI-powered tools and online utilities for productivity, code, and conversions. Learn what we build, who maintains the site, and how to contact us."
+  "Free decimal, fraction, measurement, time and character-code converters, maintained by Geeks Kai. Learn about DecimalTools and how to contact us."
 
 export const metadata = genPageMetadata({
+  path: "/about",
   title: ABOUT_TITLE,
   description: ABOUT_DESCRIPTION,
   openGraph: {
@@ -52,7 +54,9 @@ export default function Page() {
       siteMetadata.linkedin,
     ].filter(Boolean),
     founder: {
+      "@id": `${siteUrl}/about#person`,
       "@type": "Person",
+      url: `${siteUrl}/about`,
       name: mainContent.name,
       email: mainContent.email,
       sameAs: [mainContent.github, mainContent.linkedin, mainContent.twitter].filter(Boolean),
@@ -80,7 +84,7 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeJsonLd({
             ...organizationJsonLd,
             "@id": `${siteUrl}/#organization`,
           }),
@@ -88,7 +92,7 @@ export default function Page() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webpageJsonLd) }}
       />
       <AuthorLayout content={mainContent} heading={ABOUT_TITLE}>
         <MDXLayoutRenderer code={author.body.code} />

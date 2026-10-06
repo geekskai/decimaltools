@@ -11,6 +11,8 @@
     "indexnow:dry": "node ./scripts/submit-indexnow.mjs --dry-run",
     "indexnow:verbose": "node ./scripts/submit-indexnow.mjs --verbose",
     "test:drill-reference": "node --test tests/drill-reference/*.test.mjs",
+    "seo:audit": "node ./scripts/seo-audit.mjs",
+    "test:seo": "node --test tests/seo/*.test.mjs",
     "test:p0": "node --test tests/seo/*.test.mjs",
     "serve": "next start",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",

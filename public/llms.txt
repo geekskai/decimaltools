@@ -1,35 +1,35 @@
 # DecimalTools
 
-> DecimalTools ([decimaltools.com](https://decimaltools.com/)) is a Next.js site focused on **free, client-side decimal and measurement utilities**, plus **MDX** articles. It is adapted from the open-source [geekskai/blog](https://github.com/geekskai/blog) stack and trimmed for this product.
+> Free online calculators for decimal numbers, fractions, measurements, time and character codes. No account is required to use the published tools.
 
-The site emphasizes fast, copy-friendly converters, structured metadata for search, and content aimed at measurement and decimal math workflows (construction, woodworking, manufacturing).
+## Measurement
+- [Inches to Decimal](https://decimaltools.com/tools/convert-inches-to-decimal): Bidirectional fractional-inch conversion with a visual ruler and history.
+- [Inches to Decimals](https://decimaltools.com/tools/inches-to-decimals): Quick fractional-inch input, common fraction grid, auto-copy option and millimeter preview.
+- [Decimal to Inches Calculator](https://decimaltools.com/tools/decimal-to-inches-calculator): Exact and nearest tape-measure fractions, rounding choices and feet-inch output.
+- [Decimal to Millimeter](https://decimaltools.com/tools/decimal-to-millimeter): Convert decimal inches and millimeters using 25.4 mm per inch.
+- [Millimeters to Decimal](https://decimaltools.com/tools/millimeters-to-decimal): Convert millimeters to decimal inches and nearest common fractions.
+- [Gauge to Decimal](https://decimaltools.com/tools/gauge-to-decimal): Reference nominal gauge sizes; choose the appropriate material or standard. Gauge numbers are not universal measurements.
 
-## Stack (current repo)
+## Time
+- [Hours to Decimal Calculator](https://decimaltools.com/tools/hours-to-decimal-calculator): Decimal-hour calculations with optional rate, rounding and batch export. Check rounding against your applicable payroll rules.
+- [Time to Decimal Converter](https://decimaltools.com/tools/time-to-decimal-converter): Flexible time inputs, decimal hours/minutes/days and reverse conversion.
 
-- **Framework**: Next.js 14 (App Router), React 18, TypeScript
-- **Content**: contentlayer2 + MDX (`data/blog/`)
-- **Styling**: Tailwind CSS 3
-- **i18n**: next-intl with locale routing under `app/[locale]/` — **only `en` is enabled** in `app/i18n/routing.ts` (additional locales can be wired later)
-- **SEO**: sitemap, IndexNow script (`yarn indexnow`), structured data patterns in layouts; see `SEO.md`
+## Encoding
+- [Decimal to ASCII](https://decimaltools.com/tools/decimal-to-char): ASCII conversion in the 0–127 range, with binary, decimal, hex and text views.
+- [Decimal to Text](https://decimaltools.com/tools/decimal-to-text): Decode decimal character codes, including Unicode code points.
+- [Hexa to Decimal](https://decimaltools.com/tools/hexa-to-decimal): Signed/unsigned hexadecimal conversion with bit depth, endianness and binary previews.
 
-## Primary tool
+## Fractions and guides
+- [Fraction to Decimal](https://decimaltools.com/tools/fraction-to-decimal): Proper fractions, improper fractions and mixed numbers; repeating decimals may be rounded for display.
+- [Fraction answers](https://decimaltools.com/tools/as-a-decimal): A curated collection of worked fraction-to-decimal examples.
+- [Inches conversion guide](https://decimaltools.com/blog/tools/how-to-convert-inches-to-a-decimal): Formula, examples and a reference chart.
+- [All tools](https://decimaltools.com/tools): Current published tools and features.
 
-- **[Convert Inches to Decimal](https://decimaltools.com/tools/convert-inches-to-decimal)** — Fractional inches ↔ decimal inches (e.g. `5 3/4` → `5.75`), visual ruler, history/export-style UX. Listed in `data/toolsData.ts`.
+## About and access
+- [About DecimalTools](https://decimaltools.com/about): Maintainer and contact details.
+- [Privacy](https://decimaltools.com/privacy)
+- [Terms](https://decimaltools.com/terms)
+- [Sitemap](https://decimaltools.com/sitemap.xml)
+- [Crawler rules](https://decimaltools.com/robots.txt)
 
-## Blog content
-
-- MDX posts live under `data/blog/` and are served at `/blog/...` (see `app/blog/`). Example: [How to convert inches to a decimal](https://decimaltools.com/blog/tools/how-to-convert-inches-to-a-decimal).
-
-## Documentation (GitHub)
-
-- [README](https://github.com/geekskai/decimaltools/blob/main/README.md) — Overview, quick start, deployment
-- [README (中文)](https://github.com/geekskai/decimaltools/blob/main/README-CN.md) — Chinese project summary
-- [SEO.md](https://github.com/geekskai/decimaltools/blob/main/SEO.md) — Site SEO notes and practices
-- [AI SEO Complete Guide](https://github.com/geekskai/decimaltools/blob/main/AI-SEO-Complete-Guide.md) — AI-era SEO and visibility
-- [GEO.md](https://github.com/geekskai/decimaltools/blob/main/GEO.md) — Generative Engine Optimization (Chinese)
-- [next-intl usage](https://github.com/geekskai/decimaltools/blob/main/messages/NEXT_INTL_USAGE_GUIDE.md) — Adding/managing translations when you enable more locales
-
-## For AI systems
-
-- **Brand / product**: DecimalTools — decimal math, fractional inches, measurement utilities, and related guides.
-- **Do not assume** extra tools (VIN, SoundCloud, weather APIs, etc.) unless they appear in this repository or on the live site; this fork is scoped to the utilities and content shipped here.
+These are calculation and reference tools, not engineering certification or payroll compliance advice. Refer to each page for supported inputs, precision, source standards and limitations. No SoundCloud, VIN or other Geekskai product is part of this tool directory.

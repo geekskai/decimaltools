@@ -17,9 +17,8 @@ import { useTranslations } from "next-intl"
  * @param namespace - Translation namespace for i18n (e.g., "PrintTestPage", "SoundCloudToWAV")
  * @param className - Optional additional CSS classes
  *
- * Based on AI-SEO-Complete-Guide.md best practices:
- * - Content freshness is the strongest AI ranking signal
- * - 30-90 day update cycle performs best
+ * Shows the date of the last substantive content update.
+ * Age alone does not determine accuracy or search visibility.
  *
  * @example
  * ```tsx
