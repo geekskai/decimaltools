@@ -34,9 +34,9 @@ const PrivacyPolicy = () => {
                 privacy rights and how the law protects You.
               </p>
               <p>
-                We use Your Personal data to provide and improve the Service. By using the Service,
-                You agree to the collection and use of information in accordance with this Privacy
-                Policy.
+                This site provides online calculators and converters. Information handled by a tool
+                depends on the feature and your browser; do not enter sensitive information unless
+                you are comfortable with that processing.
               </p>
             </div>
             <h2 className="mb-4 mt-12 text-2xl font-semibold text-gray-900">
@@ -53,27 +53,6 @@ const PrivacyPolicy = () => {
             <ul className="list-disc space-y-2 pl-6 text-gray-700">
               <li>
                 <p>
-                  <strong>Account</strong> means a unique account created for You to access our
-                  Service or parts of our Service.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Affiliate</strong> means an entity that controls, is controlled by or is
-                  under common control with a party, where &quot;control&quot; means ownership of
-                  50% or more of the shares, equity interest or other securities entitled to vote
-                  for election of directors or other managing authority.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Company</strong> (referred to as either &quot;the Company&quot;,
-                  &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to{" "}
-                  <strong>DecimalTools</strong>, the service operated at decimaltools.com.
-                </p>
-              </li>
-              <li>
-                <p>
                   <strong>Cookies</strong> are small files that are placed on Your computer, mobile
                   device or any other device by a website, containing the details of Your browsing
                   history on that website among its many uses.
@@ -81,7 +60,7 @@ const PrivacyPolicy = () => {
               </li>
               <li>
                 <p>
-                  <strong>Country</strong> refers to: New York, United States
+                  <strong>Country</strong> refers to the country or region where the user is located.
                 </p>
               </li>
               <li>
@@ -99,15 +78,6 @@ const PrivacyPolicy = () => {
               <li>
                 <p>
                   <strong>Service</strong> refers to the Website.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <strong>Service Provider</strong> means any natural or legal person who processes
-                  the data on behalf of the Company. It refers to third-party companies or
-                  individuals employed by the Company to facilitate the Service, to provide the
-                  Service on behalf of the Company, to perform services related to the Service or to
-                  assist the Company in analyzing how the Service is used.
                 </p>
               </li>
               <li>
@@ -145,23 +115,14 @@ const PrivacyPolicy = () => {
             <h3 className="mb-3 mt-8 text-xl font-semibold text-gray-900">
               Types of Data Collected
             </h3>
-            <h4 className="mb-2 mt-6 text-lg font-semibold text-gray-900">Personal Data</h4>
+            <h4 className="mb-2 mt-6 text-lg font-semibold text-gray-900">Information You Provide</h4>
             <p className="mb-4 text-gray-700">
-              While using Our Service, We may ask You to provide Us with certain personally
-              identifiable information that can be used to contact or identify You. Personally
-              identifiable information may include, but is not limited to:
+              The calculators do not require an account. If you contact us by email, we receive the
+              address and message you choose to send. Some tools process entered values in your
+              browser; server logs and third-party tools may process technical request information.
+              We have not verified the production configuration for every optional service, so
+              contact us with questions about a specific tool or data request.
             </p>
-            <ul className="list-disc space-y-2 pl-6 text-gray-700">
-              <li>
-                <p>Email address</p>
-              </li>
-              <li>
-                <p>First name and last name</p>
-              </li>
-              <li>
-                <p>Usage Data</p>
-              </li>
-            </ul>
 
             <h2 className="mb-4 mt-12 text-2xl font-semibold text-gray-900">
               Third-party Services
@@ -172,22 +133,24 @@ const PrivacyPolicy = () => {
             <ul className="list-disc space-y-2 pl-6 text-gray-700">
               <li>
                 <p>
-                  <strong>Umami (analytics)</strong>
+                  <strong>Microsoft Clarity (analytics)</strong>
                   <br />
-                  1. Purpose: Privacy-focused, aggregated website traffic and usage statistics
+                  1. Purpose: Understand how visitors use the site and improve its pages
                   <br />
-                  2. Data collected: Page views, referrers, and general device/browser metadata as
-                  configured by our analytics provider (no cookies required for basic operation)
+                  2. Clarity may use cookies and similar technologies and process interaction,
+                  device, and browsing information according to the site's Clarity configuration.
+                  Whether text typed into a particular tool is collected depends on configured
+                  masking and tracking behavior, which should be confirmed before publication.
                   <br />
                   3. More information:{" "}
                   <Link
-                    href="https://umami.is/privacy"
+                    href="https://privacy.microsoft.com/en-us/privacystatement"
                     rel="external nofollow noopener"
                     target="_blank"
                     className="text-primary-500 hover:text-primary-400"
-                    aria-label="Umami privacy policy link"
+                    aria-label="Microsoft Privacy Statement"
                   >
-                    Umami privacy policy
+                    Microsoft Privacy Statement
                   </Link>
                 </p>
               </li>
@@ -195,10 +158,14 @@ const PrivacyPolicy = () => {
                 <p>
                   <strong>Google AdSense</strong>
                   <br />
-                  1. Purpose: Display advertisements
+                  1. Purpose: Display and measure advertisements, including personalized ads where
+                  enabled and permitted
                   <br />
-                  2. Data collected: May include ad delivery and relevance signals as described by
-                  Google
+                  2. Google and its advertising partners may use cookies or similar technologies
+                  to serve, measure, and personalize ads. See Google's information about{" "}
+                  <Link href="https://policies.google.com/technologies/ads?hl=en" rel="external nofollow noopener" target="_blank" className="text-primary-500 hover:text-primary-400">advertising technologies</Link>{" "}
+                  and{" "}
+                  <Link href="https://adssettings.google.com/" rel="external nofollow noopener" target="_blank" className="text-primary-500 hover:text-primary-400">ad personalization settings</Link>.
                   <br />
                   3. More information:{" "}
                   <Link
@@ -216,18 +183,20 @@ const PrivacyPolicy = () => {
 
             <h2 className="mb-4 mt-12 text-2xl font-semibold text-gray-900">Cookie Policy</h2>
             <p className="mb-4 text-gray-700">
-              Our website uses cookies to enhance your browsing experience:
+              Cookies or similar technologies may be used for site functionality, analytics, or
+              advertising depending on the services enabled in the deployed configuration:
             </p>
             <ul className="list-disc space-y-2 pl-6 text-gray-700">
               <li>Essential cookies: Required for website functionality</li>
-              <li>Analytics cookies: Help us understand how visitors use our site</li>
-              <li>Advertising cookies: Used to deliver relevant advertisements</li>
+              <li>Analytics technologies: Help the enabled analytics provider understand site use</li>
+              <li>Advertising technologies: Support ad delivery, measurement, and personalization</li>
             </ul>
             <p className="mb-4 text-gray-700">
-              You can manage your cookie preferences through your browser settings.
+              You can manage cookies in your browser. Google ad personalization can also be managed
+              through the Google Ads Settings link above. Availability of controls depends on your
+              location and the services enabled on the site.
             </p>
 
-            {/* The rest of the content follows the same pattern... */}
             <h2 className="mb-4 mt-12 text-2xl font-semibold text-gray-900">Contact Us</h2>
             <p className="mb-4 text-gray-700">
               If you have any questions about this Privacy Policy, You can contact us:

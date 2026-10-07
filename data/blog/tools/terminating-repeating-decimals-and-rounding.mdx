@@ -1,0 +1,44 @@
+---
+title: "Terminating Decimals, Repeating Decimals, and Rounding"
+date: "2026-10-07"
+lastmod: "2026-10-07"
+tags: ["Fractions", "Math", "Tutorials"]
+draft: false
+summary: "Learn when a fraction terminates or repeats, how to find the repeating digits with long division, and why rounding early can change later calculations."
+keywords: ["terminating decimals", "repeating decimals", "rounding fractions", "fraction to decimal"]
+layout: "PostLayout"
+canonicalUrl: "https://decimaltools.com/blog/tools/terminating-repeating-decimals-and-rounding"
+authors: ["default"]
+---
+
+A reduced fraction has a terminating decimal exactly when its denominator has no prime factors other than 2 and 5. For example, $3/8 = 0.375$ terminates because $8 = 2^3$. By contrast, $1/3 = 0.333\ldots$ repeats because the reduced denominator includes a factor other than 2 or 5.
+
+Long division shows the reason: each decimal digit leaves a remainder. If a remainder reaches zero, the decimal ends. If a nonzero remainder appears again, the same digits repeat from that point. For $5/6$, the digits are $0.8\overline{3}$: the 8 is non-repeating and the 3 repeats.
+
+An exact fraction and a displayed decimal can have different precision. For example, to three places, $1/3 \approx 0.333$; the approximation sign matters because $0.333$ is not equal to $1/3$. Rounding early can also change a later result: multiplying the rounded $0.333$ by 3 gives $0.999$, while the exact fraction gives 1.
+
+## Predict whether a reduced fraction terminates
+
+First reduce the fraction. Then factor its denominator. If every prime factor is 2 or 5, the decimal terminates; if any other prime factor remains, the decimal repeats. For example, $7/20$ is already reduced and $20 = 2^2 × 5$, so it terminates as 0.35. But $7/12$ has a denominator of $2^2 × 3$, so its decimal repeats: 0.58\overline{3}.
+
+The reason is that a terminating decimal can be written with a denominator that is a power of 10. Since $10^n = 2^n × 5^n$, a reduced denominator must use only 2s and 5s to divide some power of 10. The number of places needed depends on how many of those factors are required. For $3/40$, the denominator $40 = 2^3 × 5$ becomes 1000 after multiplying by 25, so $3/40 = 75/1000 = 0.075$.
+
+## Use remainders to locate the repeating block
+
+In long division, each step multiplies the current remainder by 10 and records the next digit. If the remainder becomes zero, there are no more nonzero digits. If a remainder repeats, the division is back in the same state, so the following digits repeat from the same point.
+
+For $5/6$, the first step gives digit 8 and remainder 2. The next step gives digit 3 and remainder 2 again. Since the remainder 2 has returned, the 3 repeats: $5/6 = 0.8\overline{3}$. For $1/7$, long division cycles through six nonzero remainders before returning to its start, producing the six-digit cycle 142857.
+
+This method distinguishes a repeating block that starts immediately, as in $1/3 = 0.\overline{3}$, from one with a non-repeating prefix, as in $5/6 = 0.8\overline{3}$. A rounded decimal may hide the cycle, so keep the fraction when exactness matters.
+
+## Round only when a display precision is needed
+
+The exact value of $1/3$ is the fraction $1/3$. Its three-place decimal display is approximately 0.333. Treating that rounded display as exact changes subsequent arithmetic: $0.333 × 3 = 0.999$, while $(1/3) × 3 = 1$. Carry the exact fraction, or enough unrounded precision, through intermediate steps and round at the point specified by the task.
+
+Rounding and truncation are different. Rounding examines the digit after the last place to keep; truncation simply cuts off later digits. For a positive value rounded to three decimal places, 2/3 becomes 0.667 because the next digit after 0.666 is 6. A tool's selected display precision controls what it shows; it does not change the exact rational value represented by the input fraction. OpenStax's [section on decimals](https://openstax.org/books/intermediate-algebra-2e/pages/1-4-decimals) explains decimal notation and fraction conversion.
+
+## Choose a useful precision
+
+For a homework check, follow the requested number of places. For measurement, use the tolerance or resolution in the drawing or instrument specification. More digits do not automatically mean a measurement is more accurate, and rounding a displayed value does not add information that was absent from the original measurement.
+
+The [fraction to decimal calculator](/tools/fraction-to-decimal) accepts non-negative fractions and mixed numbers, labels repeating results, and offers display precision controls. For a practical time example with a fractional hour, see [why 1:30 is 1.5 hours](/blog/tools/why-1-30-hours-is-1-5). The calculator does not decide a grading policy or engineering tolerance; use the requirements for your task.

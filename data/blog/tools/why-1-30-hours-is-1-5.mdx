@@ -1,0 +1,46 @@
+---
+title: "Why 1:30 Is 1.5 Hours, Not 1.30"
+date: "2026-10-07"
+lastmod: "2026-10-07"
+tags: ["Time", "Tutorials"]
+draft: false
+summary: "Learn why 1:30 equals 1.5 decimal hours, how to convert minutes and seconds, and how to check your result with a simple reverse calculation."
+keywords: ["1:30 to decimal hours", "minutes to decimal hours", "time to decimal"]
+layout: "PostLayout"
+canonicalUrl: "https://decimaltools.com/blog/tools/why-1-30-hours-is-1-5"
+authors: ["default"]
+---
+
+When a time entry is written as **1:30**, the 30 means 30 minutes. A decimal-hour value uses a base-10 fraction of one hour. Since one hour contains 60 minutes, convert the minutes by dividing by 60:
+
+$$1 + \frac{30}{60} = 1 + 0.5 = 1.5\text{ hours}$$
+
+The colon notation is hours and minutes; the digits after a decimal point are tenths or hundredths of an hour. That is why **1:30 is not 1.30 hours**. In fact, 1.30 decimal hours is 1 hour plus 0.30 × 60 = 18 minutes, or **1:18**.
+
+For another example, **2:45** is $2 + 45/60 = 2.75$ hours. Check by converting the decimal part back to minutes: $0.75 × 60 = 45$.
+
+## A repeatable conversion method
+
+For a time written as hours and minutes, use:
+
+`decimal hours = hours + (minutes ÷ 60)`
+
+For hours, minutes, and seconds, use:
+
+`decimal hours = hours + (minutes ÷ 60) + (seconds ÷ 3600)`
+
+Work through the parts separately. For **3:12**, divide 12 by 60 to get 0.2, then add the 3 whole hours: **3.2 hours**. For **0:20:30**, 20 minutes is $20/60 = 0.3333…$ hours and 30 seconds is $30/3600 = 0.00833…$ hours, so the exact total is $41/120$ hours, approximately **0.3417 hours**. The final decimal is rounded here to four places.
+
+## Check the answer in the other direction
+
+Multiply only the fractional part of a decimal hour by 60 to recover minutes. For **1.75 hours**, the whole part is 1 hour and $0.75 × 60 = 45$ minutes, giving **1:45**. If the multiplication produces a fraction of a minute, convert that fraction to seconds by multiplying by 60 again. For example, 0.1 minute is 6 seconds.
+
+This reverse check catches a common mistake: reading the decimal digits as minutes. It also helps distinguish a rounded display from an exact time. Four decimal places may be enough for some calculations, but the needed precision depends on the task and its rounding rules.
+
+## Input formats and boundaries
+
+Colon notation such as `1:30` commonly represents hours and minutes, but longer forms may include seconds, and some systems use a colon for other conventions. Check the labels or interpretation shown by the tool before using a result. A clock time such as 2:30 PM is a time of day; an elapsed duration of 2 hours 30 minutes is a different kind of value.
+
+For a negative duration, payroll record, or billing entry, follow the system's signed-time convention and the applicable workplace rules. This conversion explains the arithmetic; it does not determine how an organization rounds, pays, or records time. NIST's [Guide to the SI](https://www.nist.gov/pml/special-publication-811/nist-guide-si-chapter-5-units-outside-si) states that one hour is 60 minutes and 3,600 seconds.
+
+Common mistakes include dividing minutes by 100, or adding the minute digits directly after a decimal point. Minutes are out of 60, so always calculate `minutes ÷ 60`. Use the [time to decimal converter](/tools/time-to-decimal-converter) for entries that include minutes and seconds, and read [how to distinguish a terminating decimal from a repeating one](/blog/tools/terminating-repeating-decimals-and-rounding) when a conversion produces a repeating value.

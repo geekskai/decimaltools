@@ -64,14 +64,15 @@ export default function GoogleAdUnitWrap() {
   if (!ADS_ENABLED) return null
 
   return (
-    <div className="flex w-full justify-center overflow-x-auto py-2 md:py-4">
+    <div className="mx-auto w-full max-w-full py-2 md:py-4">
       <ins
         ref={adRef}
         className="adsbygoogle"
         style={{
-          display: "inline-block",
-          width: "728px",
-          height: "90px",
+          display: "block",
+          width: "100%",
+          height: "auto",
+          minHeight: "90px",
         }}
         data-ad-client={ADS_CLIENT}
         data-ad-slot={ADS_SLOT}

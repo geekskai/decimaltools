@@ -10,6 +10,11 @@ export interface FractionPageModel {
   fractionLabel: string
   inputString: string
   core: MathConversionCore
+  longDivision: Array<{ digit: number; remainder: number }>
+  repeatingStart: number | null
+  exactDecimalPlaces: number | null
+  wholePart: number
+  remainderNumerator: number
 }
 
 /**
@@ -36,6 +41,25 @@ export function getFractionPageModel(
   }
 
   const core = mathParsedToConversion(inputString, parsed.value, 12)
+  const wholePart = Math.floor(parsed.value.reducedNumerator / parsed.value.reducedDenominator)
+  const remainderNumerator = parsed.value.reducedNumerator % parsed.value.reducedDenominator
+  let remainder = parsed.value.reducedNumerator % parsed.value.reducedDenominator
+  const seenRemainders = new Map<number, number>()
+  const longDivision: Array<{ digit: number; remainder: number }> = []
+  let repeatingStart: number | null = null
+  while (remainder !== 0) {
+    const seenAt = seenRemainders.get(remainder)
+    if (seenAt !== undefined) {
+      repeatingStart = seenAt
+      break
+    }
+    seenRemainders.set(remainder, longDivision.length)
+    const scaledRemainder = remainder * 10
+    const digit = Math.floor(scaledRemainder / parsed.value.reducedDenominator)
+    remainder = scaledRemainder % parsed.value.reducedDenominator
+    longDivision.push({ digit, remainder })
+  }
+  const exactDecimalPlaces = remainder === 0 ? longDivision.length : null
   return {
     numerator,
     denominator,
@@ -44,5 +68,10 @@ export function getFractionPageModel(
     fractionLabel: `${parsed.value.reducedNumerator}/${parsed.value.reducedDenominator}`,
     inputString,
     core,
+    longDivision,
+    repeatingStart,
+    exactDecimalPlaces,
+    wholePart,
+    remainderNumerator,
   }
 }

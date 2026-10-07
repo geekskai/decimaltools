@@ -135,6 +135,9 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
   const t = await getTranslations({ locale: state.locale, namespace: "FractionToDecimal" })
   const { model, canonicalNumerator, canonicalDenominator, canonicalUrl } = state
   const decimal = model.core.formattedDecimal
+  const divisionDigits = model.longDivision.map(({ digit }) => digit).join("")
+  const repeatingDigits =
+    model.repeatingStart === null ? null : divisionDigits.slice(model.repeatingStart)
   const inputString = `${canonicalNumerator}/${canonicalDenominator}`
   const relatedFractions = getRelatedPseoFractions(canonicalNumerator, canonicalDenominator)
   const featuredLinks = featuredPseoFractions
@@ -258,11 +261,31 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
           <article className="rounded-3xl border border-slate-700/60 bg-slate-900/60 p-6 backdrop-blur sm:p-8">
             <h2 className="text-2xl font-semibold text-white">{t("pseo.how_title")}</h2>
             <p className="mt-3 text-slate-300">
-              {t("pseo.how_body", {
-                numerator: canonicalNumerator,
-                denominator: canonicalDenominator,
-                decimal,
-              })}
+              Divide {canonicalNumerator} by {canonicalDenominator} using integer long division. The
+              whole-number part is {model.wholePart}; the remaining fraction is {model.remainderNumerator}/
+              {canonicalDenominator}.
+            </p>
+            <ol className="mt-4 space-y-2 text-sm leading-6 text-slate-300">
+              {model.longDivision.map(({ digit, remainder }, index) => (
+                <li key={index}>
+                  Bring down a zero: remainder × 10 gives the next decimal digit {digit}; the new
+                  remainder is {remainder}.
+                </li>
+              ))}
+            </ol>
+            <p className="mt-4 text-sm leading-6 text-slate-300">
+              {model.core.isTerminating
+                ? `The remainder reaches zero after ${model.exactDecimalPlaces} decimal places, so ${inputString} = ${decimal} exactly.`
+                : `The remainder repeats, so the decimal repeats${repeatingDigits ? ` with ${repeatingDigits} as the repeating cycle` : ""}. The displayed value ${decimal} is rounded; the exact value remains ${inputString}.`}
+            </p>
+            {model.wholePart > 0 && model.remainderNumerator > 0 ? (
+              <p className="mt-3 text-sm leading-6 text-slate-300">
+                As a mixed-number decomposition: {canonicalNumerator}/{canonicalDenominator} = {model.wholePart} + {model.remainderNumerator}/{canonicalDenominator}.
+              </p>
+            ) : null}
+            <p className="mt-3 text-sm leading-6 text-slate-300">
+              Check: {model.wholePart} × {canonicalDenominator} + {model.remainderNumerator} = {canonicalNumerator},
+              so the quotient and remainder reconstruct the original fraction.
             </p>
           </article>
 
