@@ -167,14 +167,14 @@ export const toolsData: ToolData[] = [
     id: "inches-to-decimals",
     title: "Inches to Decimals",
     description:
-      "Convert fractions and mixed inches into decimal values with up to 6 places, quick fraction grid, auto-copy mode, and metric millimeter preview.",
+      "Look up fractional inches, decimal inches and millimeters in a conversion chart, or copy mixed-inch results for CAD and spreadsheets.",
     icon: Ruler,
     href: "/tools/inches-to-decimals",
     features: [
       "Smart parser for 5/8, 1 3/4, and 1-3/4 input styles",
       "Live decimal inch output plus millimeter conversion",
       "Auto-copy toggle for rapid spreadsheet/CAD data entry",
-      "Quick-pick grid from 1/2 through 1/64 fractions",
+      "Fraction, decimal-inch and mm chart with increments through 1/64",
     ],
     badge: "CAD",
     badgeColor: "bg-cyan-500",
@@ -239,14 +239,14 @@ export const toolsData: ToolData[] = [
     id: "convert-inches-to-decimal",
     title: "Convert Inches to Decimal",
     description:
-      "Professional inches to decimal converter for construction, woodworking, and manufacturing. Convert fractional inches (5 3/4) to decimal inches (5.75) instantly with visual ruler and precision control.",
+      "Convert fractional and mixed inches to decimal inches with a visual ruler, 1 to 6 decimal places, and a basic decimal-to-fraction mode.",
     icon: Ruler,
     href: "/tools/convert-inches-to-decimal",
     features: [
       "Bidirectional Fraction ↔ Decimal Conversion",
       "Visual Ruler with Measurements",
       "Mobile-Optimized for Job Sites",
-      "Conversion History & Export",
+      "Copy Conversion Results",
     ],
     badge: "Professional",
     badgeColor: "bg-orange-500",
