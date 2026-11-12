@@ -146,7 +146,6 @@ export default function InchesToDecimalConverter() {
                   {[
                     { id: "converter", label: t("navigation_tabs.convert"), icon: "🔧" },
                     { id: "reference", label: t("navigation_tabs.reference"), icon: "📚" },
-                    { id: "history", label: t("navigation_tabs.history"), icon: "📊" },
                   ].map((tab) => (
                     <button
                       key={tab.id}
@@ -342,9 +341,6 @@ export default function InchesToDecimalConverter() {
               <h2 className="mb-3 text-xl font-bold text-white md:mb-4 md:text-2xl lg:text-3xl">
                 {t("geo_sections.core_facts_title")}
               </h2>
-              <p className="mb-4 text-sm leading-relaxed text-slate-300 md:mb-6 md:text-base">
-                {t("geo_sections.quick_answer_content")}
-              </p>
               <dl className="grid gap-4 md:grid-cols-2">
                 {coreFacts.map((fact) => (
                   <div
@@ -424,6 +420,18 @@ export default function InchesToDecimalConverter() {
                 <strong>{t("geo_sections.content_version_label")}</strong> {CONTENT_VERSION}
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
+                <Link
+                  href="/tools/inches-to-decimals"
+                  className="rounded-xl px-4 py-3 text-sm text-cyan-200 underline underline-offset-4"
+                >
+                  {t("geo_sections.related_chart")}
+                </Link>
+                <Link
+                  href="/tools/decimal-to-inches-calculator"
+                  className="rounded-xl px-4 py-3 text-sm text-cyan-200 underline underline-offset-4"
+                >
+                  {t("geo_sections.related_reverse")}
+                </Link>
                 <Link
                   href="/tools"
                   className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-200 transition-colors duration-300 hover:bg-emerald-500/20"
