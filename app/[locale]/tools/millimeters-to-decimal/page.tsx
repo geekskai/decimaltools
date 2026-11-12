@@ -33,6 +33,24 @@ export default async function MillimetersToDecimalPage() {
 
         <MillimetersToDecimalConverter />
 
+        <nav
+          aria-label="Related measurement tools"
+          className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 px-4"
+        >
+          <Link
+            href="/tools/decimal-to-millimeter"
+            className="block rounded-lg py-3 text-sm text-cyan-200 underline underline-offset-4"
+          >
+            {t("related_reverse")}
+          </Link>
+          <Link
+            href="/tools/inches-to-decimals"
+            className="block rounded-lg py-3 text-sm text-cyan-200 underline underline-offset-4"
+          >
+            {t("related_chart")}
+          </Link>
+        </nav>
+
         <section className="grid gap-3.5 md:grid-cols-2 md:gap-5 lg:gap-6">
           <article className="rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-4 sm:p-5 md:p-6 lg:p-7">
             <h2 className="text-lg font-semibold text-cyan-100 sm:text-xl">
