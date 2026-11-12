@@ -65,6 +65,18 @@ export default function DecimalToMillimeterPage() {
 
         <DecimalToMillimeterConverter />
 
+        <nav
+          aria-label="Related measurement tools"
+          className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 px-4"
+        >
+          <Link
+            href="/tools/millimeters-to-decimal"
+            className="block rounded-lg py-3 text-sm text-cyan-200 underline underline-offset-4"
+          >
+            {t("geo_sections.related_reverse")}
+          </Link>
+        </nav>
+
         <section className="grid gap-3.5 md:grid-cols-2 md:gap-5 lg:gap-6">
           <article className="rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-500/15 to-cyan-500/10 p-4 shadow-xl sm:p-5 md:p-7 lg:p-8">
             <h2 className="text-base font-bold text-white sm:text-lg md:text-2xl">
