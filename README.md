@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Site preview](/public/static/images/geekskai-blog.png)](https://decimaltools.com/)
+[![DecimalTools site preview](/public/static/images/og/decimaltools-home.png)](https://decimaltools.com/)
 
 [![GitHub stars](https://img.shields.io/github/stars/geekskai/decimaltools?style=social&label=Stars)](https://github.com/geekskai/decimaltools)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/decimaltools)
@@ -29,13 +29,13 @@ If the original blog template helped you, consider starring **[geekskai/blog](ht
 - **Tools** — Interactive calculators and converters (e.g. [Inches to Decimal](https://decimaltools.com/tools/convert-inches-to-decimal)), with UX tuned for quick copy-paste and reference.
 - **Content** — Blog-style **MDX** posts under `data/blog` (math via KaTeX, SEO metadata, optional FAQ front matter).
 - **i18n** — [next-intl](https://next-intl-docs.vercel.app/)–based locale routing under `app/[locale]`.
-- **Performance & SEO** — Next.js 14 App Router, static generation where configured, sitemap/IndexNow scripts as in repo.
+- **Performance & SEO** — Next.js 16.2.4 App Router, static generation where configured, sitemap/IndexNow scripts as in repo.
 
 ## Tech stack
 
 | Area | Stack |
 |------|--------|
-| Framework | **Next.js 14** (App Router), **React 18**, **TypeScript** |
+| Framework | **Next.js 16.2.4** (App Router), **React 18**, **TypeScript** |
 | Content | **contentlayer2** + **MDX** |
 | Styling | **Tailwind CSS 3** |
 | i18n | **next-intl** |

@@ -49,7 +49,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   <time dateTime={date}>
                     {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                   </time>
-                  |<span>{readingTime.minutes}</span>Mins Read
+                  |<span>{Math.ceil(readingTime.minutes)}</span>min read
                 </div>
               </dl>
               <div>

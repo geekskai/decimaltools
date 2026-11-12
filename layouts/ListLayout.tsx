@@ -86,7 +86,7 @@ export default function ListLayout({ posts, initialDisplayPosts = [] }: ListLayo
                     <div className="flex justify-between text-center">
                       <div className="flex flex-col gap-2 text-xs  font-medium leading-6 text-[#16f2b3] md:flex-row md:text-base">
                         <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                        <span>{readingTime.minutes} Mins Read</span>
+                        <span>{Math.ceil(readingTime.minutes)} min read</span>
                       </div>
                       <Link
                         href={`/${path}`}

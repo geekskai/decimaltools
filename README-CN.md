@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![DecimalTools 站点](/public/static/images/geekskai-blog.png)
+![DecimalTools 站点](/public/static/images/og/decimaltools-home.png)
 
 [![GitHub stars](https://img.shields.io/github/stars/geekskai/decimaltools?style=social&label=Stars)](https://github.com/geekskai/decimaltools)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/geekskai/decimaltools)
@@ -29,13 +29,13 @@
 - **工具**：交互式计算器与换算器（示例：[英寸转小数](https://decimaltools.com/tools/convert-inches-to-decimal/)）。
 - **内容**：`data/blog` 下的 **MDX** 文章（支持 KaTeX、front matter、FAQ 等）。
 - **国际化**：`app/[locale]` + [next-intl](https://next-intl-docs.vercel.app/) 多语言路由。
-- **性能与 SEO**：Next.js 14、静态生成策略以仓库配置为准；含站点地图、IndexNow 等脚本。
+- **性能与 SEO**：Next.js 16.2.4、静态生成策略以仓库配置为准；含站点地图、IndexNow 等脚本。
 
 ## 技术栈
 
 | 领域 | 技术 |
 |------|------|
-| 框架 | **Next.js 14**（App Router）、**React 18**、**TypeScript** |
+| 框架 | **Next.js 16.2.4**（App Router）、**React 18**、**TypeScript** |
 | 内容 | **contentlayer2**、**MDX** |
 | 样式 | **Tailwind CSS 3** |
 | 国际化 | **next-intl** |
