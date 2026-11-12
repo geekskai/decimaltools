@@ -89,11 +89,13 @@ function parseNaturalLanguage(input: string) {
 function parseNumericInput(input: string) {
   const normalized = input.toLowerCase().replace(/"/g, "").trim()
   if (!normalized) return { ok: false as const, error: "empty" as const }
+  if (/^[-−]/.test(normalized)) {
+    return { ok: false as const, error: "negative_not_supported" as const }
+  }
   if (normalized.includes("-")) {
     const asMixed = normalized.replace(/-/g, " ")
     return parseNumericInput(asMixed)
   }
-  if (normalized.startsWith("-")) return { ok: false as const, error: "negative_not_supported" as const }
 
   const natural = parseNaturalLanguage(normalized)
   if (natural) return { ok: true as const, value: natural }
