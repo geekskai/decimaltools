@@ -79,20 +79,20 @@
     "tools_built_with_by_developers_for_developers": "Built with ❤️ by developers, for developers"
   },
   "ConvertInchesToDecimal": {
-    "seo_title": "Inches to Decimal Converter with Visual Ruler | DecimalTools",
-    "seo_description": "Convert fractional inches to decimal inches and back. Check measurements on a visual ruler, choose precision, and reuse recent conversions.",
+    "seo_title": "Inches to Decimal Calculator with Visual Ruler | DecimalTools",
+    "seo_description": "Convert fractional and mixed inches to decimal inches. Choose 1 to 6 decimal places, check a visual ruler, or switch to decimal-to-fraction mode.",
     "seo_keywords": "convert inches to decimal, inches to decimal converter, fraction to decimal inches, fractional inches calculator, decimal inches converter, construction measurement converter, woodworking decimal converter, imperial to decimal converter, fraction calculator tool, decimal conversion calculator, construction measurement tools, job site calculator, mobile fraction converter",
     "breadcrumb": {
       "home": "Home",
       "tools": "Tools",
       "convert_inches_to_decimal": "Convert Inches to Decimal"
     },
-    "page_title": "Convert Inches to Decimal Instantly",
-    "page_subtitle": "Professional-grade fraction to decimal converter designed for construction, woodworking, and manufacturing. Mobile-optimized for job site use.",
+    "page_title": "Inches to Decimal Calculator with Visual Ruler",
+    "page_subtitle": "Enter a fraction or mixed measurement, choose decimal places, and check its position on the ruler.",
     "key_features": {
       "mobile_optimized": "Mobile Optimized",
-      "offline_capable": "Offline Capable",
-      "professional_grade": "Professional Grade",
+      "offline_capable": "Calculates in Your Browser",
+      "professional_grade": "1–6 Decimal Places",
       "free_forever": "Free Forever"
     },
     "navigation_tabs": {
@@ -220,35 +220,35 @@
     "educational_content": {
       "how_it_works": {
         "title": "How to Convert Inches to Decimal",
-        "description_1": "Our professional convert inches to decimal tool uses advanced parsing algorithms to understand various fraction formats commonly used in construction, woodworking, and manufacturing.",
-        "description_2": "Perfect for contractors, carpenters, and engineers who need to convert inches to decimal measurements like \"5 3/4\" to \"5.75\" quickly and accurately on job sites.",
+        "description_1": "Divide the numerator by the denominator, then add the whole inches: 5 + 3 ÷ 4 = 5.75 inches.",
+        "description_2": "Enter 5 3/4, 3/4, or 5.75. Use the reverse mode for a basic decimal-to-fraction result.",
         "feature_1": "Supports mixed numbers (5 3/4), simple fractions (3/4), and decimals",
         "feature_2": "Real-time conversion as you type",
         "feature_3": "Visual ruler for better understanding",
         "feature_4": "One-click copy for easy sharing"
       },
       "best_features": {
-        "title": "Best Inches to Decimal Converter Features",
+        "title": "Using the Calculator",
         "mobile_optimized": {
           "title": "Mobile Optimized",
-          "description": "Large touch targets and high contrast display perfect for job site use, even with work gloves."
+          "description": "Enter a measurement and read the decimal result on a phone or desktop."
         },
         "lightning_fast": {
-          "title": "Lightning Fast",
-          "description": "Instant conversions with no delays. Get your results in milliseconds, not seconds."
+          "title": "Live Results",
+          "description": "The result updates as you type a valid measurement."
         },
         "professional_accuracy": {
-          "title": "Professional Accuracy",
-          "description": "Designed for professionals who need precise measurements for construction, manufacturing, and woodworking projects."
+          "title": "Choose Display Precision",
+          "description": "Select 1 to 6 decimal places. Match the displayed precision to your drawing; extra digits do not improve the original measurement."
         }
       }
     },
     "trust_signals": {
-      "title": "Trusted by Construction Professionals Worldwide",
-      "description": "Join thousands of contractors, woodworkers, and engineers who rely on our convert inches to decimal calculator for accurate measurements and professional results.",
+      "title": "What This Calculator Provides",
+      "description": "Convert inch fractions locally in your browser, copy a result, and use the ruler as a visual guide.",
       "badge_1": "100% Free Forever",
       "badge_2": "No Registration Required",
-      "badge_3": "Works Offline",
+      "badge_3": "Browser Calculation",
       "badge_4": "Mobile & Desktop"
     },
     "validation_errors": {
@@ -279,7 +279,7 @@
     },
     "geo_sections": {
       "quick_answer_title": "Quick Answer",
-      "quick_answer_content": "Convert inches to decimal by dividing the fraction part and adding it to the whole number (for example, 5 3/4 = 5.75). This converter supports fraction-to-decimal and decimal-to-fraction workflows for construction, woodworking, and manufacturing measurements.",
+      "quick_answer_content": "To convert fractional inches to decimal inches, divide the numerator by the denominator and add any whole inches: 5 3/4 in = 5 + 3 ÷ 4 = 5.75 in.",
       "core_facts_title": "Core Facts",
       "core_facts": {
         "fact_1_label": "Pricing",
@@ -333,18 +333,20 @@
       "last_updated_label": "Last updated:",
       "content_version_label": "Content version:",
       "browse_all_tools": "Browse All Tools",
-      "related_tool_cm_tommer": "CM to Tommer Converter"
+      "related_tool_cm_tommer": "CM to Tommer Converter",
+      "related_chart": "Fraction, Decimal Inch & mm Chart",
+      "related_reverse": "Decimal Inches to Tape Fractions"
     },
     "structured_data": {
-      "app_name": "Convert Inches to Decimal Calculator",
-      "app_description": "Professional calculator to convert inches to decimal instantly. Transform fractional inches to decimal inches for construction, woodworking, and manufacturing professionals.",
+      "app_name": "Inches to Decimal Calculator with Visual Ruler",
+      "app_description": "Convert fractional and mixed inches to decimal inches with 1 to 6 decimal places, a visual ruler, and a basic reverse mode.",
       "feature_1": "Convert inches to decimal instantly",
       "feature_2": "Fractional to decimal inch conversion",
       "feature_3": "Visual ruler display with measurements",
       "feature_4": "Mobile-optimized interface for job sites",
-      "feature_5": "Offline functionality for construction sites",
-      "feature_6": "Conversion history and export",
-      "feature_7": "Professional-grade accuracy",
+      "feature_5": "Calculations run in the browser",
+      "feature_6": "Copy conversion results",
+      "feature_7": "Selectable decimal places",
       "feature_8": "Free calculator tool",
       "audience_type_1": "Construction Workers",
       "audience_type_2": "Woodworkers",
@@ -775,16 +777,16 @@
     }
   },
   "DecimalToMillimeter": {
-    "seo_title": "Decimal to Millimeter Converter - Inch to mm and mm to Inch | DecimalTools",
-    "seo_description": "Convert decimal inches to millimeters instantly with exact 25.4 factor. Also supports mm to inch conversion, fraction input, precision control, and one-tap copy.",
+    "seo_title": "Decimal Inches to Millimeters Calculator | DecimalTools",
+    "seo_description": "Convert decimal or fractional inches to millimeters using exactly 25.4 mm per inch. Choose 0, 2 or 4 display decimals, copy results, or reverse the conversion.",
     "seo_keywords": "decimal to millimeter, inch to mm converter, mm to inch converter, decimal inch conversion, 25.4 conversion, machinist unit converter",
     "breadcrumb": {
       "home": "Home",
       "tools": "Tools",
       "current": "Decimal to Millimeter"
     },
-    "page_title": "Decimal to Millimeter Converter",
-    "page_subtitle": "High-speed inch ↔ mm conversion for machining, QA checks, and manufacturing workflows. Uses exact 25.4 conversion logic with precision controls and copy-ready output.",
+    "page_title": "Decimal Inches to Millimeters Calculator",
+    "page_subtitle": "Convert decimal or fractional inches to millimeters. “Decimal” describes the number format; the input unit here is inches.",
     "structured_data": {
       "app_name": "Decimal to Millimeter Converter",
       "app_description": "Free online converter for decimal inches to millimeters and millimeters to inches using exact 25.4 conversion constant.",
@@ -807,9 +809,9 @@
       "helper_mm_to_inches": "Direction: Millimeters → Inches. Unit text like mm/in is automatically stripped.",
       "examples_title": "Quick examples",
       "precision_label": "Output precision",
-      "precision_standard": "Standard",
-      "precision_precision": "Precision",
-      "precision_rounded": "Rounded",
+      "precision_standard": "Standard (2 dp)",
+      "precision_precision": "Precision (4 dp)",
+      "precision_rounded": "Rounded (0 dp)",
       "result_label": "Conversion result",
       "output_value_label": "Output",
       "inches_label": "Inches reference",
@@ -838,9 +840,9 @@
     },
     "geo_sections": {
       "quick_answer_title": "Quick Answer",
-      "quick_answer_content": "To convert decimal inches to millimeters, multiply by 25.4. Example: 0.5 in = 12.7 mm. This tool also supports the reverse direction (mm to inch), fraction input, and live precision control.",
+      "quick_answer_content": "Multiply inches by 25.4 to get millimeters. The factor is exact: 5/8 in = 0.625 in = 15.875 mm. Standard displays 15.88 mm, Precision 15.8750 mm, and Rounded 16 mm.",
       "core_facts_title": "Core Facts",
-      "core_facts_intro": "Use this converter when you need fast, exact unit conversion between imperial and metric dimensions.",
+      "core_facts_intro": "The conversion factor is exact. The displayed result is rounded to your selected number of decimal places.",
       "core_facts": {
         "fact_1_label": "Formula",
         "fact_1_value": "Millimeters = Inches × 25.4 (exact)",
@@ -890,7 +892,7 @@
         "question_3": "Are fractions supported?",
         "answer_3": "Yes. Inputs like 5/8 and mixed fractions like 1 1/4 are converted automatically.",
         "question_4": "Can I control rounding precision?",
-        "answer_4": "Yes. Choose Standard (2 decimals), Precision (4 decimals), or Rounded (whole number).",
+        "answer_4": "Yes. For 5/8 inch, the unrounded result is 15.875 mm. Standard shows 15.88 mm (2 decimals), Precision 15.8750 mm (4), and Rounded 16 mm (0).",
         "question_5": "Do I need to press a calculate button?",
         "answer_5": "No. Conversion updates live as you type for a zero-friction workflow.",
         "question_6": "Can I paste values with unit symbols?",
@@ -908,12 +910,13 @@
       "data_sources_suffix": "For regulated or safety-critical tasks, always validate against project specifications and approved documents.",
       "last_updated_label": "Last updated:",
       "content_version_label": "Content version:",
-      "browse_all_tools": "Browse All Tools"
+      "browse_all_tools": "Browse All Tools",
+      "related_reverse": "Need decimal inches and the nearest fraction? Use Millimeters to Decimal Inches."
     }
   },
   "MillimetersToDecimal": {
     "seo_title": "Millimeters to Decimal Converter - mm to Inches + Fraction | DecimalTools",
-    "seo_description": "Convert millimeters to decimal inches with exact 1/25.4 precision. Get nearest common fraction, precision offset, rounding controls, and copy-ready formats.",
+    "seo_description": "Convert millimeters to decimal inches using the exact 25.4 mm per inch factor. Choose 2 to 8 display decimals and compare the nearest fraction and its offset.",
     "seo_keywords": "millimeters to decimal, mm to inches converter, metric to imperial converter, nearest inch fraction, machinist unit converter, gauge dimension conversion",
     "breadcrumb": {
       "home": "Home",
@@ -922,10 +925,10 @@
     },
     "badge": "Metric to Imperial Converter",
     "h1": "Millimeters to Decimal Inches Converter",
-    "intro": "Convert millimeters to decimal inches instantly with exact engineering math. This tool also provides the nearest common fraction and precision offset for practical fit checks.",
+    "intro": "Divide millimeters by 25.4 for decimal inches. Choose display precision, then compare the nearest common fraction and the gap from the unrounded inch value.",
     "quick_answer": {
       "title": "Quick Answer",
-      "body": "To convert millimeters to decimal inches, divide by 25.4. Example: 10 mm = 0.3937 in. Use this converter when you also need nearest fraction output (like 25/64\") and offset confidence."
+      "body": "Inches = millimeters ÷ 25.4. For example, 10 mm ≈ 0.3937 in to 4 decimals. Its nearest common fraction is 25/64 in = 0.390625 in. The offset, unrounded inches minus that fraction, is approximately +0.0031 in."
     },
     "structured_data": {
       "app_name": "Millimeters to Decimal Converter",
@@ -952,7 +955,7 @@
       "result_label": "Result card",
       "decimal_output_label": "Decimal inches",
       "fraction_output_label": "Nearest fraction",
-      "offset_output_label": "Precision offset",
+      "offset_output_label": "Unrounded inches minus fraction",
       "large_dimension_hint": "Large dimension detected (>5000 mm). Quick sanity check: did you mean meters?",
       "ruler_title": "Dual-scale visual ruler",
       "copy_decimal": "Copy decimal",
@@ -972,7 +975,7 @@
         "fact_1": "Exact formula: inches = millimeters / 25.4.",
         "fact_2": "Default decimal precision is 4 places, configurable up to 8.",
         "fact_3": "Nearest fraction uses common denominators up to 64.",
-        "fact_4": "Offset shows the gap between exact inches and selected fraction."
+        "fact_4": "Offset = unrounded decimal inches − nearest fraction. Positive means the source is larger than the fraction."
       },
       "how_it_works": {
         "title": "How It Works",
@@ -1001,9 +1004,9 @@
         "question_2": "Does it show only decimal output?",
         "answer_2": "No. It shows decimal inches, nearest common fraction, and the offset between them.",
         "question_3": "What does precision offset mean?",
-        "answer_3": "Offset is the difference between the exact decimal-inch value and the nearest displayed fraction.",
+        "answer_3": "Offset is unrounded decimal inches minus the nearest fraction, displayed to 4 decimals. For 10 mm, 10 ÷ 25.4 − 25/64 ≈ +0.0031 in. This is separate from rounding the decimal display.",
         "question_4": "Can I control rounding behavior?",
-        "answer_4": "Yes. You can choose round to nearest, round up, or round down before display.",
+        "answer_4": "Yes. The rounding mode changes the decimal-inch display. The nearest fraction and offset are calculated from the unrounded inch value.",
         "question_5": "How many decimal places can I use?",
         "answer_5": "The output supports up to 8 decimal places, with 4 as the default.",
         "question_6": "Why do I see a large dimension hint?",
@@ -1018,7 +1021,9 @@
         "source_1": "NIST unit standards",
         "source_2": "ISO standards catalog"
       }
-    }
+    },
+    "related_reverse": "Convert decimal inches back to millimeters.",
+    "related_chart": "Look up fractional inches, decimal inches and millimeters in the chart."
   },
   "DecimalToInchesCalculator": {
     "seo_title": "Decimal Inches to Fractions & Tape Measure | DecimalTools",
@@ -1034,7 +1039,7 @@
     "intro": "Convert decimal inch values into exact and nearest fractional inches with selectable denominator precision and visual ruler confirmation.",
     "quick_answer": {
       "title": "Quick Answer",
-      "body": "Decimal to inch fraction conversion maps values like 0.3125 to 5/16. This tool shows both exact simplified fraction and nearest fraction based on your selected tape precision (1/4 to 1/64), plus error offset."
+      "body": "0.3125 in is exactly 5/16 in. For 0.32 in, the exact fraction is 8/25 in, while the nearest 1/16-inch mark is 5/16 in. The offset is +0.0075 in: source inches minus the selected fraction."
     },
     "structured_data": {
       "app_name": "Decimal to Inches Calculator",
@@ -1051,7 +1056,7 @@
       "description": "Type a decimal inch value and instantly get exact fraction, nearest match, fitment offset, and ruler position.",
       "input_label": "Decimal inch input",
       "placeholder": "e.g. 0.3125",
-      "helper": "Only numbers and one decimal point are allowed.",
+      "helper": "Enter a non-negative decimal in inches, using up to 8 decimal places. Invalid text is rejected without changing its value.",
       "examples_title": "Quick examples",
       "precision_label": "Nearest fraction precision",
       "rounding_mode_label": "Rounding direction",
@@ -1061,8 +1066,8 @@
       "result_label": "Conversion result",
       "exact_fraction_label": "Exact simplest fraction",
       "nearest_fraction_label": "Nearest precision fraction",
-      "offset_label": "Fitment offset",
-      "offset_suffix": "error",
+      "offset_label": "Source minus selected fraction",
+      "offset_suffix": "(source − fraction)",
       "feet_inch_label": "Feet-inch format",
       "ruler_title": "Digital ruler mapping",
       "copy_exact": "Copy exact",
@@ -1082,7 +1087,7 @@
         "fact_1": "Exact fraction output is simplified with GCD reduction.",
         "fact_2": "Nearest match can target 1/4, 1/8, 1/16, 1/32, or 1/64 increments.",
         "fact_3": "Rounding direction supports nearest, always up, and always down.",
-        "fact_4": "Offset shows numeric difference between source decimal and nearest fraction."
+        "fact_4": "Offset = source decimal inches − selected fraction. A positive offset means the source is larger."
       },
       "how_it_works": {
         "title": "How It Works",
@@ -1111,7 +1116,7 @@
         "question_2": "What is the difference between exact and nearest fraction?",
         "answer_2": "Exact uses decimal math simplification, while nearest follows your selected denominator precision such as 1/16 or 1/64.",
         "question_3": "Why is offset shown?",
-        "answer_3": "Offset shows how far the nearest fraction is from the source decimal to help fitment decisions.",
+        "answer_3": "Offset = source decimal inches minus the selected fraction. For 0.32 in rounded to the nearest 1/16, 0.32 − 0.3125 = +0.0075 in.",
         "question_4": "When should I use round up?",
         "answer_4": "Round up is useful when you need a conservative larger value for clearance or material removal strategy.",
         "question_5": "Can this format to feet and inches?",
@@ -1128,7 +1133,12 @@
         "source_1": "NIST measurement guidance",
         "source_2": "ISO standards catalog"
       }
-    }
+    },
+    "chart_title": "Decimal to Inches Fraction Chart",
+    "chart_caption": "Common exact decimal-inch equivalents; use the calculator for other values and rounding directions.",
+    "chart_decimal": "Decimal inches",
+    "chart_fraction": "Exact fraction (in)",
+    "related_chart": "See the full fraction, decimal-inch and millimeter chart."
   },
   "HexaToDecimal": {
     "seo_title": "Hexa to Decimal Converter - Signed, Unsigned, BigInt Debug Tool | DecimalTools",
@@ -1240,28 +1250,28 @@
     }
   },
   "InchesToDecimals": {
-    "seo_title": "Fractional Inches to Decimals: Quick Input & Chart | DecimalTools",
-    "seo_description": "Turn fractions and mixed inches into decimal inches with a quick fraction grid, auto-copy option and millimeter preview. Choose up to 6 decimal places.",
+    "seo_title": "Fractional Inches to Decimal Inches & mm Chart | DecimalTools",
+    "seo_description": "Look up fractional inches as decimal inches and millimeters. Enter mixed measurements, choose up to 6 decimal places, and copy results for CAD or spreadsheets.",
     "seo_keywords": "inches to decimals, fraction to decimal inches, mixed inches converter, 5/8 to decimal, woodworking inch decimal calculator",
     "breadcrumb": {
       "home": "Home",
       "tools": "Tools",
       "current": "Inches to Decimals"
     },
-    "badge": "Workshop Data Entry",
-    "h1": "Inches to Decimals Converter",
-    "intro": "Convert fractional and mixed-inch measurements into decimal values with fast parsing for workshop, CAD, and spreadsheet workflows.",
+    "badge": "Fraction Conversion Chart",
+    "h1": "Fractional Inches to Decimal Inches and Millimeters",
+    "intro": "Use the fraction-to-decimal inch and millimeter chart for common sizes, or enter mixed inches and copy the result into CAD or a spreadsheet.",
     "quick_answer": {
       "title": "Quick Answer",
-      "body": "To convert fractional inches to decimal, divide numerator by denominator and add any whole-number part. Example: 1 3/4 = 1.75. This tool does it instantly and also shows mm."
+      "body": "Divide the fraction, add any whole inches, then multiply the decimal inches by 25.4 for millimeters. For example, 1 3/4 in = 1.75 in = 44.45 mm."
     },
     "structured_data": {
-      "app_name": "Inches to Decimals Converter",
-      "app_description": "Professional converter for fractional and mixed-inch values to decimal inches and millimeters.",
+      "app_name": "Fractional Inches to Decimal Inches and Millimeters",
+      "app_description": "Fraction, decimal-inch and millimeter reference chart with a mixed-inch converter, precision control and optional auto-copy.",
       "feature_1": "Smart parser for fraction and mixed-inch formats",
       "feature_2": "Supports quick conversion up to 6 decimal places",
       "feature_3": "Displays decimal inches and millimeters together",
-      "feature_4": "Quick-pick grid for common shop fractions",
+      "feature_4": "Fraction to decimal inch and millimeter chart from halves to sixty-fourths",
       "feature_5": "Auto-copy toggle for rapid entry workflows",
       "feature_6": "Non-standard denominator warning assistance"
     },
@@ -1275,7 +1285,7 @@
       "precision_value": "Precision:",
       "auto_copy": "Auto-copy decimal result",
       "auto_copied": "Decimal copied automatically",
-      "quick_grid_title": "Quick-pick fraction grid",
+      "quick_grid_title": "More quick-pick fractions",
       "result_label": "Result",
       "decimal_inch_label": "Decimal inches",
       "metric_label": "Metric equivalent",
@@ -1289,14 +1299,21 @@
       "invalid_fraction": "Fraction format is invalid.",
       "division_by_zero": "Denominator cannot be zero.",
       "negative_not_supported": "Negative values are not supported in this version.",
-      "too_large": "Input is too large for this quick utility."
+      "too_large": "Input is too large for this quick utility.",
+      "common_fractions": "Common fractions",
+      "chart_title": "Fractional Inches to Decimal Inches & mm Chart",
+      "chart_caption": "Measurements from 0 to 1 inch. Decimal inches are exact for these fractions; millimeters use 25.4 mm per inch. Trailing zeros are omitted.",
+      "chart_denominator": "Chart increments",
+      "chart_fraction": "Fraction (in)",
+      "chart_decimal": "Decimal inches",
+      "chart_mm": "Millimeters (mm)"
     },
     "geo_sections": {
       "core_facts": {
         "title": "Core Facts",
         "fact_1": "Parses fraction and mixed formats without mode switching.",
         "fact_2": "Converts to decimal inches with precision control up to 6 places.",
-        "fact_3": "Shows millimeter equivalent for international workshop workflows.",
+        "fact_3": "The chart lists fractional inches, decimal inches and millimeters in one row.",
         "fact_4": "Warns when denominator is non-standard for common shop practice."
       },
       "how_it_works": {
@@ -1343,7 +1360,9 @@
         "source_1": "NIST measurement guidance",
         "source_2": "ISO standards catalog"
       }
-    }
+    },
+    "related_visual": "Need a visual ruler? Use the inches to decimal calculator.",
+    "related_reverse": "Converting back? Choose decimal inches to tape fractions."
   },
   "HoursToDecimalCalculator": {
     "seo_title": "Hours to Decimal Calculator - Payroll Time Converter | DecimalTools",

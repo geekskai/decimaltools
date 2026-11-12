@@ -2,6 +2,16 @@ import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import DecimalToInchesCalculatorConverter from "./components/DecimalToInchesCalculatorConverter"
 
+const COMMON_DECIMAL_FRACTIONS = [
+  ["0.125", "1/8"],
+  ["0.25", "1/4"],
+  ["0.3125", "5/16"],
+  ["0.5", "1/2"],
+  ["0.625", "5/8"],
+  ["0.75", "3/4"],
+  ["0.875", "7/8"],
+]
+
 export default async function DecimalToInchesCalculatorPage() {
   const t = await getTranslations("DecimalToInchesCalculator")
 
@@ -32,6 +42,41 @@ export default async function DecimalToInchesCalculatorPage() {
         </section>
 
         <DecimalToInchesCalculatorConverter />
+
+        <section className="min-w-0 rounded-3xl border border-cyan-500/20 bg-slate-950/45 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-cyan-100">{t("chart_title")}</h2>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-200">
+              <caption className="pb-3 text-left text-slate-400">{t("chart_caption")}</caption>
+              <thead>
+                <tr className="border-b border-cyan-500/30">
+                  <th scope="col" className="p-2">
+                    {t("chart_decimal")}
+                  </th>
+                  <th scope="col" className="p-2">
+                    {t("chart_fraction")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMMON_DECIMAL_FRACTIONS.map(([decimal, fraction]) => (
+                  <tr key={decimal} className="border-b border-white/10">
+                    <th scope="row" className="p-2 font-medium tabular-nums">
+                      {decimal}
+                    </th>
+                    <td className="p-2">{fraction}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Link
+            href="/tools/inches-to-decimals"
+            className="block rounded-lg py-3 text-sm text-cyan-200 underline underline-offset-4"
+          >
+            {t("related_chart")}
+          </Link>
+        </section>
 
         <section className="grid gap-3.5 md:grid-cols-2 md:gap-5 lg:gap-6">
           <article className="rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-4 sm:p-5 md:p-6 lg:p-7">

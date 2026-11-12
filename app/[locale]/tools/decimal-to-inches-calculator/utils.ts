@@ -48,7 +48,8 @@ function trimTrailingZeros(value: string) {
 }
 
 export function normalizeDecimalInput(rawInput: string) {
-  return rawInput.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1").trim()
+  // Preserve signs and invalid characters; the parser must reject them rather than change the value.
+  return rawInput.trim()
 }
 
 function getDecimalPlaces(value: string) {
@@ -83,9 +84,16 @@ function buildFraction(value: number, numerator: number, denominator: number): F
   }
 }
 
-function parseInput(rawInput: string): { ok: true; normalized: string; value: number } | { ok: false; error: Extract<ConversionResponse, { ok: false }>["error"] } {
+function parseInput(
+  rawInput: string
+):
+  | { ok: true; normalized: string; value: number }
+  | { ok: false; error: Extract<ConversionResponse, { ok: false }>["error"] } {
   const normalized = normalizeDecimalInput(rawInput)
   if (!normalized) return { ok: false, error: "empty" }
+  if (/^[-−]/.test(normalized)) {
+    return { ok: false, error: "negative_not_supported" }
+  }
   if (!/^\d*\.?\d+$/.test(normalized)) return { ok: false, error: "invalid" }
   if (getDecimalPlaces(normalized) > MAX_INPUT_DECIMALS) return { ok: false, error: "too_many_decimals" }
 

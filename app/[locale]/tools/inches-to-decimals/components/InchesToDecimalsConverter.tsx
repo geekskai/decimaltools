@@ -5,10 +5,13 @@ import { useTranslations } from "next-intl"
 import { buildQuickFractions, convertInchesToDecimal } from "../utils"
 
 const QUICK_FRACTIONS = buildQuickFractions()
+const CHART_DENOMINATORS = [2, 4, 8, 16, 32, 64]
+const COMMON_FRACTIONS = ["1/8", "1/4", "3/8", "1/2", "5/8", "3/4", "7/8"]
 const AUTO_COPY_KEY = "inches-to-decimals-auto-copy"
 
 export default function InchesToDecimalsConverter() {
   const t = useTranslations("InchesToDecimals.converter")
+  const [chartDenominator, setChartDenominator] = useState(16)
   const [input, setInput] = useState("5/8")
   const [precision, setPrecision] = useState(6)
   const [autoCopy, setAutoCopy] = useState(false)
@@ -74,10 +77,14 @@ export default function InchesToDecimalsConverter() {
           <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3 md:p-5">
             <div className="flex h-full flex-col gap-4">
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-cyan-100 md:mb-2">
+                <label
+                  htmlFor="fraction-inch-input"
+                  className="mb-1.5 block text-sm font-semibold text-cyan-100 md:mb-2"
+                >
                   {t("input_label")}
                 </label>
                 <input
+                  id="fraction-inch-input"
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   placeholder={t("placeholder")}
@@ -89,10 +96,14 @@ export default function InchesToDecimalsConverter() {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-slate-200">
+                <label
+                  htmlFor="fraction-inch-precision"
+                  className="mb-2 block text-sm font-semibold text-slate-200"
+                >
                   {t("precision_label")}
                 </label>
                 <input
+                  id="fraction-inch-precision"
                   type="range"
                   min={0}
                   max={6}
@@ -116,20 +127,18 @@ export default function InchesToDecimalsConverter() {
               </label>
 
               <div>
-                <p className="mb-2 text-sm font-semibold text-slate-200">{t("quick_grid_title")}</p>
-                <div className="max-h-44 overflow-y-auto rounded-2xl border border-cyan-500/20 bg-slate-950/60 p-2">
-                  <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
-                    {QUICK_FRACTIONS.map((fraction) => (
-                      <button
-                        key={fraction}
-                        type="button"
-                        onClick={() => setInput(fraction)}
-                        className="rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-2 py-1.5 text-[11px] text-cyan-100 transition hover:border-cyan-400 hover:text-white sm:py-1"
-                      >
-                        {fraction}
-                      </button>
-                    ))}
-                  </div>
+                <p className="mb-2 text-sm font-semibold text-slate-200">{t("common_fractions")}</p>
+                <div className="flex flex-wrap gap-2">
+                  {COMMON_FRACTIONS.map((fraction) => (
+                    <button
+                      key={fraction}
+                      type="button"
+                      onClick={() => setInput(fraction)}
+                      className="min-h-11 rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-3 text-sm text-cyan-100 hover:border-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"
+                    >
+                      {fraction}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -192,6 +201,84 @@ export default function InchesToDecimalsConverter() {
             )}
           </div>
         </div>
+        <section
+          aria-labelledby="inch-chart-title"
+          className="min-w-0 rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3 md:p-5"
+        >
+          <h2 id="inch-chart-title" className="text-lg font-semibold text-cyan-100">
+            {t("chart_title")}
+          </h2>
+          <label htmlFor="inch-chart-denominator" className="mt-3 block text-sm text-slate-200">
+            {t("chart_denominator")}
+          </label>
+          <select
+            id="inch-chart-denominator"
+            value={chartDenominator}
+            onChange={(event) => setChartDenominator(Number(event.target.value))}
+            className="mt-2 min-h-11 rounded-lg border border-cyan-500/30 bg-slate-950 px-3 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"
+          >
+            {CHART_DENOMINATORS.map((denominator) => (
+              <option key={denominator} value={denominator}>
+                1/{denominator}
+              </option>
+            ))}
+          </select>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-200">
+              <caption className="pb-3 text-left text-xs leading-5 text-slate-400">
+                {t("chart_caption")}
+              </caption>
+              <thead>
+                <tr className="border-b border-cyan-500/30">
+                  <th scope="col" className="p-2">
+                    {t("chart_fraction")}
+                  </th>
+                  <th scope="col" className="p-2">
+                    {t("chart_decimal")}
+                  </th>
+                  <th scope="col" className="p-2">
+                    {t("chart_mm")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {Array.from({ length: chartDenominator + 1 }, (_, numerator) => {
+                  const fraction = `${numerator}/${chartDenominator}`
+                  const conversion = convertInchesToDecimal(fraction, 6)
+                  if (!conversion.ok) {
+                    return null
+                  }
+                  return (
+                    <tr key={fraction} className="border-b border-white/10">
+                      <th scope="row" className="p-2 font-medium">
+                        {fraction}
+                      </th>
+                      <td className="p-2 tabular-nums">{conversion.value.decimalLabel}</td>
+                      <td className="p-2 tabular-nums">{conversion.value.millimetersLabel}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <details className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3 md:p-5">
+          <summary className="min-h-11 cursor-pointer py-3 text-sm font-semibold text-cyan-100">
+            {t("quick_grid_title")}
+          </summary>
+          <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-6 md:grid-cols-8">
+            {QUICK_FRACTIONS.map((fraction) => (
+              <button
+                key={fraction}
+                type="button"
+                onClick={() => setInput(fraction)}
+                className="min-h-11 rounded-lg border border-cyan-500/25 bg-cyan-500/10 px-2 text-sm text-cyan-100 hover:border-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-300"
+              >
+                {fraction}
+              </button>
+            ))}
+          </div>
+        </details>
       </div>
     </section>
   )

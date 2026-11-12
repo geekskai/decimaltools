@@ -66,10 +66,16 @@ export default function DecimalToInchesCalculatorConverter() {
           <div className="rounded-2xl border border-cyan-500/20 bg-slate-950/45 p-3 md:p-5">
             <div className="flex h-full flex-col gap-4">
               <div>
-                <label className="mb-1.5 block text-sm font-semibold text-cyan-100 md:mb-2">
+                <label
+                  htmlFor="decimal-inch-input"
+                  className="mb-1.5 block text-sm font-semibold text-cyan-100 md:mb-2"
+                >
                   {t("input_label")}
                 </label>
                 <input
+                  id="decimal-inch-input"
+                  aria-invalid={!result.ok && result.error !== "empty"}
+                  aria-describedby="decimal-inch-helper decimal-inch-error"
                   value={input}
                   onChange={(event) => onInputChange(event.target.value)}
                   placeholder={t("placeholder")}
@@ -77,8 +83,14 @@ export default function DecimalToInchesCalculatorConverter() {
                   inputMode="decimal"
                   aria-label={t("input_label")}
                 />
-                <p className="mt-1.5 text-xs leading-5 text-slate-400 md:mt-2 md:text-sm">
+                <p
+                  id="decimal-inch-helper"
+                  className="mt-1.5 text-xs leading-5 text-slate-400 md:mt-2 md:text-sm"
+                >
                   {t("helper")}
+                </p>
+                <p id="decimal-inch-error" role="alert" className="mt-2 text-sm text-amber-200">
+                  {!result.ok && result.error !== "empty" ? t(result.error) : null}
                 </p>
               </div>
 
@@ -185,7 +197,7 @@ export default function DecimalToInchesCalculatorConverter() {
                       {t("offset_label")}
                     </p>
                     <p className="mt-1.5 text-sm leading-6 text-slate-100 sm:text-base md:text-lg">
-                      {result.value.nearestOffsetLabel}" {t("offset_suffix")}
+                      {result.value.nearestOffsetLabel} {t("offset_suffix")}
                     </p>
                   </div>
                 </div>
