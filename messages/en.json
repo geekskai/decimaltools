@@ -355,7 +355,7 @@
     }
   },
   "DecimalToText": {
-    "seo_title": "Decimal to Text Converter - Convert Decimal Codes to Plain Text | DecimalTools",
+    "seo_title": "Decimal to Text Converter | DecimalTools",
     "seo_description": "Convert decimal character codes into text instantly. Paste values like 72 101 108 108 111 and get Hello in one click.",
     "seo_keywords": "decimal to text, decimal ascii to text, decimal code converter, decimal numbers to string, decimal character code to text, decimal decoder",
     "breadcrumb": {
@@ -494,7 +494,7 @@
     }
   },
   "DecimalToChar": {
-    "seo_title": "Decimal to ASCII Converter - Decimal Code to Character Tool | DecimalTools",
+    "seo_title": "Decimal to ASCII Converter | DecimalTools",
     "seo_description": "Convert decimal ASCII codes to characters instantly. Decode decimal, binary, and hex ASCII values, or encode plain ASCII text back into numeric codes.",
     "seo_keywords": "decimal to ascii, decimal to char, ascii decimal converter, decimal ascii decoder, ascii code to text, decimal character converter",
     "breadcrumb": {
@@ -628,7 +628,7 @@
     }
   },
   "GaugeToDecimal": {
-    "seo_title": "Gauge to Decimal Converter - Sheet Metal & AWG Size to Inches/mm | DecimalTools",
+    "seo_title": "Gauge to Decimal: Sheet Metal & AWG Converter | DecimalTools",
     "seo_description": "Convert gauge to decimal inches and millimeters instantly. Compare sheet steel, galvanized, stainless, aluminum, and AWG wire standards with tolerance guidance.",
     "seo_keywords": "gauge to decimal, gauge thickness chart, sheet metal gauge to mm, awg to decimal inches, gauge converter, metal thickness converter",
     "breadcrumb": {
@@ -915,7 +915,7 @@
     }
   },
   "MillimetersToDecimal": {
-    "seo_title": "Millimeters to Decimal Converter - mm to Inches + Fraction | DecimalTools",
+    "seo_title": "Millimeters to Decimal Inches & Fractions | DecimalTools",
     "seo_description": "Convert millimeters to decimal inches using the exact 25.4 mm per inch factor. Choose 2 to 8 display decimals and compare the nearest fraction and its offset.",
     "seo_keywords": "millimeters to decimal, mm to inches converter, metric to imperial converter, nearest inch fraction, machinist unit converter, gauge dimension conversion",
     "breadcrumb": {
@@ -1141,7 +1141,7 @@
     "related_chart": "See the full fraction, decimal-inch and millimeter chart."
   },
   "HexaToDecimal": {
-    "seo_title": "Hexa to Decimal Converter - Signed, Unsigned, BigInt Debug Tool | DecimalTools",
+    "seo_title": "Hex to Decimal Converter: Signed & Unsigned | DecimalTools",
     "seo_description": "Convert hexadecimal to decimal instantly with signed/unsigned logic, 8/16/32/64-bit two's complement, endian toggle, binary/octal/ASCII previews, and bit-flip visualization.",
     "seo_keywords": "hexa to decimal, hex to decimal converter, signed hex converter, two's complement calculator, bigint hex conversion, endian hex parser",
     "breadcrumb": {
@@ -1717,7 +1717,8 @@
     },
     "pseo": {
       "seo_title": "What is {numerator}/{denominator} as a decimal? | DecimalTools",
-      "seo_description": "{numerator}/{denominator} as a decimal is {decimal}. Instant conversion — also try our full fraction calculator.",
+      "seo_description": "Convert {numerator}/{denominator} to the exact decimal {decimal}. Follow the long-division steps, verify the calculation, and use the calculator for other fractions or mixed numbers.",
+      "seo_description_repeating": "Convert {numerator}/{denominator} to a repeating decimal, approximately {decimal}. See the long-division steps and repeating digits, then try the full fraction calculator.",
       "h1": "{numerator}/{denominator} as a decimal",
       "direct_answer_line": "{numerator}/{denominator} = {decimal}",
       "intro": "To express {numerator}/{denominator} as a decimal, divide the numerator by the denominator ({numerator} ÷ {denominator}).",

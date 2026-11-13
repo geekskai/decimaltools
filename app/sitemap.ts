@@ -2,7 +2,12 @@ import type { MetadataRoute } from "next"
 import { allBlogs } from "contentlayer/generated"
 import siteMetadata from "@/data/siteMetadata"
 import { toolsData } from "@/data/toolsData"
-import { PSEO_LAST_MODIFIED_DATE, getPseoPath, pseoFractionPairs } from "@/data/pseo-fractions"
+import {
+  PSEO_LAST_MODIFIED_DATE,
+  PSEO_DETAIL_LAST_MODIFIED_DATE,
+  getPseoPath,
+  pseoFractionPairs,
+} from "@/data/pseo-fractions"
 import { getCanonicalUrl } from "@/lib/seo"
 import { getPublishedPosts, getPublishedTagCounts, POSTS_PER_PAGE } from "@/lib/blog-seo"
 import { toolContentDates } from "./tool-content-dates"
@@ -23,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
   const fractionRoutes = pseoFractionPairs.map(({ numerator, denominator }) => ({
     url: getCanonicalUrl(getPseoPath(numerator, denominator)),
-    lastModified: PSEO_LAST_MODIFIED_DATE,
+    lastModified: PSEO_DETAIL_LAST_MODIFIED_DATE,
   }))
   const tagRoutes = Object.keys(getPublishedTagCounts(publishedPosts)).map((tag) => ({
     url: getCanonicalUrl(`/tags/${tag}`),

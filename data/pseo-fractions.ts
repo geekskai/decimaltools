@@ -16,13 +16,15 @@ export interface PopularToolQuery {
   input: string
 }
 
-/** Bump when pSEO batch or copy changes (sitemap lastmod). */
+/** Bump when the shared fraction explanations or whitelist change. */
 export const PSEO_CONTENT_VERSION = "1.1"
 
 /** Route namespace for pSEO fraction landings. */
 export const PSEO_BASE_SEGMENT = "as-a-decimal"
 
 export const PSEO_LAST_MODIFIED_DATE = "2026-10-07"
+/** Detail metadata updates do not refresh the unchanged fraction catalog. */
+export const PSEO_DETAIL_LAST_MODIFIED_DATE = "2026-11-13"
 export const PSEO_ENABLED_LOCALES = ["en"] as const
 
 export function getReducedPseoPair(n: number, d: number): PseoFractionPair | null {
