@@ -3,7 +3,8 @@
 import { useMemo } from "react"
 import { useTranslations } from "next-intl"
 import type { ConversionResult } from "../types"
-import { generateRulerMarks } from "../utils/converter"
+import { convertDecimalToFractionResult, generateRulerMarks } from "../utils/converter"
+import { getRulerWindow } from "../utils/ruler"
 
 interface VisualRulerProps {
   result?: ConversionResult | null
@@ -14,13 +15,19 @@ interface VisualRulerProps {
 export default function VisualRuler({ result, maxValue = 6, className = "" }: VisualRulerProps) {
   const t = useTranslations("ConvertInchesToDecimal")
 
-  // Generate ruler marks
-  const rulerMarks = useMemo(() => {
-    return generateRulerMarks(maxValue, 0.0625) // 1/16 inch increments
-  }, [maxValue])
+  const { start, end, offset } = getRulerWindow({ value: result?.decimal, span: maxValue })
 
-  // Calculate highlight position for current result
-  const highlightPosition = result ? Math.min(result.decimal, maxValue) : null
+  // Generate a bounded set of ticks relative to the visible window.
+  const rulerMarks = useMemo(() => {
+    return generateRulerMarks(maxValue, 0.0625).map((mark) => ({
+      ...mark,
+      decimal: start + mark.decimal,
+      fraction: convertDecimalToFractionResult(start + mark.decimal).formatted,
+    })) // 1/16 inch increments
+  }, [maxValue, start])
+
+  // Offset from the window start; larger measurements are never clamped to an endpoint.
+  const highlightPosition = offset
 
   return (
     <div
@@ -43,7 +50,9 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
           <svg
             width="100%"
             height="64"
-            viewBox={`0 0 ${maxValue * 100} 64`}
+            viewBox={`-20 0 ${maxValue * 100 + 40} 64`}
+            role="img"
+            aria-label={`Inch ruler from ${start} to ${end}${result ? `; measurement ${result.decimal} inches` : ""}`}
             className="min-w-full"
             preserveAspectRatio="xMidYMid meet"
           >
@@ -169,9 +178,9 @@ export default function VisualRuler({ result, maxValue = 6, className = "" }: Vi
 
         {/* Scale indicators */}
         <div className="mt-3 flex justify-between text-xs text-slate-400 md:mt-4">
-          <span>0"</span>
-          <span>{Math.floor(maxValue / 2)}"</span>
-          <span>{maxValue}"</span>
+          <span>{start}"</span>
+          <span>{start + maxValue / 2}"</span>
+          <span>{end}"</span>
         </div>
       </div>
 
@@ -215,18 +224,18 @@ export function CompactRuler({
   result?: ConversionResult | null
   className?: string
 }) {
-  const t = useTranslations("ConvertInchesToDecimal")
-  const maxValue = 3 // Smaller range for mobile
+  const maxValue = 3 // Keep the compact scale readable as the window moves.
+  const { start, offset } = getRulerWindow({ value: result?.decimal, span: maxValue })
 
   return (
     <div
       className={`rounded-xl border border-blue-500/30 bg-blue-500/10 p-3 backdrop-blur-sm md:p-4 ${className}`}
     >
       <div className="flex items-center justify-between text-xs text-slate-300">
-        <span>0"</span>
-        <span>1"</span>
-        <span>2"</span>
-        <span>3"</span>
+        <span>{start}"</span>
+        <span>{start + 1}"</span>
+        <span>{start + 2}"</span>
+        <span>{start + 3}"</span>
       </div>
 
       <div className="relative mt-2 h-7 md:h-8">
@@ -242,10 +251,12 @@ export function CompactRuler({
         ))}
 
         {/* Current position */}
-        {result && result.decimal <= maxValue && (
+        {offset !== null && (
           <div
             className="absolute top-0 h-7 w-1 rounded-full bg-green-400 md:h-8"
-            style={{ left: `${(result.decimal / maxValue) * 100}%` }}
+            role="img"
+            aria-label={`Measurement ${result?.decimal} inches on a ruler from ${start} to ${start + maxValue}`}
+            style={{ left: `${(offset / maxValue) * 100}%` }}
           ></div>
         )}
       </div>
