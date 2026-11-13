@@ -13,7 +13,7 @@ import {
   getRelatedPseoFractions,
   PSEO_CONTENT_VERSION,
   PSEO_ENABLED_LOCALES,
-  PSEO_LAST_MODIFIED_DATE,
+  PSEO_DETAIL_LAST_MODIFIED_DATE,
   pseoFractionPairs,
 } from "@/data/pseo-fractions"
 import { getLocalizedFractionPath, resolveFractionPageRoute } from "@/lib/fraction-page-route"
@@ -55,17 +55,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const t = await getTranslations({ locale: state.locale, namespace: "FractionToDecimal" })
   const { canonicalNumerator, canonicalDenominator, model, canonicalUrl } = state
   const decimal = model.core.formattedDecimal
+  const descriptionKey = model.core.isTerminating
+    ? "pseo.seo_description"
+    : "pseo.seo_description_repeating"
+  const description = t(descriptionKey, {
+    numerator: canonicalNumerator,
+    denominator: canonicalDenominator,
+    decimal,
+  })
 
   return {
     title: t("pseo.seo_title", {
       numerator: canonicalNumerator,
       denominator: canonicalDenominator,
     }),
-    description: t("pseo.seo_description", {
-      numerator: canonicalNumerator,
-      denominator: canonicalDenominator,
-      decimal,
-    }),
+    description,
     alternates: {
       canonical: canonicalUrl,
       // languages: {
@@ -78,11 +82,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         numerator: canonicalNumerator,
         denominator: canonicalDenominator,
       }),
-      description: t("pseo.seo_description", {
-        numerator: canonicalNumerator,
-        denominator: canonicalDenominator,
-        decimal,
-      }),
+      description,
       type: "article",
       url: canonicalUrl,
       siteName: "DecimalTools",
@@ -101,11 +101,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         numerator: canonicalNumerator,
         denominator: canonicalDenominator,
       }),
-      description: t("pseo.seo_description", {
-        numerator: canonicalNumerator,
-        denominator: canonicalDenominator,
-        decimal,
-      }),
+      description,
       images: [getShareImageUrl("fraction-to-decimal")],
     },
     robots: {
@@ -113,7 +109,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       follow: true,
     },
     other: {
-      "last-modified": PSEO_LAST_MODIFIED_DATE,
+      "last-modified": PSEO_DETAIL_LAST_MODIFIED_DATE,
     },
   }
 }
@@ -359,7 +355,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
           </div>
           <p className="mt-6 text-sm text-slate-400">
             <strong className="text-slate-200">{t("geo_sections.last_updated_label")}</strong>{" "}
-            {PSEO_LAST_MODIFIED_DATE} ·{" "}
+            {PSEO_DETAIL_LAST_MODIFIED_DATE} ·{" "}
             <strong className="text-slate-200">{t("geo_sections.content_version_label")}</strong>{" "}
             {PSEO_CONTENT_VERSION}
           </p>
