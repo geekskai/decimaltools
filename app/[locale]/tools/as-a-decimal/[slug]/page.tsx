@@ -11,12 +11,15 @@ import {
   getPseoPath,
   getPseoSlug,
   getRelatedPseoFractions,
-  PSEO_CONTENT_VERSION,
   PSEO_ENABLED_LOCALES,
-  PSEO_DETAIL_LAST_MODIFIED_DATE,
   pseoFractionPairs,
 } from "@/data/pseo-fractions"
 import { getLocalizedFractionPath, resolveFractionPageRoute } from "@/lib/fraction-page-route"
+import {
+  fractionPageContent,
+  getFractionAnswer,
+  getFractionContentRevision,
+} from "@/data/fraction-page-content"
 import FractionConverter from "../../fraction-to-decimal/components/FractionConverter"
 
 type PageParams = {
@@ -109,7 +112,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       follow: true,
     },
     other: {
-      "last-modified": PSEO_DETAIL_LAST_MODIFIED_DATE,
+      "last-modified": getFractionContentRevision({
+        numerator: canonicalNumerator,
+        denominator: canonicalDenominator,
+      }).lastModified,
     },
   }
 }
@@ -135,7 +141,15 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
   const repeatingDigits =
     model.repeatingStart === null ? null : divisionDigits.slice(model.repeatingStart)
   const inputString = `${canonicalNumerator}/${canonicalDenominator}`
-  const relatedFractions = getRelatedPseoFractions(canonicalNumerator, canonicalDenominator)
+  const content = fractionPageContent[`${canonicalNumerator}-${canonicalDenominator}`]
+  const revision = getFractionContentRevision({
+    numerator: canonicalNumerator,
+    denominator: canonicalDenominator,
+  })
+  const answer = getFractionAnswer(model)
+  const relatedFractions = content
+    ? content.related.map(([numerator, denominator]) => ({ numerator, denominator }))
+    : getRelatedPseoFractions(canonicalNumerator, canonicalDenominator)
   const featuredLinks = featuredPseoFractions
     .filter(
       (fraction) =>
@@ -162,11 +176,13 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
         numerator: canonicalNumerator,
         denominator: canonicalDenominator,
       }),
-      answer: t("pseo.faq_1_a", {
-        numerator: canonicalNumerator,
-        denominator: canonicalDenominator,
-        decimal,
-      }),
+      answer: model.core.isTerminating
+        ? t("pseo.faq_1_a", {
+            numerator: canonicalNumerator,
+            denominator: canonicalDenominator,
+            decimal,
+          })
+        : answer,
     },
     {
       question: t("pseo.faq_2_q", {
@@ -193,6 +209,10 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
       answer: t("pseo.faq_4_a"),
     },
   ]
+
+  if (content) {
+    faqItems[2] = content.faq
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -242,7 +262,13 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
             })}
           </h1>
           <p className="mt-4 text-lg leading-8 text-slate-200">
-            <strong>{inputString}</strong> as a decimal is <strong>{decimal}</strong>.
+            {model.core.isTerminating ? (
+              <>
+                <strong>{inputString}</strong> as a decimal is <strong>{decimal}</strong>.
+              </>
+            ) : (
+              answer
+            )}
           </p>
           <p className="mt-3 max-w-3xl text-base leading-7 text-slate-300">
             {t("pseo.intro", {
@@ -258,50 +284,123 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
             <h2 className="text-2xl font-semibold text-white">{t("pseo.how_title")}</h2>
             <p className="mt-3 text-slate-300">
               Divide {canonicalNumerator} by {canonicalDenominator} using integer long division. The
-              whole-number part is {model.wholePart}; the remaining fraction is {model.remainderNumerator}/
-              {canonicalDenominator}.
+              whole-number part is {model.wholePart}; the remaining fraction is{" "}
+              {model.remainderNumerator}/{canonicalDenominator}.
             </p>
-            <ol className="mt-4 space-y-2 text-sm leading-6 text-slate-300">
-              {model.longDivision.map(({ digit, remainder }, index) => (
-                <li key={index}>
-                  Bring down a zero: remainder × 10 gives the next decimal digit {digit}; the new
-                  remainder is {remainder}.
-                </li>
-              ))}
-            </ol>
+            {content ? (
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full text-left text-sm leading-6 text-slate-300">
+                  <caption className="mb-2 text-left text-slate-300">
+                    Long division of {inputString}
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col" className="px-2 py-2">
+                        Remainder × 10
+                      </th>
+                      <th scope="col" className="px-2 py-2">
+                        Digit
+                      </th>
+                      <th scope="col" className="px-2 py-2">
+                        New remainder
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {model.longDivision.map(({ digit, remainder }, index) => {
+                      const previousRemainder =
+                        index === 0
+                          ? model.remainderNumerator
+                          : model.longDivision[index - 1].remainder
+                      return (
+                        <tr key={index} className="border-t border-slate-700/60">
+                          <td className="px-2 py-2">
+                            {previousRemainder} × 10 = {previousRemainder * 10}
+                          </td>
+                          <td className="px-2 py-2">{digit}</td>
+                          <td className="px-2 py-2">{remainder}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <ol className="mt-4 space-y-2 text-sm leading-6 text-slate-300">
+                {model.longDivision.map(({ digit, remainder }, index) => (
+                  <li key={index}>
+                    Bring down a zero: remainder × 10 gives the next decimal digit {digit}; the new
+                    remainder is {remainder}.
+                  </li>
+                ))}
+              </ol>
+            )}
             <p className="mt-4 text-sm leading-6 text-slate-300">
               {model.core.isTerminating
-                ? `The remainder reaches zero after ${model.exactDecimalPlaces} decimal places, so ${inputString} = ${decimal} exactly.`
+                ? `The remainder reaches zero after ${model.exactDecimalPlaces} decimal ${content && model.exactDecimalPlaces === 1 ? "place" : "places"}, so ${inputString} = ${decimal} exactly.`
                 : `The remainder repeats, so the decimal repeats${repeatingDigits ? ` with ${repeatingDigits} as the repeating cycle` : ""}. The displayed value ${decimal} is rounded; the exact value remains ${inputString}.`}
             </p>
             {model.wholePart > 0 && model.remainderNumerator > 0 ? (
               <p className="mt-3 text-sm leading-6 text-slate-300">
-                As a mixed-number decomposition: {canonicalNumerator}/{canonicalDenominator} = {model.wholePart} + {model.remainderNumerator}/{canonicalDenominator}.
+                As a mixed-number decomposition: {canonicalNumerator}/{canonicalDenominator} ={" "}
+                {model.wholePart} + {model.remainderNumerator}/{canonicalDenominator}.
               </p>
             ) : null}
             <p className="mt-3 text-sm leading-6 text-slate-300">
-              Check: {model.wholePart} × {canonicalDenominator} + {model.remainderNumerator} = {canonicalNumerator},
-              so the quotient and remainder reconstruct the original fraction.
+              Check: {model.wholePart} × {canonicalDenominator} + {model.remainderNumerator} ={" "}
+              {canonicalNumerator}, so the quotient and remainder reconstruct the original fraction.
             </p>
           </article>
 
           <aside className="rounded-3xl border border-slate-700/60 bg-slate-900/60 p-6 backdrop-blur sm:p-8">
-            <h2 className="text-2xl font-semibold text-white">{t("pseo.related_title")}</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {featuredLinks.map((fraction) => (
-                <Link
-                  key={`${fraction.numerator}/${fraction.denominator}`}
-                  href={getLocalizedFractionPath({
-                    locale: state.locale,
-                    numerator: fraction.numerator,
-                    denominator: fraction.denominator,
-                  })}
-                  className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
-                >
-                  {fraction.numerator}/{fraction.denominator}
-                </Link>
-              ))}
-            </div>
+            <h2 className="text-2xl font-semibold text-white">
+              {content ? content.heading : t("pseo.related_title")}
+            </h2>
+            {content ? (
+              <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+                {content.explanation.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                <p>{content.verification}</p>
+                <p>{content.rounding}</p>
+                {content.measurement ? (
+                  <p>
+                    If {content.measurement.inches} represents inches, {content.measurement.inches}{" "}
+                    inch = {content.measurement.millimeters} mm, using exactly 25.4 mm per inch.{" "}
+                    <Link
+                      href="/tools/inches-to-decimals"
+                      className="text-violet-200 underline underline-offset-4"
+                    >
+                      Convert fractional inches or use the inch-to-mm chart.
+                    </Link>
+                  </p>
+                ) : null}
+                <p>
+                  <Link
+                    href="/blog/tools/terminating-repeating-decimals-and-rounding"
+                    className="text-violet-200 underline underline-offset-4"
+                  >
+                    Learn when decimals terminate, repeat, or need rounding.
+                  </Link>
+                </p>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {featuredLinks.map((fraction) => (
+                  <Link
+                    key={`${fraction.numerator}/${fraction.denominator}`}
+                    href={getLocalizedFractionPath({
+                      locale: state.locale,
+                      numerator: fraction.numerator,
+                      denominator: fraction.denominator,
+                    })}
+                    className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
+                  >
+                    {fraction.numerator}/{fraction.denominator}
+                  </Link>
+                ))}
+              </div>
+            )}
             <Link
               href="/tools/fraction-to-decimal"
               className="mt-5 inline-flex rounded-xl border border-violet-500/40 bg-violet-500/10 px-4 py-2.5 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20"
@@ -355,9 +454,9 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
           </div>
           <p className="mt-6 text-sm text-slate-400">
             <strong className="text-slate-200">{t("geo_sections.last_updated_label")}</strong>{" "}
-            {PSEO_DETAIL_LAST_MODIFIED_DATE} ·{" "}
+            {revision.lastModified.slice(0, 10)} ·{" "}
             <strong className="text-slate-200">{t("geo_sections.content_version_label")}</strong>{" "}
-            {PSEO_CONTENT_VERSION}
+            {revision.version}
           </p>
         </section>
       </div>
