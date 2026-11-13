@@ -290,6 +290,7 @@ export default function ConverterInterface({ onConversion }: ConverterInterfaceP
                   {result.commonEquivalents.map((frac, index) => (
                     <span key={index}>
                       {index > 0 && ", "}
+                      {Math.floor(result.decimal) > 0 && `${Math.floor(result.decimal)} `}
                       {frac.numerator}/{frac.denominator}
                     </span>
                   ))}
