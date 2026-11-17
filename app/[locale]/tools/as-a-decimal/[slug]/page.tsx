@@ -7,7 +7,6 @@ import { Suspense } from "react"
 import { Link } from "@/app/i18n/navigation"
 import siteMetadata from "@/data/siteMetadata"
 import {
-  featuredPseoFractions,
   getPseoPath,
   getPseoSlug,
   getRelatedPseoFractions,
@@ -150,13 +149,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
   const relatedFractions = content
     ? content.related.map(([numerator, denominator]) => ({ numerator, denominator }))
     : getRelatedPseoFractions(canonicalNumerator, canonicalDenominator)
-  const featuredLinks = featuredPseoFractions
-    .filter(
-      (fraction) =>
-        `${fraction.numerator}/${fraction.denominator}` !==
-        `${canonicalNumerator}/${canonicalDenominator}`
-    )
-    .slice(0, 6)
+  const directoryPath = "/tools/as-a-decimal"
 
   const decimalTypeDescription = model.core.isTerminating
     ? t("pseo.faq_2_a_term", {
@@ -251,6 +244,38 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
   return (
     <div className="py-10 sm:py-12">
       <div className="mx-auto max-w-7xl space-y-8">
+        <nav aria-label={t("pseo.breadcrumb_label")}>
+          <ol className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-300">
+            <li>
+              <Link
+                href="/"
+                className="inline-flex min-h-11 items-center rounded-lg text-violet-200 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+              >
+                {t("breadcrumb.home")}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link
+                href="/tools"
+                className="inline-flex min-h-11 items-center rounded-lg text-violet-200 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+              >
+                {t("breadcrumb.tools")}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link
+                href={directoryPath}
+                className="inline-flex min-h-11 items-center rounded-lg text-violet-200 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+              >
+                {t("pseo.breadcrumb_parent")}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">{inputString}</li>
+          </ol>
+        </nav>
         <header className="rounded-3xl border border-violet-500/20 bg-slate-900/70 p-6 shadow-xl backdrop-blur sm:p-8">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-violet-300/80">
             DecimalTools
@@ -354,7 +379,7 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
 
           <aside className="rounded-3xl border border-slate-700/60 bg-slate-900/60 p-6 backdrop-blur sm:p-8">
             <h2 className="text-2xl font-semibold text-white">
-              {content ? content.heading : t("pseo.related_title")}
+              {content ? content.heading : t("pseo.explore_title")}
             </h2>
             {content ? (
               <div className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
@@ -385,25 +410,27 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
                 </p>
               </div>
             ) : (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {featuredLinks.map((fraction) => (
-                  <Link
-                    key={`${fraction.numerator}/${fraction.denominator}`}
-                    href={getLocalizedFractionPath({
-                      locale: state.locale,
-                      numerator: fraction.numerator,
-                      denominator: fraction.denominator,
-                    })}
-                    className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
-                  >
-                    {fraction.numerator}/{fraction.denominator}
-                  </Link>
-                ))}
-              </div>
+              <p className="mt-4 text-sm leading-7 text-slate-300">
+                {t("pseo.explore_description", { denominator: canonicalDenominator })}
+              </p>
             )}
+            <div className="mt-5 flex flex-col items-start gap-2">
+              <Link
+                href={`${directoryPath}#denominator-${canonicalDenominator}`}
+                className="inline-flex min-h-11 items-center rounded-lg text-sm text-violet-200 underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+              >
+                {t("pseo.same_denominator", { denominator: canonicalDenominator })}
+              </Link>
+              <Link
+                href={directoryPath}
+                className="inline-flex min-h-11 items-center rounded-lg text-sm text-violet-200 underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+              >
+                {t("hub.browse_all")}
+              </Link>
+            </div>
             <Link
               href="/tools/fraction-to-decimal"
-              className="mt-5 inline-flex rounded-xl border border-violet-500/40 bg-violet-500/10 px-4 py-2.5 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20"
+              className="mt-5 inline-flex min-h-11 items-center rounded-xl border border-violet-500/40 bg-violet-500/10 px-4 py-2.5 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20"
             >
               {t("pseo.cta_full_tool")}
             </Link>
@@ -430,9 +457,12 @@ export default async function FractionAsDecimalPage({ params }: PageProps) {
                     numerator: fraction.numerator,
                     denominator: fraction.denominator,
                   })}
-                  className="rounded-full border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white"
+                  className="inline-flex min-h-11 items-center rounded-full border border-slate-600 bg-slate-950/70 px-4 py-2 text-sm text-slate-200 transition hover:border-violet-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
                 >
-                  {fraction.numerator}/{fraction.denominator}
+                  {t("pseo.h1", {
+                    numerator: fraction.numerator,
+                    denominator: fraction.denominator,
+                  })}
                 </Link>
               ))}
             </div>
