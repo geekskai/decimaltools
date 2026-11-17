@@ -96,7 +96,7 @@ test("all ten pilots have distinct explanations and valid related pages; revisio
     lastModified: fractions.PSEO_DETAIL_LAST_MODIFIED_DATE,
     version: fractions.PSEO_CONTENT_VERSION,
   })
-  assert.equal(fractions.PSEO_LAST_MODIFIED_DATE, "2026-10-07")
+  assert.equal(fractions.PSEO_LAST_MODIFIED_DATE, "2026-11-17")
   assert.equal(fractions.pseoFractionPairs.length, 110)
 })
 
