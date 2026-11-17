@@ -60,11 +60,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const descriptionKey = model.core.isTerminating
     ? "pseo.seo_description"
     : "pseo.seo_description_repeating"
-  const description = t(descriptionKey, {
-    numerator: canonicalNumerator,
-    denominator: canonicalDenominator,
-    decimal,
-  })
+  const editorialContent = fractionPageContent[`${canonicalNumerator}-${canonicalDenominator}`]
+  const description =
+    editorialContent?.seoDescription ??
+    t(descriptionKey, {
+      numerator: canonicalNumerator,
+      denominator: canonicalDenominator,
+      decimal,
+    })
 
   return {
     title: t("pseo.seo_title", {
