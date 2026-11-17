@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/app/i18n/navigation"
 import {
   featuredPseoFractions,
+  pseoFractionPairs,
   PSEO_CONTENT_VERSION,
   getPseoPath,
   popularLandingQueries,
@@ -17,6 +18,16 @@ import siteMetadata from "@/data/siteMetadata"
 type PageProps = {
   params: Promise<{ locale: string }>
 }
+
+// Keep the visible directory and structured list on the same whitelist as the detail routes.
+const fractionGroups = Array.from(new Set(pseoFractionPairs.map(({ denominator }) => denominator)))
+  .sort((first, second) => first - second)
+  .map((denominator) => ({
+    denominator,
+    fractions: pseoFractionPairs
+      .filter((fraction) => fraction.denominator === denominator)
+      .sort((first, second) => first.numerator - second.numerator),
+  }))
 
 function getLocalizedHubPath(locale: string): string {
   const path = `/tools/${PSEO_BASE_SEGMENT}`
@@ -34,11 +45,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: t("hub.seo_title"),
-    description: t("hub.seo_description"),
+    description: t("hub.seo_description", { count: pseoFractionPairs.length }),
     keywords: t("hub.seo_keywords").split(", "),
     openGraph: {
       title: t("hub.seo_title"),
-      description: t("hub.seo_description"),
+      description: t("hub.seo_description", { count: pseoFractionPairs.length }),
       type: "website",
       url: canonical,
       siteName: "DecimalTools",
@@ -54,7 +65,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: t("hub.seo_title"),
-      description: t("hub.seo_description"),
+      description: t("hub.seo_description", { count: pseoFractionPairs.length }),
       images: [getShareImageUrl("fraction-to-decimal")],
     },
     robots: {
@@ -106,7 +117,7 @@ export default async function AsADecimalHubPage({ params }: PageProps) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: t("hub.seo_title"),
-    description: t("hub.seo_description"),
+    description: t("hub.seo_description", { count: pseoFractionPairs.length }),
     url: pageUrl,
     isPartOf: {
       "@type": "WebSite",
@@ -117,8 +128,8 @@ export default async function AsADecimalHubPage({ params }: PageProps) {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: t("hub.popular_title"),
-    itemListElement: featuredPseoFractions.map((fraction, index) => ({
+    name: t("hub.family_title"),
+    itemListElement: pseoFractionPairs.map((fraction, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: `${fraction.numerator}/${fraction.denominator} as a decimal`,
@@ -176,11 +187,70 @@ export default async function AsADecimalHubPage({ params }: PageProps) {
               {t("hub.title")}
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">
-              {t("hub.description")}
+              {t("hub.description", { count: pseoFractionPairs.length })}
             </p>
           </header>
 
-          <section className="rounded-3xl border border-violet-500/20 bg-violet-500/10 p-6 backdrop-blur sm:p-8">
+          <section
+            id="fraction-directory"
+            aria-labelledby="fraction-directory-title"
+            className="rounded-3xl border border-slate-700/60 bg-slate-900/60 p-6 backdrop-blur sm:p-8"
+          >
+            <h2 id="fraction-directory-title" className="text-2xl font-semibold text-white">
+              {t("hub.family_title")}
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300">
+              {t("hub.family_description", { count: pseoFractionPairs.length })}
+            </p>
+            <a
+              href="#fraction-guides"
+              className="mt-3 inline-flex min-h-11 items-center rounded-lg text-sm text-violet-200 underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+            >
+              {t("hub.skip_directory")}
+            </a>
+            <nav aria-label={t("hub.denominator_navigation")} className="mt-4 flex flex-wrap gap-2">
+              {fractionGroups.map(({ denominator }) => (
+                <a
+                  key={denominator}
+                  href={`#denominator-${denominator}`}
+                  className="inline-flex min-h-11 items-center rounded-xl border border-slate-600 px-3 py-2 text-sm text-violet-200 hover:border-violet-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+                >
+                  {t("hub.family_label", { denominator })}
+                </a>
+              ))}
+            </nav>
+            <div className="mt-8 space-y-8">
+              {fractionGroups.map(({ denominator, fractions }) => (
+                <section key={denominator} aria-labelledby={`denominator-${denominator}`}>
+                  <h3
+                    id={`denominator-${denominator}`}
+                    tabIndex={-1}
+                    className="scroll-mt-24 text-lg font-semibold text-white"
+                  >
+                    {t("hub.family_label", { denominator })}
+                  </h3>
+                  <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {fractions.map(({ numerator }) => (
+                      <li key={numerator}>
+                        <Link
+                          href={getPseoPath(numerator, denominator)}
+                          className="flex min-h-11 items-center rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-200 hover:border-violet-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+                        >
+                          {t("pseo.h1", { numerator, denominator })}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </section>
+
+          <section
+            id="fraction-guides"
+            tabIndex={-1}
+            className="scroll-mt-24 rounded-3xl border border-violet-500/20 bg-violet-500/10 p-6 backdrop-blur sm:p-8"
+          >
             <h2 className="text-xl font-bold text-white">{t("hub.tldr_title")}</h2>
             <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-200">{t("hub.tldr_body")}</p>
           </section>
