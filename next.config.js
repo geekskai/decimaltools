@@ -16,6 +16,12 @@ module.exports = () => {
   const nextConfig = plugins.reduce((config, plugin) => plugin(config), {
     async redirects() {
       return [
+        // Recover the legacy URL emitted before async locale params were awaited.
+        {
+          source: "/undefined/tools/convert-inches-to-decimal",
+          destination: "/tools/convert-inches-to-decimal",
+          permanent: true,
+        },
         {
           source: "/blog/page/1",
           destination: "/blog",
