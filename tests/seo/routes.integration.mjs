@@ -32,3 +32,29 @@ test("cold fraction aliases have one canonical redirect and excluded fractions r
     await excluded.body?.cancel()
   }
 })
+test("legacy undefined-locale inches URL redirects to the canonical tool", async () => {
+  const legacyUrl = new URL("/undefined/tools/convert-inches-to-decimal?input=3%2F8", site)
+  const legacyResponse = await fetch(legacyUrl, { redirect: "manual" })
+  assert.equal(legacyResponse.status, 308)
+  const destination = new URL(legacyResponse.headers.get("location"), site)
+  assert.equal(destination.pathname, "/tools/convert-inches-to-decimal")
+  assert.equal(destination.searchParams.get("input"), "3/8")
+  await legacyResponse.body?.cancel()
+
+  const toolResponse = await fetch(destination, { redirect: "manual" })
+  assert.equal(toolResponse.status, 200)
+  const toolHtml = await toolResponse.text()
+  assert.match(
+    toolHtml,
+    /<link rel="canonical" href="https:\/\/decimaltools\.com\/tools\/convert-inches-to-decimal"/
+  )
+  assert.doesNotMatch(toolHtml, /\/undefined\//)
+})
+
+test("unknown undefined-locale routes still return 404", async () => {
+  const unknownResponse = await fetch(new URL("/undefined/tools/not-a-tool", site), {
+    redirect: "manual",
+  })
+  assert.equal(unknownResponse.status, 404)
+  await unknownResponse.body?.cancel()
+})
