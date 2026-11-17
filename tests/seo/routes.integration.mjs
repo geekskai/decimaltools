@@ -1,5 +1,6 @@
 import assert from "node:assert/strict"
 import test from "node:test"
+import { load } from "cheerio"
 
 // Run against a production build: SEO_TEST_SITE=http://localhost:3011 node --test tests/seo/routes.integration.mjs
 const site = process.env.SEO_TEST_SITE
@@ -57,4 +58,70 @@ test("unknown undefined-locale routes still return 404", async () => {
   })
   assert.equal(unknownResponse.status, 404)
   await unknownResponse.body?.cancel()
+})
+
+// Check rendered HTML rather than the whitelist alone: links must work without JavaScript.
+async function getFractionSitemapPaths() {
+  const sitemapResponse = await fetch(new URL("/sitemap.xml", site))
+  assert.equal(sitemapResponse.status, 200)
+  const sitemapXml = await sitemapResponse.text()
+  const sitemap = load(sitemapXml, { xml: true })
+  return sitemap("url > loc")
+    .toArray()
+    .map((entry) => new URL(sitemap(entry).text()).pathname)
+    .filter((pathname) => /^\/tools\/as-a-decimal\/\d+-\d+$/.test(pathname))
+    .sort()
+}
+
+test("fraction directory links to every sitemap fraction and its structured list matches", async () => {
+  const expectedPaths = await getFractionSitemapPaths()
+  assert.equal(expectedPaths.length, 110)
+  const directoryResponse = await fetch(new URL("/tools/as-a-decimal", site))
+  assert.equal(directoryResponse.status, 200)
+  const directoryHtml = await directoryResponse.text()
+  const directory = load(directoryHtml)
+  const visiblePaths = directory("#fraction-directory a[href]")
+    .toArray()
+    .map((anchor) => new URL(directory(anchor).attr("href"), site).pathname)
+    .filter((pathname) => /^\/tools\/as-a-decimal\/\d+-\d+$/.test(pathname))
+    .sort()
+  assert.deepEqual(visiblePaths, expectedPaths)
+  const schemas = directory('script[type="application/ld+json"]')
+    .toArray()
+    .map((script) => JSON.parse(directory(script).text()))
+  const structuredList = schemas.find((schema) => schema["@type"] === "ItemList")
+  assert.ok(structuredList)
+  const structuredPaths = structuredList.itemListElement
+    .map((entry) => new URL(entry.url).pathname)
+    .sort()
+  assert.deepEqual(structuredPaths, expectedPaths)
+  for (const pathname of expectedPaths) {
+    const denominator = pathname.split("-").at(-1)
+    assert.equal(directory(`#denominator-${denominator}`).length, 1, pathname)
+  }
+})
+
+test("every fraction has a canonical answer page and visible links back to its directory group", async () => {
+  const expectedPaths = await getFractionSitemapPaths()
+  for (const pathname of expectedPaths) {
+    const pageResponse = await fetch(new URL(pathname, site), { redirect: "manual" })
+    assert.equal(pageResponse.status, 200, pathname)
+    const pageHtml = await pageResponse.text()
+    const page = load(pageHtml)
+    const denominator = pathname.split("-").at(-1)
+    assert.equal(new URL(page('link[rel="canonical"]').attr("href")).pathname, pathname)
+    assert.equal(page('meta[name="robots"]').attr("content"), "index, follow", pathname)
+    assert.equal(page("h1").length, 1, pathname)
+    assert.equal(
+      page('nav[aria-label="Breadcrumb"] a[href="/tools/as-a-decimal"]').length,
+      1,
+      pathname
+    )
+    assert.equal(
+      page(`main a[href="/tools/as-a-decimal#denominator-${denominator}"]`).length,
+      1,
+      pathname
+    )
+    assert.ok(page("main").text().includes(pathname.split("/").at(-1).replace("-", "/")), pathname)
+  }
 })
