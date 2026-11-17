@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
   const commonDisallow = [
     "/*/feed.xml",
     "/api/",
+    "/cdn-cgi/l/email-protection",
     // "/admin/",
     // ...localeDisallowPaths,
   ]
@@ -31,7 +32,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "Bingbot",
         allow: "/",
-        disallow: ["/*/feed.xml", "/api/"],
+        disallow: commonDisallow,
         crawlDelay: 0,
       },
       // AI Crawlers - Critical for AI visibility
