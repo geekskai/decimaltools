@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <header className="dt-header sticky top-0 z-70 border-b border-slate-800 bg-slate-950/95">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 xl:px-0">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 xl:px-8">
         {/* Keep the existing logo asset and wordmark. */}
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex min-h-[44px] items-center gap-1">
