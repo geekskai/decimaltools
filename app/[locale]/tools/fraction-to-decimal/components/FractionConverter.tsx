@@ -15,6 +15,8 @@ export type FractionConverterProps = {
   initialInput?: string
   defaultInput?: string
   initialPrecision?: number
+  /** A new chart selection starts a forward conversion, even for the same value. */
+  selectedFraction?: { value: string }
   /** Only fraction → decimal UI (hides mode toggle). */
   fractionOnly?: boolean
   /** Keep the input value and the `input` query param in sync. */
@@ -25,6 +27,7 @@ export default function FractionConverter({
   initialInput = "",
   defaultInput = "",
   initialPrecision = 8,
+  selectedFraction,
   fractionOnly = false,
   syncInputWithUrl = false,
 }: FractionConverterProps) {
@@ -34,6 +37,7 @@ export default function FractionConverter({
   const searchParams = useSearchParams()
   const skipNextUrlStateSyncRef = useRef(false)
   const latestInputRef = useRef("")
+  const inputRef = useRef<HTMLInputElement>(null)
   const [input, setInput] = useState(() => {
     if (!syncInputWithUrl) {
       return initialInput || defaultInput
@@ -57,6 +61,15 @@ export default function FractionConverter({
   useEffect(() => {
     latestInputRef.current = input
   }, [input])
+
+  useEffect(() => {
+    if (!selectedFraction) {
+      return
+    }
+    setMode("fraction-to-decimal")
+    setInput(selectedFraction.value)
+    inputRef.current?.focus()
+  }, [selectedFraction])
 
   const run = useCallback(() => {
     const trimmed = input.trim()
@@ -82,16 +95,21 @@ export default function FractionConverter({
       return
     }
 
-    const n = parseFloat(trimmed.replace(/,/g, ""))
-    if (isNaN(n) || n < 0) {
+    const parsedDecimal = parseMathFractionInput(trimmed.replace(/,/g, ""))
+    if (
+      !parsedDecimal.ok ||
+      parsedDecimal.value.kind !== "decimal_only" ||
+      !Number.isFinite(parsedDecimal.value.value)
+    ) {
       setError(t("invalid_decimal"))
       setPrimaryLine("")
       setSecondaryLine("")
       return
     }
     setError("")
-    const label = decimalToReducedLabel(n, 1000)
-    const dec = formatDecimalTrim(n, precision)
+    const decimalValue = parsedDecimal.value.value
+    const label = decimalToReducedLabel(decimalValue, 1000)
+    const dec = formatDecimalTrim(decimalValue, precision)
     setPrimaryLine(`${dec} = ${label}`)
     setSecondaryLine("")
   }, [input, mode, precision, t])
@@ -196,6 +214,7 @@ export default function FractionConverter({
 
       <label className="mb-2 block text-sm font-medium text-slate-400">{t("input_label")}</label>
       <input
+        ref={inputRef}
         type="text"
         aria-label={t("input_label")}
         aria-invalid={Boolean(error)}

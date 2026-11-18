@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
+import { buildBatchPdf } from "../batch-pdf"
 import {
   buildCsv,
   calculateMinutesProgress,
@@ -16,6 +17,8 @@ import {
   type RoundingMode,
 } from "../utils"
 
+const BATCH_PDF_FILENAME = "hours-to-decimal-batch.pdf"
+const PDF_DOWNLOAD_REVOKE_DELAY_MS = 1000
 const RATE_STORAGE_KEY = "hours-to-decimal-hourly-rate"
 const ROUNDING_MODES: RoundingMode[] = ["none", "quarter", "tenth", "seven_minute_rule"]
 
@@ -31,6 +34,7 @@ export default function HoursToDecimalCalculatorConverter() {
   const [hourlyRateInput, setHourlyRateInput] = useState("")
   const [rows, setRows] = useState<BatchRow[]>([])
   const [copyMessage, setCopyMessage] = useState("")
+  const [pdfExportMessage, setPdfExportMessage] = useState("")
 
   useEffect(() => {
     const savedRate = localStorage.getItem(RATE_STORAGE_KEY)
@@ -107,34 +111,25 @@ export default function HoursToDecimalCalculatorConverter() {
   }
 
   const exportPdf = () => {
-    if (!rows.length) return
-    const popup = window.open("", "_blank", "width=900,height=700")
-    if (!popup) return
-    const rowsMarkup = rows
-      .map(
-        (row) =>
-          `<tr><td>${row.sourceLabel}</td><td>${row.exactHours.toFixed(4)}</td><td>${row.roundedHours.toFixed(4)}</td><td>${row.totalAmount == null ? "-" : `$${row.totalAmount.toFixed(2)}`}</td></tr>`
-      )
-      .join("")
-    popup.document.write(`
-      <html><head><title>Hours to Decimal Batch</title>
-      <style>
-        body { font-family: Arial, sans-serif; padding: 20px; color: #111; }
-        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background: #f3f4f6; }
-      </style>
-      </head><body>
-      <h1>Hours to Decimal Batch Export</h1>
-      <table>
-        <thead><tr><th>Entry</th><th>Exact Hours</th><th>Rounded Hours</th><th>Amount</th></tr></thead>
-        <tbody>${rowsMarkup}</tbody>
-      </table>
-      </body></html>
-    `)
-    popup.document.close()
-    popup.focus()
-    popup.print()
+    if (!rows.length) {
+      return
+    }
+    try {
+      const pdf = buildBatchPdf(rows)
+      const downloadUrl = URL.createObjectURL(pdf)
+      const anchor = document.createElement("a")
+      anchor.href = downloadUrl
+      anchor.download = BATCH_PDF_FILENAME
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+      // Keep the Blob alive until browsers have started consuming the download.
+      setTimeout(() => URL.revokeObjectURL(downloadUrl), PDF_DOWNLOAD_REVOKE_DELAY_MS)
+      setPdfExportMessage(t("pdf_download_started"))
+    } catch (error: unknown) {
+      console.error("Unable to create hours batch PDF", error)
+      setPdfExportMessage(t("pdf_export_failed"))
+    }
   }
 
   const copyRounded = async () => {
@@ -340,7 +335,7 @@ export default function HoursToDecimalCalculatorConverter() {
               </div>
             ) : (
               <div className="mt-1.5 flex min-h-[10rem] items-center rounded-xl border border-white/10 bg-slate-950/40 p-3.5 text-sm leading-6 text-slate-300 sm:mt-2 sm:p-4 md:min-h-[12rem] md:p-5 md:text-sm">
-                {t(parseResult.ok ? "parse_success" : "parse_error")}
+                {parseResult.ok ? t("empty") : t(parseResult.error)}
               </div>
             )}
           </div>
@@ -370,6 +365,7 @@ export default function HoursToDecimalCalculatorConverter() {
               </button>
             </div>
           </div>
+          {pdfExportMessage ? <p role="status" className="mt-3 text-sm text-slate-300">{pdfExportMessage}</p> : null}
 
           {rows.length ? (
             <div className="mt-4 overflow-x-auto">

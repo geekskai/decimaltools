@@ -17,6 +17,7 @@ export default function FractionToDecimalPage() {
   const [chartQuery, setChartQuery] = useState("")
   const [chartPreset, setChartPreset] = useState<"all" | "common">("all")
   const [chartCopyMsg, setChartCopyMsg] = useState("")
+  const [selectedFraction, setSelectedFraction] = useState<{ value: string }>()
 
   const faqItems = Array.from({ length: 8 }, (_, index) => ({
     question: t(`geo_sections.faq.question_${index + 1}`),
@@ -140,7 +141,7 @@ export default function FractionToDecimalPage() {
               <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-6 sm:p-8" />
             }
           >
-            <FractionConverter defaultInput="5/6" syncInputWithUrl />
+            <FractionConverter defaultInput="5/6" selectedFraction={selectedFraction} syncInputWithUrl />
           </Suspense>
 
           <section className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
@@ -223,14 +224,15 @@ export default function FractionToDecimalPage() {
                                 >
                                   {t("chart_copy_decimal")}
                                 </button>
-                                <Link
-                                  href={`/tools/fraction-to-decimal?input=${encodeURIComponent(
-                                    `${row.numerator}/${row.denominator}`
-                                  )}`}
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedFraction({
+                                    value: `${row.numerator}/${row.denominator}`,
+                                  })}
                                   className="rounded-lg border border-cyan-500/40 bg-slate-950/60 px-3 py-1.5 text-sm font-medium text-slate-100 transition hover:bg-primary-500/20"
                                 >
                                   {t("chart_use_in_calculator")}
-                                </Link>
+                                </button>
                               </div>
                             </td>
                           </tr>

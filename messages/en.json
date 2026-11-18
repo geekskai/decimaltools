@@ -1424,6 +1424,8 @@
       "batch_empty": "No rows yet. Add converted entries to build a payroll batch.",
       "export_csv": "Export CSV",
       "export_pdf": "Export PDF",
+      "pdf_download_started": "PDF download started. Check your downloads.",
+      "pdf_export_failed": "The PDF could not be created. Please try again.",
       "table_entry": "Entry",
       "table_exact": "Exact hours",
       "table_rounded": "Rounded hours",
@@ -1461,7 +1463,7 @@
       "limitations": {
         "title": "Scope and Limitations",
         "item_1": "This version does not include overtime multipliers or break deduction automation.",
-        "item_2": "PDF export uses browser print workflow for quick record output.",
+        "item_2": "PDF export downloads a file containing the batch entries and grand totals.",
         "item_3": "Always validate final payroll numbers against company policy and legal rules."
       },
       "faq": {
