@@ -86,6 +86,12 @@ test("fraction directory links to every sitemap fraction and its structured list
     .filter((pathname) => /^\/tools\/as-a-decimal\/\d+-\d+$/.test(pathname))
     .sort()
   assert.deepEqual(visiblePaths, expectedPaths)
+  const directoryParagraphs = directory("main p")
+    .toArray()
+    .map((paragraph) => directory(paragraph).text())
+    .join("\n")
+  assert.match(directoryParagraphs, new RegExp(`\\b${expectedPaths.length} worked conversions\\b`))
+  assert.doesNotMatch(directoryParagraphs, /\{count\}/)
   const schemas = directory('script[type="application/ld+json"]')
     .toArray()
     .map((script) => JSON.parse(directory(script).text()))
@@ -125,3 +131,25 @@ test("every fraction has a canonical answer page and visible links back to its d
     assert.ok(page("main").text().includes(pathname.split("/").at(-1).replace("-", "/")), pathname)
   }
 })
+
+test("fraction family description counts its visible quick links without placeholders", async () => {
+  const conversionResponse = await fetch(new URL("/tools/fraction-to-decimal", site))
+  assert.equal(conversionResponse.status, 200)
+  const conversionHtml = await conversionResponse.text()
+  const conversionPage = load(conversionHtml)
+  const familyHeading = conversionPage("h2").filter(
+    (_, heading) => conversionPage(heading).text().trim() === "Browse fractions by denominator"
+  )
+  assert.equal(familyHeading.length, 1)
+  const familySection = familyHeading.parent()
+  const quickLinkPaths = familySection.find("a[href]")
+    .toArray()
+    .map((anchor) => new URL(conversionPage(anchor).attr("href"), site).pathname)
+    .filter((pathname) => /^\/tools\/as-a-decimal\/\d+-\d+$/.test(pathname))
+  assert.equal(quickLinkPaths.length, 14)
+  assert.equal(new Set(quickLinkPaths).size, quickLinkPaths.length)
+  const summary = familySection.children("p").first().text()
+  assert.match(summary, new RegExp(`\\b${quickLinkPaths.length}\\b`))
+  assert.doesNotMatch(summary, /\{count\}/)
+})
+

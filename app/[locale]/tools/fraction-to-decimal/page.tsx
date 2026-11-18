@@ -58,6 +58,8 @@ export default function FractionToDecimalPage() {
     ],
   ]
 
+  const familyLinkCount = fractionFamilies.reduce((totalLinks, family) => totalLinks + family.length, 0)
+
   const fractionChartRows = useMemo(() => {
     const rows = [
       [1, 2],
@@ -341,7 +343,9 @@ export default function FractionToDecimalPage() {
 
             <div className="rounded-xl border border-slate-600/40 bg-slate-900/60 p-6 sm:p-8">
               <h2 className="text-xl font-semibold text-white">{t("hub.family_title")}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-300">{t("hub.family_description")}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                {t("hub.family_quick_links_description", { count: familyLinkCount })}
+              </p>
               <div className="mt-5 space-y-4">
                 {fractionFamilies.map((family, index) => (
                   <div key={index}>
@@ -515,3 +519,4 @@ export default function FractionToDecimalPage() {
     </div>
   )
 }
+

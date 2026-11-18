@@ -1678,6 +1678,7 @@
       "tool_badge": "Tool",
       "family_title": "Browse fractions by denominator",
       "family_description": "All {count} worked conversions are listed here. The denominator is the bottom number in a fraction. Fractions greater than 1 appear in the same groups.",
+      "family_quick_links_description": "Use these {count} links to browse sixths, eighths, and sixteenths. Each page shows the decimal value and division steps.",
       "skip_directory": "Skip to the conversion guide",
       "denominator_navigation": "Choose a denominator",
       "family_label": "Denominator {denominator}",
@@ -1841,3 +1842,4 @@
     }
   }
 }
+
