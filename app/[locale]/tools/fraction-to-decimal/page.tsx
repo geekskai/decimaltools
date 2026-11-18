@@ -126,45 +126,35 @@ export default function FractionToDecimalPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-950/20 to-slate-900">
-      <div className="relative px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl space-y-10">
-          <header className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-              {t("page_title")}
-            </h1>
-            <p className="mt-4 text-lg text-slate-300 sm:text-xl">{t("page_subtitle")}</p>
-
-            <div className="mx-auto mt-8 rounded-2xl border border-violet-500/30 bg-violet-500/10 p-5 text-left shadow-lg backdrop-blur-sm sm:p-6">
-              <h2 className="mb-2 text-lg font-semibold text-violet-200">
-                {t("geo_sections.quick_answer_title")}
-              </h2>
-              <p className="leading-relaxed text-slate-200">
-                {t("geo_sections.quick_answer_content")}
-              </p>
-            </div>
+    <div className="dt-interface dt-fraction-tool dt-page">
+      <div className="w-full">
+        <div className="space-y-8">
+          <header className="dt-page-header">
+            <h1>{t("page_title")}</h1>
+            <p>{t("page_subtitle")}</p>
+            <p className="dt-formula">3/8 = 0.375</p>
           </header>
 
           <Suspense
             fallback={
-              <div className="rounded-3xl border border-violet-500/30 bg-slate-900/80 p-6 shadow-xl backdrop-blur-md sm:p-8" />
+              <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-6 sm:p-8" />
             }
           >
             <FractionConverter defaultInput="5/6" syncInputWithUrl />
           </Suspense>
 
-          <section className="rounded-3xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
+          <section className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h2 className="text-xl font-bold text-white">{t("chart_title")}</h2>
+                <h2 className="text-xl font-semibold text-white">{t("chart_title")}</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300">{t("chart_intro")}</p>
                 <div className="mt-3 inline-flex rounded-xl border border-slate-700 bg-slate-950/60 p-1">
                   <button
                     type="button"
                     onClick={() => setChartPreset("all")}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                    className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                       chartPreset === "all"
-                        ? "bg-cyan-500/20 text-cyan-100"
+                        ? "bg-primary-500/20 text-slate-100"
                         : "text-slate-300 hover:text-white"
                     }`}
                   >
@@ -173,9 +163,9 @@ export default function FractionToDecimalPage() {
                   <button
                     type="button"
                     onClick={() => setChartPreset("common")}
-                    className={`rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                    className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                       chartPreset === "common"
-                        ? "bg-cyan-500/20 text-cyan-100"
+                        ? "bg-primary-500/20 text-slate-100"
                         : "text-slate-300 hover:text-white"
                     }`}
                   >
@@ -184,7 +174,7 @@ export default function FractionToDecimalPage() {
                 </div>
               </div>
               <div className="w-full sm:w-auto">
-                <label className="mb-2 block text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+                <label className="mb-2 block text-sm font-medium text-slate-500">
                   {t("chart_search_label")}
                 </label>
                 <input
@@ -201,9 +191,9 @@ export default function FractionToDecimalPage() {
                 {groupedChartRows.map(([denominator, rows]) => (
                   <div
                     key={denominator}
-                    className="overflow-x-auto rounded-2xl border border-slate-700 bg-slate-950/60"
+                    className="overflow-x-auto rounded-xl border border-slate-700 bg-slate-950/60"
                   >
-                    <p className="border-b border-slate-700 bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                    <p className="border-b border-slate-700 bg-slate-900/70 px-4 py-2 text-sm font-semibold text-slate-300">
                       {t("chart_group_label", { denominator })}
                     </p>
                     <table className="w-full min-w-[420px] text-left text-sm">
@@ -223,13 +213,13 @@ export default function FractionToDecimalPage() {
                             <td className="px-4 py-3 font-medium text-white">
                               {row.numerator}/{row.denominator}
                             </td>
-                            <td className="px-4 py-3 font-mono text-cyan-200">{row.decimal}</td>
+                            <td className="px-4 py-3 font-mono text-slate-100">{row.decimal}</td>
                             <td className="px-4 py-3 text-right">
                               <div className="flex flex-wrap justify-end gap-2">
                                 <button
                                   type="button"
                                   onClick={() => copyChartDecimal(row.decimal)}
-                                  className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-200 transition hover:bg-emerald-500/20"
+                                  className="rounded-lg border border-emerald-500/40 bg-slate-950/60 px-3 py-1.5 text-sm font-medium text-primary-300 transition hover:bg-slate-800"
                                 >
                                   {t("chart_copy_decimal")}
                                 </button>
@@ -237,7 +227,7 @@ export default function FractionToDecimalPage() {
                                   href={`/tools/fraction-to-decimal?input=${encodeURIComponent(
                                     `${row.numerator}/${row.denominator}`
                                   )}`}
-                                  className="rounded-lg border border-cyan-500/40 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-200 transition hover:bg-cyan-500/20"
+                                  className="rounded-lg border border-cyan-500/40 bg-slate-950/60 px-3 py-1.5 text-sm font-medium text-slate-100 transition hover:bg-primary-500/20"
                                 >
                                   {t("chart_use_in_calculator")}
                                 </Link>
@@ -249,7 +239,7 @@ export default function FractionToDecimalPage() {
                     </table>
                   </div>
                 ))}
-                {chartCopyMsg ? <p className="text-xs text-emerald-200">{chartCopyMsg}</p> : null}
+                {chartCopyMsg ? <p className="text-sm text-primary-300">{chartCopyMsg}</p> : null}
               </div>
             ) : (
               <p className="mt-5 rounded-xl border border-slate-700 bg-slate-950/60 px-4 py-3 text-sm text-slate-400">
@@ -258,17 +248,22 @@ export default function FractionToDecimalPage() {
             )}
           </section>
 
+          <section className="dt-panel">
+            <h2 className="text-lg font-semibold text-white">{t("geo_sections.quick_answer_title")}</h2>
+            <p className="mt-2 leading-7 text-slate-300">{t("geo_sections.quick_answer_content")}</p>
+          </section>
+
           <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="rounded-3xl border border-violet-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-              <h2 className="text-xl font-bold text-white">{t("geo_sections.how_title")}</h2>
+            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
+              <h2 className="text-xl font-semibold text-white">{t("geo_sections.how_title")}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">{t("geo_sections.how_intro")}</p>
               <ol className="mt-5 space-y-4">
                 {howSteps.map((step, index) => (
                   <li
                     key={step.title}
-                    className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4"
+                    className="rounded-xl border border-slate-700 bg-slate-950/60 p-4"
                   >
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-300">
+                    <p className="text-sm font-semibold text-violet-300">
                       Step {index + 1}
                     </p>
                     <h3 className="mt-2 text-base font-semibold text-white">{step.title}</h3>
@@ -278,8 +273,8 @@ export default function FractionToDecimalPage() {
               </ol>
             </div>
 
-            <div className="rounded-3xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-              <h2 className="text-xl font-bold text-white">{t("geo_sections.core_facts_title")}</h2>
+            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
+              <h2 className="text-xl font-semibold text-white">{t("geo_sections.core_facts_title")}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 {t("geo_sections.core_facts_intro")}
               </p>
@@ -287,9 +282,9 @@ export default function FractionToDecimalPage() {
                 {coreFacts.map((fact) => (
                   <div
                     key={fact.label}
-                    className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4"
+                    className="rounded-xl border border-slate-700 bg-slate-950/60 p-4"
                   >
-                    <dt className="text-sm text-cyan-200">
+                    <dt className="text-sm text-slate-100">
                       <strong>{fact.label}</strong>
                     </dt>
                     <dd className="mt-2 text-sm leading-6 text-slate-300">{fact.value}</dd>
@@ -300,15 +295,15 @@ export default function FractionToDecimalPage() {
           </section>
 
           <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-3xl border border-violet-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
+            <div className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-xl font-bold text-white">{t("hub.popular_title")}</h2>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{t("hub.description")}</p>
+                  <h2 className="text-xl font-semibold text-white">{t("hub.popular_title")}</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{t("hub.description", { count: popularFractions.length })}</p>
                 </div>
                 <Link
                   href="/tools/as-a-decimal"
-                  className="hidden rounded-xl border border-violet-500/40 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 sm:inline-flex"
+                  className="hidden rounded-xl border border-violet-500/40 bg-slate-950/60 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-violet-500/20 sm:inline-flex"
                 >
                   {t("hub.browse_all")}
                 </Link>
@@ -319,7 +314,7 @@ export default function FractionToDecimalPage() {
                   <Link
                     key={`${fraction.numerator}/${fraction.denominator}`}
                     href={getPseoPath(fraction.numerator, fraction.denominator)}
-                    className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-violet-400 hover:bg-slate-950"
+                    className="rounded-xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-violet-400 hover:bg-slate-950"
                   >
                     <p className="text-lg font-semibold text-white">
                       {fraction.numerator}/{fraction.denominator}
@@ -336,19 +331,19 @@ export default function FractionToDecimalPage() {
 
               <Link
                 href="/tools/as-a-decimal"
-                className="mt-5 inline-flex rounded-xl border border-violet-500/40 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-200 transition hover:bg-violet-500/20 sm:hidden"
+                className="mt-5 inline-flex rounded-xl border border-violet-500/40 bg-slate-950/60 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-violet-500/20 sm:hidden"
               >
                 {t("hub.browse_all")}
               </Link>
             </div>
 
-            <div className="rounded-3xl border border-slate-600/40 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-              <h2 className="text-xl font-bold text-white">{t("hub.family_title")}</h2>
+            <div className="rounded-xl border border-slate-600/40 bg-slate-900/60 p-6 sm:p-8">
+              <h2 className="text-xl font-semibold text-white">{t("hub.family_title")}</h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">{t("hub.family_description")}</p>
               <div className="mt-5 space-y-4">
                 {fractionFamilies.map((family, index) => (
                   <div key={index}>
-                    <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                    <p className="mb-2 text-sm font-medium text-slate-500">
                       {t("hub.family_label", { denominator: family[0].denominator })}
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -356,7 +351,7 @@ export default function FractionToDecimalPage() {
                         <Link
                           key={`${fraction.numerator}/${fraction.denominator}`}
                           href={getPseoPath(fraction.numerator, fraction.denominator)}
-                          className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-cyan-400 hover:text-white"
+                          className="rounded-full border border-slate-600 bg-slate-950/70 px-3 py-1.5 text-sm text-slate-200 transition hover:border-primary-400 hover:text-white"
                         >
                           {fraction.numerator}/{fraction.denominator}
                         </Link>
@@ -369,8 +364,8 @@ export default function FractionToDecimalPage() {
           </section>
 
           <section className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl border border-amber-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-              <h2 className="text-xl font-bold text-white">
+            <div className="rounded-xl border border-amber-500/20 bg-slate-900/60 p-6 sm:p-8">
+              <h2 className="text-xl font-semibold text-white">
                 {t("geo_sections.limitations_title")}
               </h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">
@@ -380,7 +375,7 @@ export default function FractionToDecimalPage() {
                 {limitationItems.map((item) => (
                   <li
                     key={item}
-                    className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4"
+                    className="rounded-xl border border-slate-700 bg-slate-950/60 p-4"
                   >
                     {item}
                   </li>
@@ -388,8 +383,8 @@ export default function FractionToDecimalPage() {
               </ul>
             </div>
 
-            <div className="rounded-3xl border border-emerald-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-              <h2 className="text-xl font-bold text-white">
+            <div className="rounded-xl border border-emerald-500/20 bg-slate-900/60 p-6 sm:p-8">
+              <h2 className="text-xl font-semibold text-white">
                 {t("geo_sections.data_sources_title")}
               </h2>
               <p className="mt-2 text-sm leading-6 text-slate-300">
@@ -425,15 +420,15 @@ export default function FractionToDecimalPage() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-cyan-500/20 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-            <h2 className="text-xl font-bold text-white">{t("hub.search_patterns_title")}</h2>
+          <section className="rounded-xl border border-slate-700 bg-slate-900/60 p-6 sm:p-8">
+            <h2 className="text-xl font-semibold text-white">{t("hub.search_patterns_title")}</h2>
             <p className="mt-2 text-sm leading-6 text-slate-300">
               {t("hub.search_patterns_description")}
             </p>
 
             <div className="mt-6 grid gap-6 lg:grid-cols-2">
               <div>
-                <h3 className="text-base font-semibold text-cyan-200">
+                <h3 className="text-base font-semibold text-slate-100">
                   {t("hub.questions_title")}
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-slate-400">
@@ -444,10 +439,10 @@ export default function FractionToDecimalPage() {
                     <Link
                       key={query.label}
                       href={getPseoPath(query.numerator, query.denominator)}
-                      className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-cyan-400 hover:bg-slate-950"
+                      className="rounded-xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-primary-400 hover:bg-slate-950"
                     >
                       <p className="text-sm font-medium text-white">{query.label}</p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">
+                      <p className="mt-1 text-sm text-slate-500">
                         {query.numerator}/{query.denominator}
                       </p>
                     </Link>
@@ -456,7 +451,7 @@ export default function FractionToDecimalPage() {
               </div>
 
               <div>
-                <h3 className="text-base font-semibold text-cyan-200">{t("hub.mixed_title")}</h3>
+                <h3 className="text-base font-semibold text-slate-100">{t("hub.mixed_title")}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-400">
                   {t("hub.mixed_description")}
                 </p>
@@ -465,10 +460,10 @@ export default function FractionToDecimalPage() {
                     <Link
                       key={query.label}
                       href={`/tools/fraction-to-decimal?input=${encodeURIComponent(query.input)}`}
-                      className="rounded-2xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-cyan-400 hover:bg-slate-950"
+                      className="rounded-xl border border-slate-700 bg-slate-950/60 p-4 transition hover:border-primary-400 hover:bg-slate-950"
                     >
                       <p className="text-sm font-medium text-white">{query.label}</p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">
+                      <p className="mt-1 text-sm text-slate-500">
                         {t("hub.tool_card_cta", { input: query.input })}
                       </p>
                     </Link>
@@ -478,19 +473,19 @@ export default function FractionToDecimalPage() {
             </div>
           </section>
 
-          <section className="rounded-3xl border border-slate-600/40 bg-slate-900/60 p-6 backdrop-blur-sm sm:p-8">
-            <h2 className="mb-4 text-xl font-bold text-white">{t("geo_sections.faq_title")}</h2>
+          <section className="rounded-xl border border-slate-600/40 bg-slate-900/60 p-6 sm:p-8">
+            <h2 className="mb-4 text-xl font-semibold text-white">{t("geo_sections.faq_title")}</h2>
             <ul className="space-y-4">
               {faqItems.map((faq, i) => (
                 <li key={i} className="rounded-xl border border-slate-600/30 bg-slate-950/50 p-4">
-                  <p className="font-medium text-violet-200">{faq.question}</p>
+                  <p className="font-medium text-slate-100">{faq.question}</p>
                   <p className="mt-2 text-slate-300">{faq.answer}</p>
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center sm:p-8">
+          <section className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center sm:p-8">
             <p className="text-slate-300">
               <strong className="text-slate-200">{t("geo_sections.last_updated_label")}</strong>{" "}
               {LAST_MODIFIED_ISO} ·{" "}
@@ -499,7 +494,7 @@ export default function FractionToDecimalPage() {
             </p>
             <Link
               href="/tools"
-              className="mt-4 inline-block rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-5 py-2.5 text-sm font-medium text-emerald-200 transition-colors hover:bg-emerald-500/20"
+              className="mt-4 inline-block rounded-xl border border-emerald-500/40 bg-slate-950/60 px-5 py-2.5 text-sm font-medium text-primary-300 transition-colors hover:bg-slate-800"
             >
               {t("geo_sections.browse_all_tools")}
             </Link>

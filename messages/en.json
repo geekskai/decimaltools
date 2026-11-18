@@ -1260,7 +1260,7 @@
     },
     "badge": "Fraction Conversion Chart",
     "h1": "Fractional Inches to Decimal Inches and Millimeters",
-    "intro": "Use the fraction-to-decimal inch and millimeter chart for common sizes, or enter mixed inches and copy the result into CAD or a spreadsheet.",
+    "intro": "Convert fractional inches to decimal inches and millimeters, or look up a size in the chart.",
     "quick_answer": {
       "title": "Quick Answer",
       "body": "Divide the fraction, add any whole inches, then multiply the decimal inches by 25.4 for millimeters. For example, 1 3/4 in = 1.75 in = 44.45 mm."
@@ -1375,7 +1375,7 @@
     },
     "badge": "Payroll & Billing Utility",
     "h1": "Hours to Decimal Calculator",
-    "intro": "Convert time entries into payroll-ready decimal hours with smart parsing, compliance-friendly rounding, and optional wage totals.",
+    "intro": "Convert hours and minutes to decimal hours, with optional rounding and wage totals.",
     "quick_answer": {
       "title": "Quick Answer",
       "body": "To convert time to decimal hours: Hours + (Minutes / 60) + (Seconds / 3600). Example: 1:30 equals 1.5 hours. This calculator also applies payroll rounding rules and batch totals."
@@ -1622,7 +1622,7 @@
       "current": "Fraction to Decimal"
     },
     "page_title": "Fraction to Decimal Calculator",
-    "page_subtitle": "Pure math conversion — not inches or rulers. Enter a fraction, mixed number, or decimal and get an exact or clearly labeled approximate result.",
+    "page_subtitle": "Convert fractions, mixed numbers and decimals, with exact and approximate results clearly labeled.",
     "chart_title": "Fraction to Decimal Chart",
     "chart_intro": "Quickly scan common fractions and their decimal forms, then jump into the calculator with one click.",
     "chart_search_label": "Filter chart",

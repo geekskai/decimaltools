@@ -42,8 +42,10 @@ const MobileNav = () => {
     <>
       <button
         aria-label="Toggle Menu"
+        aria-expanded={navShow}
+        aria-controls="mobile-navigation"
         onClick={onToggleNav}
-        className="rounded-lg p-2 transition-colors duration-300 hover:bg-slate-800/50 lg:hidden"
+        className="min-h-[44px] min-w-[44px] rounded-lg p-2 transition-colors duration-300 hover:bg-slate-800/50 lg:hidden"
       >
         <Menu className="h-6 w-6 text-slate-300 hover:text-white" />
       </button>
@@ -60,7 +62,7 @@ const MobileNav = () => {
             leaveTo="opacity-0"
             unmount={false}
           >
-            <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" />
+            <div className="fixed inset-0 z-80 bg-black/50 backdrop-blur-sm" />
           </Transition.Child>
 
           <Transition.Child
@@ -73,12 +75,12 @@ const MobileNav = () => {
             leaveTo="translate-x-full opacity-0"
             unmount={false}
           >
-            <Dialog.Panel className="fixed right-0 top-0 z-50 h-full w-80 border-l border-slate-800/50 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
+            <Dialog.Panel id="mobile-navigation" className="dt-interface dt-mobile-nav fixed right-0 top-0 z-80 flex h-full w-80 max-w-[calc(100vw-16px)] flex-col border-l border-slate-800/50 bg-slate-950/95 shadow-2xl backdrop-blur-xl">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-800/50 p-6">
                 <div className="flex items-center gap-2">
                   <Zap className="h-5 w-5 text-blue-400" />
-                  <span className="text-lg font-bold text-white">Navigation</span>
+                  <Dialog.Title className="text-lg font-semibold text-white">Navigation</Dialog.Title>
                 </div>
                 <button
                   onClick={onToggleNav}
@@ -90,7 +92,7 @@ const MobileNav = () => {
               </div>
 
               {/* Navigation */}
-              <nav ref={navRef} className="flex-1 p-6">
+              <nav ref={navRef} className="min-h-0 flex-1 overflow-y-auto p-4">
                 <div className="space-y-2">
                   {headerNavLinks.map((link) => (
                     <LinkNext
@@ -107,6 +109,7 @@ const MobileNav = () => {
                   <div className="my-2">
                     <button
                       onClick={onToolsToggle}
+                      aria-expanded={toolsExpanded}
                       className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-lg font-medium text-slate-300 transition-all duration-300 hover:bg-slate-800/50 hover:text-white"
                     >
                       <span>{t("header_nav_tools")}</span>
@@ -152,7 +155,7 @@ const MobileNav = () => {
                           )
                         ).map(([category, tools]) => (
                           <div key={category} className="space-y-2">
-                            <h4 className="text-[10px] font-bold uppercase tracking-widest text-blue-400/80">
+                            <h4 className="text-sm font-medium text-slate-400">
                               {category}
                             </h4>
                             <div className="space-y-1">
@@ -162,11 +165,8 @@ const MobileNav = () => {
                                     key={tool.id}
                                     href={tool.href}
                                     onClick={onToggleNav}
-                                    className="group flex items-center gap-2 rounded-lg py-1.5 text-sm text-slate-400 transition-all duration-300 hover:text-white"
+                                    className="group flex min-h-[44px] items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-300 transition-colors hover:bg-slate-900 hover:text-white"
                                   >
-                                    <span className="text-slate-600 transition-colors group-hover:text-blue-400">
-                                      to
-                                    </span>
                                     <span className="truncate group-hover:text-blue-300">
                                       {tool.title
                                         .split(" - ")[0]
@@ -175,13 +175,6 @@ const MobileNav = () => {
                                           ""
                                         )}
                                     </span>
-                                    {tool.badge && (
-                                      <span
-                                        className={`rounded px-1.5 py-0.5 text-[8px] font-medium text-white ${tool.badgeColor} ml-auto flex-shrink-0`}
-                                      >
-                                        {tool.badge}
-                                      </span>
-                                    )}
                                   </Link>
                                 )
                               })}

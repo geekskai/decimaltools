@@ -1,0 +1,91 @@
+name: UI preview checks
+
+on:
+  push:
+    branches: ["ui/practical-tools-20261118"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: main baseline
+            ref: 6995cc96caed0d6c060f7cecf687a60b9d2d3d56
+          - target: preview branch
+            ref: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Enable project package manager
+        run: corepack enable
+      - name: Install locked dependencies
+        run: yarn install --immutable
+      - name: Build
+        id: build
+        continue-on-error: true
+        run: yarn build
+      - name: SEO tests
+        id: seo
+        continue-on-error: true
+        run: yarn test:seo
+      - name: Reference tests
+        id: reference
+        continue-on-error: true
+        run: yarn test:drill-reference
+      - name: Rendered route integration tests
+        if: steps.build.outcome == 'success'
+        id: routes
+        continue-on-error: true
+        run: |
+          yarn serve -p 3011 > /tmp/decimaltools-preview.log 2>&1 &
+          preview_server_pid=$!
+          trap 'kill "$preview_server_pid"' EXIT
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:3011/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          SEO_TEST_SITE=http://127.0.0.1:3011 yarn node --test tests/seo/routes.integration.mjs
+      - name: Type check
+        id: types
+        continue-on-error: true
+        run: yarn exec tsc --noEmit --incremental false
+      - name: Lint changed components without rewriting files
+        id: lint
+        continue-on-error: true
+        run: >-
+          yarn exec eslint --no-fix
+          app/Main.tsx
+          "app/[locale]/tools/ToolsDirectory.tsx"
+          components/Header.tsx components/MegaMenu.tsx components/MobileNav.tsx components/SiteFooter.tsx
+          "app/[locale]/tools/inches-to-decimals/page.tsx"
+          "app/[locale]/tools/inches-to-decimals/components/InchesToDecimalsConverter.tsx"
+          "app/[locale]/tools/hours-to-decimal-calculator/page.tsx"
+          "app/[locale]/tools/hours-to-decimal-calculator/components/HoursToDecimalCalculatorConverter.tsx"
+          "app/[locale]/tools/fraction-to-decimal/page.tsx"
+          "app/[locale]/tools/fraction-to-decimal/components/FractionConverter.tsx"
+      - name: Report checks
+        if: always()
+        run: |
+          echo "Build: ${{ steps.build.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "SEO tests: ${{ steps.seo.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Reference tests: ${{ steps.reference.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Rendered routes: ${{ steps.routes.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Types: ${{ steps.types.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Lint: ${{ steps.lint.outcome }}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Require successful build and tests
+        if: steps.build.outcome == 'failure' || steps.seo.outcome == 'failure' || steps.reference.outcome == 'failure' || steps.routes.outcome == 'failure'
+        run: exit 1
