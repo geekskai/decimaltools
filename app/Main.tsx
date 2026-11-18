@@ -1,6 +1,8 @@
 import ListLayout from "@/layouts/ListLayout"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
+import type { Blog } from "contentlayer/generated"
+import type { CoreContent } from "pliny/utils/contentlayer.js"
 
 const POSTS_PER_PAGE = 6
 const MAX_DISPLAY = 5
@@ -38,7 +40,11 @@ const FEATURED_TOOLS = [
   },
 ]
 
-export default function Home({ posts = [] }) {
+interface HomeProps {
+  posts?: CoreContent<Blog>[]
+}
+
+export default function Home({ posts = [] }: HomeProps) {
   const t = useTranslations("HomePage")
   const pageNumber = 1
   const initialDisplayPosts = posts.slice(
