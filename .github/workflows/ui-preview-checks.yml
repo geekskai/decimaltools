@@ -10,21 +10,11 @@ permissions:
 
 jobs:
   verify:
-    name: ${{ matrix.target }}
+    name: Preview verification
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: main baseline
-            ref: 6995cc96caed0d6c060f7cecf687a60b9d2d3d56
-          - target: preview branch
-            ref: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ matrix.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -86,6 +76,6 @@ jobs:
           echo "Rendered routes: ${{ steps.routes.outcome }}" >> "$GITHUB_STEP_SUMMARY"
           echo "Types: ${{ steps.types.outcome }}" >> "$GITHUB_STEP_SUMMARY"
           echo "Lint: ${{ steps.lint.outcome }}" >> "$GITHUB_STEP_SUMMARY"
-      - name: Require successful build and tests
-        if: steps.build.outcome == 'failure' || steps.seo.outcome == 'failure' || steps.reference.outcome == 'failure' || steps.routes.outcome == 'failure'
+      - name: Require successful checks
+        if: always() && (steps.build.outcome != 'success' || steps.seo.outcome != 'success' || steps.reference.outcome != 'success' || steps.routes.outcome != 'success' || steps.types.outcome != 'success' || steps.lint.outcome != 'success')
         run: exit 1

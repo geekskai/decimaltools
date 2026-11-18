@@ -3,7 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation"
 import { genPageMetadata } from "@/lib/seo"
 import { getPublishedPosts, getBlogPageNumber, POSTS_PER_PAGE } from "@/lib/blog-seo"
 import ListLayoutWithTags from "@/layouts/ListLayoutWithTags"
-import { allCoreContent, sortPosts } from "pliny/utils/contentlayer"
+import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js"
 import { allBlogs } from "contentlayer/generated"
 
 const publishedPosts = getPublishedPosts(allBlogs)

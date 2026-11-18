@@ -2,7 +2,7 @@ import PageSchema from "@/components/PageSchema"
 import { genPageMetadata } from "@/lib/seo"
 import { getPublishedPosts, POSTS_PER_PAGE } from "@/lib/blog-seo"
 import ListLayoutWithTags from "@/layouts/ListLayoutWithTags"
-import { allCoreContent, sortPosts } from "pliny/utils/contentlayer"
+import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js"
 import { allBlogs } from "contentlayer/generated"
 
 export const metadata = genPageMetadata({

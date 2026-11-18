@@ -1,6 +1,6 @@
 import { serializeJsonLd } from "@/lib/seo"
 import { slug } from "github-slugger"
-import { allCoreContent, sortPosts } from "pliny/utils/contentlayer"
+import { allCoreContent, sortPosts } from "pliny/utils/contentlayer.js"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayoutWithTags from "@/layouts/ListLayoutWithTags"
 import { allBlogs } from "contentlayer/generated"

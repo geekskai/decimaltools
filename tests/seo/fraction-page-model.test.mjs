@@ -1,9 +1,32 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 import { createRequire } from "node:module"
+import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises"
+import { tmpdir } from "node:os"
+import { join } from "node:path"
+import ts from "typescript"
 
 const require = createRequire(import.meta.url)
-const { getFractionPageModel } = require("/private/tmp/decimaltools-test/page-model.js")
+// Compile the real module and its relative imports in an isolated, portable directory.
+async function loadFractionPageModel() {
+  const sourceDirectory = new URL("../../lib/fraction-math/", import.meta.url)
+  const compiledDirectory = await mkdtemp(join(tmpdir(), "decimaltools-fraction-model-"))
+  try {
+    const sourceFiles = await readdir(sourceDirectory)
+    for (const sourceFile of sourceFiles.filter((fileName) => fileName.endsWith(".ts"))) {
+      const source = await readFile(new URL(sourceFile, sourceDirectory), "utf8")
+      const compiled = ts.transpileModule(source, {
+        compilerOptions: { target: ts.ScriptTarget.ES2020, module: ts.ModuleKind.CommonJS },
+      })
+      await writeFile(join(compiledDirectory, sourceFile.replace(/\.ts$/, ".js")), compiled.outputText)
+    }
+    return require(join(compiledDirectory, "page-model.js"))
+  } finally {
+    await rm(compiledDirectory, { recursive: true, force: true })
+  }
+}
+
+const { getFractionPageModel } = await loadFractionPageModel()
 
 test("fraction page model explains terminating and repeating decimals", () => {
   const threeEighths = getFractionPageModel(3, 8)
