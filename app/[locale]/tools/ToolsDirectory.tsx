@@ -7,21 +7,7 @@ import React, { useState, useMemo } from "react"
 import { ExternalLink } from "lucide-react"
 import { toolsData } from "@/data/toolsData"
 import { useLocale, useTranslations } from "next-intl"
-
-const DIRECTORY_SUMMARIES: Record<string, string> = {
-  "/tools/decimal-to-char": "Decode decimal, binary or hexadecimal ASCII codes, or encode ASCII text.",
-  "/tools/decimal-to-millimeter": "Convert decimal or fractional inches to millimeters, and millimeters to inches.",
-  "/tools/decimal-to-inches-calculator": "Find the exact fraction or nearest tape-measure mark for decimal inches.",
-  "/tools/millimeters-to-decimal": "Convert millimeters to decimal inches and the nearest common fraction.",
-  "/tools/hours-to-decimal-calculator": "Convert work durations to decimal hours, apply rounding and total a batch.",
-  "/tools/time-to-decimal-converter": "Convert time strings to decimal hours, minutes or days.",
-  "/tools/hexa-to-decimal": "Convert hexadecimal values to decimal, binary, octal and ASCII.",
-  "/tools/inches-to-decimals": "Look up fractional inches, decimal inches and millimeters in one chart.",
-  "/tools/gauge-to-decimal": "Look up material and wire thickness by gauge in inches and millimeters.",
-  "/tools/decimal-to-text": "Decode decimal character codes as ASCII or Unicode text.",
-  "/tools/fraction-to-decimal": "Convert fractions, mixed numbers and decimals, with repeating-decimal notes.",
-  "/tools/convert-inches-to-decimal": "Convert fractional inches with a visual ruler and adjustable decimal precision."
-}
+import { getDirectorySummary, matchesDirectorySearch } from "./directory-search"
 
 export default function ToolsPage() {
   // State management for search and filtering
@@ -42,11 +28,7 @@ export default function ToolsPage() {
   // Filter tools based on search term and selected category
   const filteredTools = useMemo(() => {
     return tools.filter((tool) => {
-      const matchesSearch =
-        searchTerm === "" ||
-        tool.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        tool.features.some((feature) => feature.toLowerCase().includes(searchTerm.toLowerCase()))
+      const matchesSearch = matchesDirectorySearch(tool, searchTerm)
 
       const matchesCategory = selectedCategory === "All" || tool.category === selectedCategory
 
@@ -160,7 +142,7 @@ export default function ToolsPage() {
               <p className="text-sm text-slate-400">{tool.category}</p>
               <h2 className="text-lg font-semibold text-white">{tool.title}</h2>
               <p className="text-sm leading-6 text-slate-300">
-                {DIRECTORY_SUMMARIES[tool.href] ?? tool.description}
+                {getDirectorySummary(tool)}
               </p>
               <p className="border-t border-slate-800 pt-3 text-sm leading-6 text-slate-400">
                 {tool.features[0]}
