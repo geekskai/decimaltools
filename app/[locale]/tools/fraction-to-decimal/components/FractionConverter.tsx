@@ -15,6 +15,8 @@ export type FractionConverterProps = {
   initialInput?: string
   defaultInput?: string
   initialPrecision?: number
+  /** A new chart selection starts a forward conversion, even for the same value. */
+  selectedFraction?: { value: string }
   /** Only fraction → decimal UI (hides mode toggle). */
   fractionOnly?: boolean
   /** Keep the input value and the `input` query param in sync. */
@@ -25,6 +27,7 @@ export default function FractionConverter({
   initialInput = "",
   defaultInput = "",
   initialPrecision = 8,
+  selectedFraction,
   fractionOnly = false,
   syncInputWithUrl = false,
 }: FractionConverterProps) {
@@ -34,6 +37,7 @@ export default function FractionConverter({
   const searchParams = useSearchParams()
   const skipNextUrlStateSyncRef = useRef(false)
   const latestInputRef = useRef("")
+  const inputRef = useRef<HTMLInputElement>(null)
   const [input, setInput] = useState(() => {
     if (!syncInputWithUrl) {
       return initialInput || defaultInput
@@ -57,6 +61,15 @@ export default function FractionConverter({
   useEffect(() => {
     latestInputRef.current = input
   }, [input])
+
+  useEffect(() => {
+    if (!selectedFraction) {
+      return
+    }
+    setMode("fraction-to-decimal")
+    setInput(selectedFraction.value)
+    inputRef.current?.focus()
+  }, [selectedFraction])
 
   const run = useCallback(() => {
     const trimmed = input.trim()
@@ -82,16 +95,21 @@ export default function FractionConverter({
       return
     }
 
-    const n = parseFloat(trimmed.replace(/,/g, ""))
-    if (isNaN(n) || n < 0) {
+    const parsedDecimal = parseMathFractionInput(trimmed.replace(/,/g, ""))
+    if (
+      !parsedDecimal.ok ||
+      parsedDecimal.value.kind !== "decimal_only" ||
+      !Number.isFinite(parsedDecimal.value.value)
+    ) {
       setError(t("invalid_decimal"))
       setPrimaryLine("")
       setSecondaryLine("")
       return
     }
     setError("")
-    const label = decimalToReducedLabel(n, 1000)
-    const dec = formatDecimalTrim(n, precision)
+    const decimalValue = parsedDecimal.value.value
+    const label = decimalToReducedLabel(decimalValue, 1000)
+    const dec = formatDecimalTrim(decimalValue, precision)
     setPrimaryLine(`${dec} = ${label}`)
     setSecondaryLine("")
   }, [input, mode, precision, t])
@@ -164,13 +182,14 @@ export default function FractionConverter({
   }
 
   return (
-    <div className="rounded-3xl border border-violet-500/30 bg-slate-900/80 p-6 shadow-xl backdrop-blur-md sm:p-8">
+    <div className="dt-fraction-converter rounded-3xl border border-violet-500/30 bg-slate-900/80 p-6 shadow-xl backdrop-blur-md sm:p-8">
       {!fractionOnly && (
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="dt-fraction-modes mb-6 flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => setMode("fraction-to-decimal")}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
+            aria-pressed={mode === "fraction-to-decimal"}
+            className={`dt-fraction-mode rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
               mode === "fraction-to-decimal"
                 ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white"
                 : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -181,7 +200,8 @@ export default function FractionConverter({
           <button
             type="button"
             onClick={() => setMode("decimal-to-fraction")}
-            className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
+            aria-pressed={mode === "decimal-to-fraction"}
+            className={`dt-fraction-mode rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
               mode === "decimal-to-fraction"
                 ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white"
                 : "bg-slate-800 text-slate-300 hover:bg-slate-700"
@@ -194,19 +214,22 @@ export default function FractionConverter({
 
       <label className="mb-2 block text-sm font-medium text-slate-400">{t("input_label")}</label>
       <input
+        ref={inputRef}
         type="text"
+        aria-label={t("input_label")}
+        aria-invalid={Boolean(error)}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder={
           mode === "fraction-to-decimal" ? t("placeholder_fraction") : t("placeholder_decimal")
         }
-        className="mb-4 w-full rounded-xl border border-slate-600 bg-slate-950/80 px-4 py-3 text-lg text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+        className="dt-fraction-input mb-4 w-full rounded-xl border border-slate-600 bg-slate-950/80 px-4 py-3 text-lg text-white placeholder-slate-500 focus:border-violet-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
         autoComplete="off"
         spellCheck={false}
       />
 
       <div className="mb-5">
-        <p className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+        <p className="dt-fraction-label mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
           {t("quick_examples_title")}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -215,7 +238,7 @@ export default function FractionConverter({
               key={example}
               type="button"
               onClick={() => setInput(example)}
-              className="rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1.5 text-xs text-violet-200 transition hover:border-violet-400 hover:bg-violet-500/20"
+              className="dt-fraction-example rounded-full border border-violet-500/35 bg-violet-500/10 px-3 py-1.5 text-xs text-violet-200 transition hover:border-violet-400 hover:bg-violet-500/20"
             >
               {example}
             </button>
@@ -223,7 +246,7 @@ export default function FractionConverter({
           <button
             type="button"
             onClick={() => setInput("")}
-            className="rounded-full border border-slate-600 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-800"
+            className="dt-fraction-example rounded-full border border-slate-600 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-800"
           >
             {t("clear")}
           </button>
@@ -239,7 +262,8 @@ export default function FractionConverter({
                 key={p}
                 type="button"
                 onClick={() => setPrecision(p)}
-                className={`min-w-[2.75rem] rounded-lg px-3 py-2 text-sm font-medium tabular-nums transition-colors ${
+                aria-pressed={precision === p}
+                className={`dt-fraction-precision min-w-[2.75rem] rounded-lg px-3 py-2 text-sm font-medium tabular-nums transition-colors ${
                   precision === p
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-md ring-1 ring-violet-400/50"
                     : "border border-slate-600 bg-slate-800/80 text-slate-200 hover:border-slate-500 hover:bg-slate-700"
@@ -258,17 +282,17 @@ export default function FractionConverter({
         </p>
       )}
 
-      <div className="min-h-[4rem] rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 sm:min-h-[5rem] sm:p-6">
+      <div className="dt-fraction-result min-h-[4rem] rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4 sm:min-h-[5rem] sm:p-6">
         {primaryLine ? (
           <>
-            <p className="font-mono text-2xl font-semibold tracking-tight text-emerald-300 sm:text-3xl md:text-4xl">
+            <p className="dt-fraction-value font-mono text-2xl font-semibold tracking-tight text-emerald-300 sm:text-3xl md:text-4xl">
               {primaryLine}
             </p>
             {secondaryLine ? <p className="mt-2 text-sm text-slate-400">{secondaryLine}</p> : null}
             <button
               type="button"
               onClick={copyResult}
-              className="mt-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-200 hover:bg-emerald-500/20"
+              className="dt-fraction-copy mt-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-200 hover:bg-emerald-500/20"
             >
               {t("copy")}
             </button>

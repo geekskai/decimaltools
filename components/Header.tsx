@@ -1,155 +1,101 @@
 "use client"
-import { useEffect } from "react"
+
+import { useEffect, useRef, useState } from "react"
+import type { KeyboardEvent } from "react"
 import siteMetadata from "@/data/siteMetadata"
 import headerNavLinks from "@/data/headerNavLinks"
 import Link from "./Link"
 import MobileNav from "./MobileNav"
 import SearchButton from "./SearchButton"
 import Image from "./Image"
-import { ChevronDown, Zap, Star, Sparkles } from "lucide-react"
-import { toolsData } from "@/data/toolsData"
-// import LanguageSelect from "./LanguageSelect"
+import { ChevronDown } from "lucide-react"
 import { useTranslations } from "next-intl"
 import LinkNext from "next/link"
 import MegaMenu from "./MegaMenu"
 
 const Header = () => {
-  // Close dropdown on escape key
   const t = useTranslations("HomePage")
-  const tt = useTranslations("ToolsPage")
-  const toolCount = toolsData.length
+  const [isToolsOpen, setIsToolsOpen] = useState(false)
+  const toolsMenuRef = useRef<HTMLDivElement>(null)
+  const toolsButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        // Find the dropdown and remove hover state
-        const dropdown = document.querySelector("[data-dropdown]") as HTMLElement
-        if (dropdown) {
-          dropdown.blur()
-        }
+    if (!isToolsOpen) {
+      return
+    }
+    const handlePointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !toolsMenuRef.current?.contains(event.target)) {
+        setIsToolsOpen(false)
       }
     }
+    document.addEventListener("pointerdown", handlePointerDown)
+    return () => document.removeEventListener("pointerdown", handlePointerDown)
+  }, [isToolsOpen])
 
-    document.addEventListener("keydown", handleEscape)
-    return () => document.removeEventListener("keydown", handleEscape)
-  }, [])
+  // Return focus to the trigger when keyboard users dismiss the tools disclosure.
+  const handleToolsKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Escape") {
+      return
+    }
+    setIsToolsOpen(false)
+    toolsButtonRef.current?.focus()
+  }
 
   return (
-    <header className="sticky top-0 z-80 border-b border-slate-800/50 bg-[linear-gradient(90deg,rgba(59,130,246,0.05),transparent,rgba(168,85,247,0.05)),rgba(2,6,23,0.8)] shadow-xl backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 xl:px-0">
-        {/* Logo Section */}
+    <header className="dt-header sticky top-0 z-70 border-b border-slate-800 bg-slate-950/95">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 xl:px-8">
+        {/* Keep the existing logo asset and wordmark. */}
         <Link href="/" aria-label={siteMetadata.headerTitle}>
-          <div className="group flex items-center gap-1">
-            <div className="rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 shadow-[0_0_24px_rgba(59,130,246,0.12)] transition-shadow duration-300 group-hover:shadow-[0_0_32px_rgba(168,85,247,0.2)]">
-              <Image
-                src="/static/decimaltools.png"
-                alt="DecimalTools Logo"
-                width={40}
-                height={40}
-                sizes="40px"
-                className="h-[40px] w-[40px] transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
+          <div className="flex min-h-[44px] items-center gap-1">
+            <Image src="/static/decimaltools.png" alt="DecimalTools Logo" width={40} height={40} sizes="40px" className="h-10 w-10" />
             {typeof siteMetadata.headerTitle === "string" ? (
-              <div className="hidden bg-gradient-to-r from-white to-slate-300 bg-clip-text text-2xl font-bold text-transparent sm:block">
-                {siteMetadata.headerTitle}
-              </div>
-            ) : (
-              siteMetadata.headerTitle
-            )}
+              <div className="hidden text-2xl font-bold text-white sm:block">{siteMetadata.headerTitle}</div>
+            ) : siteMetadata.headerTitle}
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden items-center space-x-8 lg:flex">
-          <nav className="flex items-center space-x-2">
+        <div className="hidden items-center gap-5 lg:flex">
+          <nav aria-label="Main navigation" className="flex items-center gap-2">
             {headerNavLinks.map((link) => (
-              <LinkNext
-                key={link.title}
-                href={link.href}
-                className="group relative px-3 py-2 text-sm font-medium text-slate-300 transition-all duration-300 hover:text-white md:text-lg"
-              >
+              <LinkNext key={link.title} href={link.href} className="inline-flex min-h-[44px] items-center rounded-lg px-3 text-base text-slate-300 hover:text-white">
                 {t(link.title)}
-                <div className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 transform bg-gradient-to-r from-blue-500 to-purple-500 transition-transform duration-300 group-hover:scale-x-100" />
               </LinkNext>
             ))}
-
-            {/* Tools Dropdown */}
-            <div className="group/dropdown" data-dropdown>
-              <div
-                className="flex cursor-pointer items-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 transition-all duration-300 hover:text-white group-hover/dropdown:text-white md:text-lg"
-                aria-haspopup="true"
+            <div
+              ref={toolsMenuRef}
+              onKeyDown={handleToolsKeyDown}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                  setIsToolsOpen(false)
+                }
+              }}
+            >
+              <button
+                ref={toolsButtonRef}
+                type="button"
+                aria-expanded={isToolsOpen}
+                aria-controls="header-tools-panel"
+                onClick={() => setIsToolsOpen((isOpen) => !isOpen)}
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-lg px-3 text-base text-slate-300 hover:bg-slate-900 hover:text-white"
               >
                 {t("header_nav_tools")}
-                <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover/dropdown:rotate-180" />
-                <div className="absolute inset-x-0 bottom-0 h-0.5 scale-x-0 transform bg-gradient-to-r from-blue-500 to-purple-500 transition-transform duration-300 group-hover/dropdown:scale-x-100" />
-              </div>
-
-              {/* MegaMenu Dropdown - Centered relative to header container */}
-              <div className="invisible absolute inset-x-0 top-full z-50 mt-0 flex w-full justify-center opacity-0 shadow-xl backdrop-blur-xl transition-all duration-300 group-hover/dropdown:visible group-hover/dropdown:opacity-100">
-                <div className="max-w-8xl w-[95vw]">
-                  {/* Subtle glow effect */}
-                  <div className="absolute inset-x-4 inset-y-0 -z-10 rounded-2xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover/dropdown:opacity-100"></div>
-                  <div className="relative rounded-2xl border border-slate-700/50 bg-slate-900 p-10 shadow-2xl backdrop-blur-xl">
-                    {/* Header */}
-                    <div className="mb-8 flex items-center justify-between border-b border-slate-700/50 pb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/20">
-                          <Zap className="h-6 w-6 text-blue-400" />
-                        </div>
-                        <div>
-                          <h2 className="text-xl font-bold text-white">{t("header_nav_tools")}</h2>
-                          <p className="text-sm text-slate-400">
-                            {tt(
-                              "tools_hand_picked_tools_designed_to_streamline_your_workflow_and_boost_productivity"
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2">
-                        <Star className="h-4 w-4 text-blue-400" />
-                        <span className="text-sm font-semibold text-blue-300">
-                          {toolCount} {t("header_nav_tools")}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* MegaMenu Content */}
-                    <div className="custom-scrollbar max-h-[60vh] overflow-y-auto pr-4">
-                      <MegaMenu />
-                    </div>
-
-                    {/* Footer */}
-                    <div className="mt-8 flex items-center justify-between border-t border-slate-700/50 pt-6">
-                      <p className="text-sm italic text-slate-400">
-                        {tt("tools_no_signup_required_always_free_built_with_care")}
-                      </p>
-                      <Link
-                        href="/tools"
-                        className="group flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all duration-300 hover:scale-105 hover:shadow-blue-500/40 active:scale-95"
-                      >
-                        <Sparkles className="h-4 w-4" />
-                        {t("header_nav_tools")}
-                        <ChevronDown className="h-4 w-4 rotate-[-90deg] transition-transform duration-300 group-hover:translate-x-1" />
-                      </Link>
-                    </div>
-                  </div>
+                <ChevronDown className={isToolsOpen ? "h-4 w-4 rotate-180" : "h-4 w-4"} aria-hidden="true" />
+              </button>
+              <div id="header-tools-panel" hidden={!isToolsOpen} className="absolute inset-x-0 top-full border-b border-slate-700 bg-slate-950 shadow-xl">
+                <div className="mx-auto max-h-[75vh] max-w-7xl overflow-y-auto px-6 py-6">
+                  <MegaMenu closeMenu={() => setIsToolsOpen(false)} />
+                  <Link href="/tools" onClick={() => setIsToolsOpen(false)} className="dt-text-link mt-4">
+                    {t("footer_view_all_tools")}
+                  </Link>
                 </div>
               </div>
             </div>
-
-            {/* Language Select */}
-
-            {/* <LanguageSelect /> */}
           </nav>
-
-          <div className="flex items-center space-x-4">
-            <SearchButton />
-          </div>
+          <SearchButton />
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="flex items-center space-x-4 lg:hidden">
+        {/* Retain the mobile dialog and its focus/scroll handling. */}
+        <div className="flex items-center gap-3 lg:hidden">
           <SearchButton />
           <MobileNav />
         </div>

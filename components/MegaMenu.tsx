@@ -47,38 +47,28 @@ const MegaMenu = ({ closeMenu }: { closeMenu?: () => void }) => {
   ]
 
   return (
-    <div className="grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {sortedCategories.map((category) => {
         const tools = groups[category]
         if (!tools) return null
 
         return (
-          <div key={category} className="flex flex-col space-y-5">
-            <h3 className="border-b border-slate-800 pb-3 text-[12px] font-black uppercase tracking-[0.25em] text-blue-400">
+          <div key={category} className="flex flex-col space-y-2">
+            <h3 className="border-b border-slate-800 pb-2 text-sm font-medium text-slate-400">
               {category}
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {tools.map((tool) => (
                 <li key={tool.id}>
                   <Link
                     href={tool.href}
                     target="_blank"
                     onClick={closeMenu}
-                    className="group flex select-none items-center gap-3 whitespace-nowrap text-[15px] font-medium text-slate-400 transition-all duration-200 hover:text-white"
+                    className="flex min-h-[44px] select-none items-center rounded-lg px-2 text-sm text-slate-200 transition-colors hover:bg-slate-900 hover:text-primary-300"
                   >
-                    <span className="w-5 shrink-0 text-center font-bold text-slate-100 opacity-60 transition-all group-hover:text-blue-500 group-hover:opacity-100">
-                      to
-                    </span>
-                    <span className="truncate text-primary-500 transition-transform group-hover:translate-x-1">
+                    <span className="min-w-0">
                       {tool.title}
                     </span>
-                    {tool.badge && (
-                      <span
-                        className={`ml-2 flex-shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-tighter text-white ${tool.badgeColor} opacity-70 group-hover:opacity-100`}
-                      >
-                        {tool.badge}
-                      </span>
-                    )}
                   </Link>
                 </li>
               ))}

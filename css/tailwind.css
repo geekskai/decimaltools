@@ -108,3 +108,142 @@ input:-webkit-autofill:focus {
     opacity: 1;
   }
 }
+/* Shared presentation for the first set of task-focused conversion pages. */
+@layer components {
+  .dt-page {
+    @apply space-y-8 py-6 text-slate-100 md:space-y-10 md:py-10 xl:px-8;
+  }
+
+  .dt-page-header {
+    @apply max-w-4xl space-y-3 text-left;
+  }
+
+  .dt-page-header h1 {
+    @apply text-2xl font-semibold leading-tight text-white sm:text-3xl md:text-4xl;
+  }
+
+  .dt-page-header p {
+    @apply leading-6 text-slate-300;
+  }
+
+  .dt-panel {
+    @apply rounded-xl border border-slate-800 bg-slate-900/60 p-4 sm:p-6;
+  }
+
+  .dt-tool-link {
+    @apply block transition-colors hover:border-primary-600 hover:bg-slate-900;
+  }
+
+  .dt-button {
+    @apply inline-flex min-h-[44px] cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-600 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-100 transition-colors hover:bg-slate-800;
+  }
+
+  .dt-button-primary {
+    @apply border-primary-500 bg-primary-500 text-slate-950 hover:border-primary-400 hover:bg-primary-400;
+  }
+
+  .dt-text-link {
+    @apply inline-flex min-h-[44px] items-center text-sm font-medium text-primary-300 underline underline-offset-4 hover:text-primary-200;
+  }
+
+  .dt-formula {
+    @apply border-l-2 border-primary-600 pl-3 text-sm leading-6 text-slate-300;
+  }
+
+  .dt-result {
+    @apply rounded-xl border border-primary-800 bg-slate-950/60 p-4 tabular-nums sm:p-6;
+  }
+}
+
+.dt-interface :is(button, input:not([type="checkbox"]), select) {
+  min-height: 44px;
+}
+
+.dt-interface button {
+  min-width: 44px;
+}
+
+.dt-interface :is(a, button, input, select, textarea):focus-visible,
+.dt-header :is(a, button):focus-visible,
+.dt-footer a:focus-visible {
+  outline: 2px solid theme("colors.primary.400");
+  outline-offset: 3px;
+}
+
+.dt-interface table,
+.dt-interface output {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dt-interface *,
+  .dt-header *,
+  .dt-footer *,
+  .dt-mobile-nav,
+  .dt-mobile-nav * {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The shared fraction converter keeps its existing appearance outside this page. */
+.dt-fraction-tool .dt-fraction-converter {
+  @apply rounded-xl border-slate-800 bg-slate-900/60 p-4 sm:p-6;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.dt-fraction-tool .dt-fraction-modes {
+  @apply mb-4;
+}
+
+.dt-fraction-tool :is(.dt-fraction-mode, .dt-fraction-precision, .dt-fraction-example, .dt-fraction-copy) {
+  @apply rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 text-sm font-medium text-slate-200;
+  background-image: none;
+  box-shadow: none;
+}
+
+.dt-fraction-tool :is(.dt-fraction-mode, .dt-fraction-precision)[aria-pressed="true"] {
+  @apply border-primary-500 bg-primary-500 text-slate-950;
+}
+
+.dt-fraction-tool :is(.dt-fraction-mode, .dt-fraction-precision, .dt-fraction-example, .dt-fraction-copy):hover {
+  @apply border-primary-600;
+}
+
+.dt-fraction-tool .dt-fraction-input {
+  @apply rounded-lg text-base placeholder-slate-400;
+}
+
+.dt-fraction-tool .dt-fraction-label {
+  @apply text-sm normal-case tracking-normal text-slate-400;
+}
+
+.dt-fraction-tool .dt-fraction-result {
+  @apply rounded-xl border-primary-800 bg-slate-950/60;
+}
+
+.dt-fraction-tool .dt-fraction-value {
+  @apply text-primary-200;
+  overflow-wrap: anywhere;
+}
+
+.dt-header button,
+.dt-header nav a,
+.dt-mobile-nav :is(button, a),
+.dt-footer a {
+  min-height: 44px;
+}
+
+.dt-header button,
+.dt-mobile-nav button,
+.dt-footer a:has(svg) {
+  min-width: 44px;
+}
+
+.dt-footer a:has(svg) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

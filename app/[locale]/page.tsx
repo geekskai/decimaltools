@@ -1,7 +1,7 @@
 import { serializeJsonLd } from "@/lib/seo"
 import { genPageMetadata, getShareImageUrl } from "@/lib/seo"
 import { getPublishedPosts } from "@/lib/blog-seo"
-import { sortPosts, allCoreContent } from "pliny/utils/contentlayer"
+import { sortPosts, allCoreContent } from "pliny/utils/contentlayer.js"
 import { allBlogs } from "contentlayer/generated"
 import Main from "../Main"
 import { getTranslations } from "next-intl/server"
